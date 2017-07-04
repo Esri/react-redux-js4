@@ -5,5 +5,8 @@ import email from './email';
 import thumbnailurl from './thumbnailurl';
 
 export default combineReducers({
-    username
+    username,
+    fullname,
+    email,
+    thumbnailurl
 });

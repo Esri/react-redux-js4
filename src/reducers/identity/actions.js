@@ -8,6 +8,22 @@ import { APP_ID } from '../../constants';
 export const SET_IDENTITY = 'SET_IDENTITY';
 
 
+export function checkSignInStatus() {
+    return (dispatch) => {
+        var info = new OAuthInfo({
+            appId: APP_ID,
+            popup: false
+          });
+
+        IdentityManager.registerOAuthInfos([info]); 
+
+        IdentityManager.checkSignInStatus(info.portalUrl + "/sharing")
+            .then((response) => {
+                dispatch(getIdentity());
+            });
+    }
+};
+
 export function signIn() {
     return (dispatch) => {
         var info = new OAuthInfo({

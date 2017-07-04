@@ -8,6 +8,10 @@ html, body {
   font-family: 'Helvetica Neue', Helvetica, Arial;
 }
 
+.hidden {
+  display: none;
+}
+
 #app-container,
 #app-container > div {
   width: 100%;
@@ -16,15 +20,60 @@ html, body {
 
 #app-container > div > .container {
   display: flex;
-  flex-flow: row wrap;
-  height: 100%;
+  flex-direction: column;
 }
 
-.sceneView {
-  flex: 1;
+.header {
+  display: flex;
+  flex: 0 0 70px;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 15px;
 }
 
-.list-items {
-  flex: 0 300px;
+.identity {
+  display: flex;
+  align-items: center;
+}
+
+.identity > .dropdown > .btn {
+  display: flex;
+  align-items: center;
+}
+
+.identity > .dropdown > .btn > img {
+  width: 36px;
+  height: 36px;
+  margin-right: 10px;
+}
+
+.identity > .dropdown > .btn > i {
+  margin-left: 10px;
+}
+
+.app {
+  display: flex;
+  flex: 1 1 100vh;
+}
+
+.websceneview {
+  flex: 1 1 100px;
+  order: 0;
+}
+
+.info {
+  flex: 0 0 400px
+  order: 1;
   padding: 20px;
 }
+
+
+
+/*.websceneview {
+  flex: 1 auto;
+}
+
+.info {
+  flex: 1 auto;
+  padding: 20px;
+}*/

@@ -80,7 +80,7 @@ class WebSceneView extends React.Component {
   
     render() {
         return (
-            <div className="sceneView" ref="sceneView"></div>
+            <div className="websceneview" ref="sceneView"></div>
         );
     }
 }
