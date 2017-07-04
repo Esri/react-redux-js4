@@ -22,6 +22,10 @@ window.dojoConfig = {
     location: 'https://cdnjs.cloudflare.com/ajax/libs/react-redux/5.0.5/',
     main: 'react-redux'
   }, {
+    name: 'redux-thunk',
+    location: 'https://cdnjs.cloudflare.com/ajax/libs/redux-thunk/2.2.0/',
+    main: 'redux-thunk'
+  }, {
     name: 'app',
     //location: location.pathname.replace(/\/[^\/]+$/, '') + '/dist',
     location: 'http://localhost:8080/dist',

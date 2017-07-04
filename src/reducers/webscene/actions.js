@@ -1,6 +1,6 @@
 export const SET_WEBSCENE = 'SET_WEBSCENE';
 export const SET_SCENELAYERVIEW = 'SET_SCENELAYERVIEW';
-//export const SET_HIGHLIGHT = 'SET_HIGHLIGHT';
+export const SET_HIGHLIGHT = 'SET_HIGHLIGHT';
 
 
 export function setWebscene(websceneid, webscene, view) {
@@ -19,7 +19,7 @@ export function setSceneLayerView(sceneLayerView) {
 	}
 };
 
-/*export function setHighlight(highlight) {
+export function setHighlight(highlight) {
 	return {
 		type: SET_HIGHLIGHT,
 		highlight
@@ -28,8 +28,9 @@ export function setSceneLayerView(sceneLayerView) {
 
 export function highlight(oidArray) {
   return (dispatch, getState) => {
-  	console.log('bla');
-    console.log(getState());
-    dispatch(setHighlight('bla'));
+  	var { webscene } = getState();
+  	webscene.highlight && webscene.highlight.remove();
+    dispatch(setHighlight(webscene.scenelayerview.highlight(oidArray)));
   }
-};*/
+};
+

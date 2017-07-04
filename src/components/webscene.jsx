@@ -9,7 +9,7 @@ import MeshSymbol3D from 'esri/symbols/MeshSymbol3D';
 import FillSymbol3DLayer from 'esri/symbols/FillSymbol3DLayer';
 import Query from 'esri/tasks/support/Query';
 
-import { setWebscene, setSceneLayerView } from '../reducers/webscene/actions';
+import { setWebscene, setSceneLayerView, highlight } from '../reducers/webscene/actions';
 import { viewChange } from '../reducers/view/actions'
 import { selectionChange, selectionAdd, selectionRemove, selectionReset } from '../reducers/selection/actions';
 
@@ -62,7 +62,8 @@ class WebSceneView extends React.Component {
             // reset current selection
             if (!(event.native.shiftKey || event.native.ctrlKey || event.native.metaKey)) {
                 this.props.store.dispatch(selectionReset());
-                this.highlight && this.highlight.remove();
+                this.props.store.dispatch(highlight());
+                //this.highlight && this.highlight.remove();
             }
 
             view.hitTest(event.screenPoint)
@@ -72,13 +73,15 @@ class WebSceneView extends React.Component {
 
                     if (hasItem(this.props.store.getState().selection.items, OID)) {
                         this.props.store.dispatch(selectionRemove(OID));
-                        this.highlight && this.highlight.remove();
-                        this.highlight = sceneLayerView.highlight(this.props.store.getState().selection.items);
+                        this.props.store.dispatch(highlight(this.props.store.getState().selection.items));
+                        //this.highlight && this.highlight.remove();
+                        //this.highlight = sceneLayerView.highlight(this.props.store.getState().selection.items);
 
                     } else {
                         this.props.store.dispatch(selectionAdd(OID));
-                        this.highlight && this.highlight.remove();
-                        this.highlight = sceneLayerView.highlight(this.props.store.getState().selection.items);
+                        this.props.store.dispatch(highlight(this.props.store.getState().selection.items));
+                        //this.highlight && this.highlight.remove();
+                        //this.highlight = sceneLayerView.highlight(this.props.store.getState().selection.items);
                     }
 
                   /*var query = new Query({
