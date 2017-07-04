@@ -63,7 +63,6 @@ class WebSceneView extends React.Component {
             if (!(event.native.shiftKey || event.native.ctrlKey || event.native.metaKey)) {
                 this.props.store.dispatch(selectionReset());
                 this.props.store.dispatch(highlight());
-                //this.highlight && this.highlight.remove();
             }
 
             view.hitTest(event.screenPoint)
@@ -74,15 +73,26 @@ class WebSceneView extends React.Component {
                     if (hasItem(this.props.store.getState().selection.items, OID)) {
                         this.props.store.dispatch(selectionRemove(OID));
                         this.props.store.dispatch(highlight(this.props.store.getState().selection.items));
-                        //this.highlight && this.highlight.remove();
-                        //this.highlight = sceneLayerView.highlight(this.props.store.getState().selection.items);
 
                     } else {
                         this.props.store.dispatch(selectionAdd(OID));
                         this.props.store.dispatch(highlight(this.props.store.getState().selection.items));
-                        //this.highlight && this.highlight.remove();
-                        //this.highlight = sceneLayerView.highlight(this.props.store.getState().selection.items);
                     }
+                }
+              });
+          })
+    }
+  
+    render() {
+        return (
+            <div className="sceneView" ref="sceneView"></div>
+        );
+    }
+}
+
+export default WebSceneView;
+
+
 
                   /*var query = new Query({
                     objectId: graphic.attributes.OID,
@@ -103,16 +113,3 @@ class WebSceneView extends React.Component {
                     .otherwise(err => {
                       console.log(err);
                     })*/
-                }
-              });
-          })
-    }
-  
-    render() {
-        return (
-            <div className="sceneView" ref="sceneView"></div>
-        );
-    }
-}
-
-export default WebSceneView;
