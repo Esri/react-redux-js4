@@ -9,16 +9,13 @@ import MeshSymbol3D from 'esri/symbols/MeshSymbol3D';
 import FillSymbol3DLayer from 'esri/symbols/FillSymbol3DLayer';
 import Query from 'esri/tasks/support/Query';
 
-import { loadWebScene } from '../reducers/webscene/actions';
+import { setWebscene, setSceneLayerView } from '../reducers/webscene/actions';
 import { viewChange } from '../reducers/view/actions'
 import { selectionChange, selectionAdd, selectionRemove, selectionReset } from '../reducers/selection/actions';
 
 
 const hasItem = (array, OID) => {
-  for (let i=0; i<array.length; i++) {
-    if (array[i].OID === OID) return true;
-  }
-  return false;
+  return array.indexOf(OID) > -1;
 };
 
 class WebSceneView extends React.Component {
@@ -45,13 +42,14 @@ class WebSceneView extends React.Component {
                 .then((sceneLayerView) => {
                     window._debug = { webscene, view, sceneLayer, sceneLayerView };
                     this.attachMouseFunctions(webscene, view, sceneLayer, sceneLayerView);
+                    this.props.store.dispatch(setSceneLayerView(sceneLayerView));
                 });
 
             view.watch('interacting, scale, zoom', () => {
                 this.props.store.dispatch(viewChange(view));
             });
 
-            this.props.store.dispatch(setScene(websceneid, webscene, view));
+            this.props.store.dispatch(setWebscene(websceneid, webscene, view));
         });
     }
 
@@ -62,27 +60,33 @@ class WebSceneView extends React.Component {
     attachMouseFunctions(webscene, view, sceneLayer, sceneLayerView) {
         view.on('click', event => {
             // reset current selection
-            var { selection } = this.props.store.getState();
-            
             if (!(event.native.shiftKey || event.native.ctrlKey || event.native.metaKey)) {
-              for (let i=0; i<selection.items.length; i++) {
-                selection.items[i].highlight.remove();
-              }
-              this.props.store.dispatch(selectionReset());
+                this.props.store.dispatch(selectionReset());
+                this.highlight && this.highlight.remove();
             }
 
             view.hitTest(event.screenPoint)
               .then(response => {
                 if (response.results[0].graphic) {
-                  var graphic = response.results[0].graphic;
-                  console.log(graphic.attributes.OID);
+                    var { graphic : { attributes : { OID }}} = response.results[0];
 
-                  var query = new Query({
-                    objectIds: [graphic.attributes.OID + 1],
+                    if (hasItem(this.props.store.getState().selection.items, OID)) {
+                        this.props.store.dispatch(selectionRemove(OID));
+                        this.highlight && this.highlight.remove();
+                        this.highlight = sceneLayerView.highlight(this.props.store.getState().selection.items);
+
+                    } else {
+                        this.props.store.dispatch(selectionAdd(OID));
+                        this.highlight && this.highlight.remove();
+                        this.highlight = sceneLayerView.highlight(this.props.store.getState().selection.items);
+                    }
+
+                  /*var query = new Query({
+                    objectId: graphic.attributes.OID,
                     outFields: ["*"]
-                  });
+                  });*/
 
-                  sceneLayer.queryFeatures(query)
+                  /*sceneLayerView.queryFeatures(query)
                     .then(result => {
                       console.log(result.features[0].attributes);
                       var { selection } = this.props.store.getState();
@@ -95,7 +99,7 @@ class WebSceneView extends React.Component {
                     })
                     .otherwise(err => {
                       console.log(err);
-                    })
+                    })*/
                 }
               });
           })
@@ -109,72 +113,3 @@ class WebSceneView extends React.Component {
 }
 
 export default WebSceneView;
-
-
-/*sceneLayerView.watch('updating', () => {
-            if (!sceneLayerView.updating) {
-              var query = new Query({
-                outFields: ["scenario"]
-              });
-
-              sceneLayerView.queryFeatures(query)
-                .then(result => {
-                  //console.log(result);
-                });
-            }
-          });*/
-
-
-/*var testRenderer = new UniqueValueRenderer({
-        field: "scenario",
-        defaultSymbol: new MeshSymbol3D({
-          symbolLayers: [
-            new FillSymbol3DLayer({
-              material: {
-                color: null,
-                colorMixMode: null
-              }
-            })
-          ]
-        }),
-        uniqueValueInfos: [{
-          value: 2,
-          symbol: new MeshSymbol3D({
-            symbolLayers: [
-              new FillSymbol3DLayer({
-                material: {
-                  color: '#C0DEFA',
-                  colorMixMode: 'tint'
-                }
-              })
-            ]
-          })
-        },
-        {
-          value: 4,
-          symbol: new MeshSymbol3D({
-            symbolLayers: [
-              new FillSymbol3DLayer({
-                material: {
-                  color: '#C3E4AD',
-                  colorMixMode: 'tint'
-                }
-              })
-            ]
-          })
-        },
-        {
-          value: 6,
-          symbol: new MeshSymbol3D({
-            symbolLayers: [
-              new FillSymbol3DLayer({
-                material: {
-                  color: '#C2E2D4',
-                  colorMixMode: 'tint'
-                }
-              })
-            ]
-          })
-        }]
-      });
-      sceneLayer.renderer = testRenderer;*/

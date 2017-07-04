@@ -1,29 +1,35 @@
-export const LOAD_SCENE = 'LOAD_SCENE';
-export const SET_SCENE = 'SET SCENE';
-
-/*export function loadWebScene(container, websceneid) {
-	return dispatch => {
-		var webscene = new WebScene({
-		    portalItem: { id: websceneid }
-		  });
-
-		var view = new SceneView({
-			container: container,
-			map: webscene
-	    });
-
-	    webscene.then(() => {
-	    	dispatch(setScene(websceneid, webscene, view));
-	    });
-	}
-}*/
+export const SET_WEBSCENE = 'SET_WEBSCENE';
+export const SET_SCENELAYERVIEW = 'SET_SCENELAYERVIEW';
+//export const SET_HIGHLIGHT = 'SET_HIGHLIGHT';
 
 
-export function setScene(websceneid, webscene, view) {
+export function setWebscene(websceneid, webscene, view) {
 	return {
-		type: SET_SCENE,
+		type: SET_WEBSCENE,
 		websceneid,
 		webscene,
 		view
 	}
-}
+};
+
+export function setSceneLayerView(sceneLayerView) {
+	return {
+		type: SET_SCENELAYERVIEW,
+		sceneLayerView
+	}
+};
+
+/*export function setHighlight(highlight) {
+	return {
+		type: SET_HIGHLIGHT,
+		highlight
+	}
+};
+
+export function highlight(oidArray) {
+  return (dispatch, getState) => {
+  	console.log('bla');
+    console.log(getState());
+    dispatch(setHighlight('bla'));
+  }
+};*/

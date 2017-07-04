@@ -6,7 +6,7 @@ import Info from './info';
 
 const App = (props) =>
 	<div className="container">
-	    <WebSceneView websceneid='7f2f95b7ea58491484c39a2905f22c06' store={props.store} />
+	    <WebSceneView websceneid='eec4ab53d9bb453094e9161d944baced' store={props.store} />
 	    <Info />
 	</div>;
 
