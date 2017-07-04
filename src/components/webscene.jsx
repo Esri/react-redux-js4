@@ -3,15 +3,10 @@ import PropTypes from 'prop-types';
 
 import SceneView from 'esri/views/SceneView';
 import WebScene from 'esri/WebScene';
-import UniqueValueRenderer from 'esri/renderers/UniqueValueRenderer';
-import SimpleRenderer from 'esri/renderers/SimpleRenderer';
-import MeshSymbol3D from 'esri/symbols/MeshSymbol3D';
-import FillSymbol3DLayer from 'esri/symbols/FillSymbol3DLayer';
-import Query from 'esri/tasks/support/Query';
 
 import { setWebscene, setSceneLayerView, highlight } from '../reducers/webscene/actions';
 import { viewChange } from '../reducers/view/actions'
-import { selectionChange, selectionAdd, selectionRemove, selectionReset } from '../reducers/selection/actions';
+import { selectionAdd, selectionRemove, selectionReset } from '../reducers/selection/actions';
 
 
 const hasItem = (array, OID) => {
