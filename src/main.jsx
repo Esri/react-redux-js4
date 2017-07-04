@@ -8,7 +8,12 @@ import App from './components/App';
 
 import reducer from './reducers/app';
 
+import { signIn } from './reducers/identity/actions';
+
+
 const store = createStore(reducer, applyMiddleware(thunk));
+
+store.dispatch(signIn());
 
 let node = document.getElementById('app-container');
 

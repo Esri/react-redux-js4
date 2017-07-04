@@ -22,7 +22,6 @@ html, body {
 
 .list-items {
   position: absolute;
-  z-index: 999;
   top: 0;
   right: 0;
   background-color: #fff;
