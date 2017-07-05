@@ -6,6 +6,7 @@ import { APP_ID } from '../../constants';
 
 //export const SELECTION_CHANGE = 'SELECTION_CHANGE';
 export const SET_IDENTITY = 'SET_IDENTITY';
+export const SET_USER_WEBSCENES = 'SET_USER_WEBSCENES';
 
 
 export function checkSignInStatus() {
@@ -22,7 +23,7 @@ export function checkSignInStatus() {
                 dispatch(getIdentity());
             });
     }
-};
+}
 
 export function signIn() {
     return (dispatch) => {
@@ -45,14 +46,14 @@ export function signIn() {
                     .otherwise(error => console.log(error));
             });
     }
-};
+}
 
 export function signOut() {
     return (dispatch) => {
         IdentityManager.destroyCredentials();
         window.location.reload();
     }
-};
+}
 
 export function getIdentity() {
     return (dispatch) => {
@@ -61,10 +62,23 @@ export function getIdentity() {
         portal.load()
             .then(() => {
                 dispatch(setIdentity(portal.user.username, portal.user.fullName, portal.user.email, portal.user.thumbnailUrl));
+                dispatch(queryItems(portal));
             })
             .otherwise(error => console.log(error));
     }
-};
+}
+
+export function queryItems(portal) {
+    return (dispatch, getState) => {
+        portal.queryItems({
+                query: "owner:" + portal.user.username + " AND type: Web Scene",
+                sortField: "numViews",
+                sortOrder: "desc",
+                num: 20
+            })
+            .then(({ results }) => dispatch(setUserWebscenes(results)));
+    }
+}
 
 export function setIdentity(username, fullname, email, thumbnailurl) {
   return { 
@@ -74,4 +88,11 @@ export function setIdentity(username, fullname, email, thumbnailurl) {
     email,
     thumbnailurl
   };
+}
+
+export function setUserWebscenes(websceneItems) {
+    return {
+        type: SET_USER_WEBSCENES,
+        websceneItems
+    }
 }

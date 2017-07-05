@@ -40,9 +40,15 @@ export function clickScreenPoint(screenPoint, multi) {
   };
 
 export function loadWebscene(websceneid, container) {
-    return (dispatch) => {
+    return (dispatch, getState) => {
+    	var { webscene : { view }} = getState();
     	var webscene = new WebScene({ portalItem: { id: websceneid } });
-        var view = new SceneView({ container, map: webscene });
+
+    	if (view) {
+    		view.map = webscene;
+    	} else {	
+        	view = new SceneView({ container, map: webscene });
+    	}
 
         webscene.then(() => {
             var sceneLayer = webscene.layers.getItemAt(0);
