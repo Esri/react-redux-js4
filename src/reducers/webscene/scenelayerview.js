@@ -5,7 +5,7 @@ const initialState = null;
 export default (state = initialState, action) => {
   switch(action.type) {
     case SET_WEBSCENE:
-        return action.scenelayerview || initialState;
+        return action.sceneLayerView || initialState;
     default:
       return state;
   }

@@ -20,15 +20,27 @@ html, body {
 
 #app-container > div > .container {
   display: flex;
-  flex-direction: column;
+  flex-flow: row wrap;
+  align-items: stretch;
+  background-color: whitesmoke;
 }
 
-.header {
-  display: flex;
-  flex: 0 0 70px;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 0 15px;
+.identity {
+  flex: 1 100%;
+  background-color: rgb(255, 255, 240);
+  height: 70px;
+}
+
+.websceneview {
+  flex: 1 300px;
+  height: calc(100vh - 70px);
+} 
+
+.info {
+  flex: 0 300px;
+  background-color: rgb(240, 255, 255);
+  height: calc(100vh - 110px);
+  padding: 20px;
 }
 
 .identity {
@@ -51,29 +63,5 @@ html, body {
   margin-left: 10px;
 }
 
-.app {
-  display: flex;
-  flex: 1 1 100vh;
-}
-
-.websceneview {
-  flex: 1 1 100px;
-  order: 0;
-}
-
-.info {
-  flex: 0 0 400px
-  order: 1;
-  padding: 20px;
-}
 
 
-
-/*.websceneview {
-  flex: 1 auto;
-}
-
-.info {
-  flex: 1 auto;
-  padding: 20px;
-}*/

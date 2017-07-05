@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import webscene from './webscene';
-import websceneid from './websceneid';
-import view from './view';
-import scenelayer from './scenelayer';
-import scenelayerview from './scenelayerview';
+import webScene from './webScene';
+import webSceneId from './webSceneId';
+import sceneView from './sceneView';
+import sceneLayer from './sceneLayer';
+import sceneLayerView from './sceneLayerView';
 import selection from './selection';
 import highlight from './highlight';
 import interacting from './interacting';
@@ -11,11 +11,11 @@ import scale from './scale';
 import zoom from './zoom';
 
 export default combineReducers({
-    webscene,
-    websceneid,
-    view,
-    scenelayer,
-    scenelayerview,
+    webScene,
+    webSceneId,
+    sceneView,
+    sceneLayer,
+    sceneLayerView,
     selection,
     highlight,
     interacting,

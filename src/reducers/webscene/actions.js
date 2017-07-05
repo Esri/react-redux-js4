@@ -1,6 +1,7 @@
 import SceneView from 'esri/views/SceneView';
 import WebScene from 'esri/WebScene';
 
+export const SET_SCENEVIEW = 'SET_SCENEVIEW';
 export const SET_WEBSCENE = 'SET_WEBSCENE';
 export const SET_HIGHLIGHT = 'SET_HIGHLIGHT';
 export const SELECTION_ADD = 'SELECTION_ADD';
@@ -14,16 +15,28 @@ const hasItem = (array, OID) => {
 };
 
 
+export function initSceneView(container) {
+    return (dispatch, getState) => {
+        var { webscene : { sceneView }} = getState();
+        if (sceneView) return;
+
+        sceneView = new SceneView({ container });
+
+        dispatch(setSceneView(sceneView));
+    }
+}
+
+
 export function clickScreenPoint(screenPoint, multi) {
     return (dispatch, getState) => {
-    	var { webscene : { view } } = getState();
+    	var { webscene : { sceneView } } = getState();
         // reset current selection
         if (!multi) {
             dispatch(selectionReset());
             dispatch(highlight());
         }
 
-        view.hitTest(screenPoint)
+        sceneView.hitTest(screenPoint)
 			.then(response => {
 				if (response.results[0].graphic) {
 				    var { graphic : { attributes : { OID }}} = response.results[0];
@@ -39,42 +52,48 @@ export function clickScreenPoint(screenPoint, multi) {
       }
   };
 
-export function loadWebscene(websceneid, container) {
+export function loadWebscene(webSceneId) {
     return (dispatch, getState) => {
-    	var { webscene : { view }} = getState();
-    	var webscene = new WebScene({ portalItem: { id: websceneid } });
+    	var { webscene : { sceneView }} = getState();
+        if (!sceneView) return;
 
-    	if (view) {
-    		view.map = webscene;
-    	} else {	
-        	view = new SceneView({ container, map: webscene });
-    	}
+    	var webScene = new WebScene({ portalItem: { id: webSceneId } });
 
-        webscene.then(() => {
-            var sceneLayer = webscene.layers.getItemAt(0);
+    	sceneView.map = webScene;
+
+        webScene.then(() => {
+            var sceneLayer = webScene.layers.getItemAt(0);
             sceneLayer.popupEnabled = false;
 
-            view.whenLayerView(sceneLayer)
+            sceneView.whenLayerView(sceneLayer)
                 .then((sceneLayerView) => {
-                    window._debug = { webscene, view, sceneLayer, sceneLayerView };
-                    dispatch(setWebscene(websceneid, webscene, view, sceneLayer, sceneLayerView));
+                    window._debug = { webScene, sceneView, sceneLayer, sceneLayerView };
+                    dispatch(setWebscene(webSceneId, webScene, sceneLayer, sceneLayerView));
                 });
 
             // event handlers
-            view.on('click', event => dispatch(clickScreenPoint(event.screenPoint, event.native.shiftKey || event.native.ctrlKey || event.native.metaKey)));
-            view.watch('interacting, scale, zoom', () => dispatch(viewChange(view)));
+            sceneView.on('click', event => dispatch(clickScreenPoint(event.screenPoint, event.native.shiftKey || event.native.ctrlKey || event.native.metaKey)));
+            sceneView.watch('interacting, scale, zoom', () => dispatch(viewChange(sceneView)));
         });
     }
 };
 
-export function setWebscene(websceneid, webscene, view, scenelayer, scenelayerview) {
+
+export function setSceneView(sceneView) {
+    return {
+        type: SET_SCENEVIEW,
+        sceneView
+    }
+};
+
+
+export function setWebscene(webSceneId, webScene, sceneLayer, sceneLayerView) {
 	return {
 		type: SET_WEBSCENE,
-		websceneid,
-		webscene,
-		view,
-		scenelayer,
-		scenelayerview
+		webSceneId,
+		webScene,
+		sceneLayer,
+		sceneLayerView
 	}
 };
 
@@ -90,7 +109,7 @@ export function highlight(oidArray) {
   return (dispatch, getState) => {
   	var { webscene } = getState();
   	webscene.highlight && webscene.highlight.remove();
-    dispatch(setHighlight(webscene.scenelayerview.highlight(oidArray)));
+    dispatch(setHighlight(webscene.sceneLayerView.highlight(oidArray)));
   }
 };
 
