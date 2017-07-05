@@ -23,7 +23,7 @@ const Identity = ({ username, thumbnailurl, websceneItems, _signIn_, _signOut_, 
         <button className={username ? 'hidden' : 'btn btn-small btn-clear'} onClick={_signIn_()}>Sign In</button>
     </div>;
 
-const mapStateToProps = ({ identity: { username, thumbnailurl, websceneItems } }) => ({
+const mapStateToProps = ({ user: { username, thumbnailurl, websceneItems } }) => ({
     username,
     thumbnailurl,
     websceneItems

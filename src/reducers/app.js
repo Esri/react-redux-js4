@@ -1,11 +1,9 @@
 import { combineReducers } from 'redux';
 
-import identity from './identity/index';
+import user from './user/index';
 import webscene from './webscene/index';
-import view from './view/index';
 
 export default combineReducers({
-	identity,
-    webscene,
-    view
+	user,
+    webscene
 });
