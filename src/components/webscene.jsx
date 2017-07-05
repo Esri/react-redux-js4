@@ -1,20 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import { initSceneView } from '../reducers/webscene/actions';
 
 
 class WebSceneView extends React.Component {
-    static propTypes = {
-        store: PropTypes.object.isRequired
-    };
 
     componentDidMount() {
-        this.props.store.dispatch(initSceneView(this.refs.sceneView));
-    }
-
-    componentWillUnMount() {
-        //...
+        this.props.init(this.refs.sceneView);
     }
   
     render() {
@@ -24,4 +19,10 @@ class WebSceneView extends React.Component {
     }
 }
 
-export default WebSceneView;
+function mapDispatchToProps(dispatch) {
+    return {
+        init: bindActionCreators(initSceneView, dispatch),
+    };
+}
+
+export default connect(null, mapDispatchToProps)(WebSceneView);
