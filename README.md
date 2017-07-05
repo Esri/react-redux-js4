@@ -3,17 +3,12 @@
 Web Scene viewer boilerplate web application using React and Redux. This boilerplate example integrates:
 
 * ArcGIS JS API 4.4
-* React
-* Redux
-* React-Redux (connect)
-* Redux Thunk
+* [React](https://facebook.github.io/react/)
+* [Redux](http://redux.js.org/)
+* [React Redux](https://github.com/reactjs/react-redux) (connect)
+* [Redux Thunk](https://github.com/gaearon/redux-thunk)
 
 It provides two useful React component examples:
 
-* *WebSceneView* to show a Scene View with a Web Scene
+* *WebSceneView* to show a SceneView with a WebScene
 * *Identity* to handle Portal login
-
-You can read more about [react here](https://facebook.github.io/react/).
-You can read more about [redux here](http://redux.js.org/).
-You can read more about [react-redux here](https://github.com/reactjs/react-redux).
-You can read more about [redux-thunk here](https://github.com/gaearon/redux-thunk).
