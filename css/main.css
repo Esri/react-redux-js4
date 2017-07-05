@@ -19,16 +19,19 @@ html, body {
 }
 
 #app-container > div > .container {
+
+}
+
+.top-nav {
+  padding: 0 10px 0 20px;
+}
+
+.app-main {
+  width: 100vw;
   display: flex;
   flex-flow: row wrap;
   align-items: stretch;
   background-color: whitesmoke;
-}
-
-.identity {
-  flex: 1 100%;
-  background-color: rgb(255, 255, 240);
-  height: 70px;
 }
 
 .websceneview {
@@ -48,19 +51,24 @@ html, body {
   align-items: center;
 }
 
-.identity > .dropdown > .btn {
+.identity > .dropdown > a {
   display: flex;
   align-items: center;
+  padding: 12px 0;
 }
 
-.identity > .dropdown > .btn > img {
+.identity > .dropdown > a > img {
   width: 36px;
   height: 36px;
   margin-right: 10px;
 }
 
-.identity > .dropdown > .btn > i {
+.identity > .dropdown > a > i {
   margin-left: 10px;
+}
+
+.identity > button {
+  margin: 12px;
 }
 
 
