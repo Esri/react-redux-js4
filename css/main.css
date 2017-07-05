@@ -6,6 +6,7 @@ html, body {
   padding: 0;
   margin: 0;
   font-family: 'Helvetica Neue', Helvetica, Arial;
+  overflow: hidden;
 }
 
 .hidden {
@@ -27,23 +28,25 @@ html, body {
 }
 
 .app-main {
-  width: 100vw;
-  display: flex;
-  flex-flow: row wrap;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 65px;
   align-items: stretch;
   background-color: whitesmoke;
 }
 
 .websceneview {
-  flex: 1 300px;
-  height: calc(100vh - 70px);
+  height: 100%;
+  width: 100%;
 } 
 
 .info {
-  flex: 0 300px;
-  background-color: rgb(240, 255, 255);
-  height: calc(100vh - 110px);
-  padding: 20px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 300px;
 }
 
 .identity {
