@@ -6,11 +6,11 @@ import WebSceneView from './webscene';
 import Info from './info';
 
 
-const App = (props) =>
+const App = () =>
 	<div className="container">
 		<Header/>
 		<div className="app-main">
-	    	<WebSceneView store={props.store} />
+	    	<WebSceneView />
 	    	<Info />
 	    </div>
 	</div>;

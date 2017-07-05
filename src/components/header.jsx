@@ -3,7 +3,7 @@ import React from 'react';
 import Identity from './identity';
 import UserScenesDropdown from './userscenesdropdown';
 
-const Header = (props) =>
+const Header = () =>
 	<header className="top-nav">
 		<a href="./" className="top-nav-title">WebUP</a>
 		<nav className="top-nav-list" role="navigation">
