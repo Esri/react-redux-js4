@@ -7,6 +7,7 @@ Web Scene viewer boilerplate web application using React and Redux. This boilerp
 * [Redux](http://redux.js.org/)
 * [React Redux](https://github.com/reactjs/react-redux) (connect)
 * [Redux Thunk](https://github.com/gaearon/redux-thunk)
+* [Calcite Web](http://esri.github.io/calcite-web/)
 
 It provides two useful React component examples:
 

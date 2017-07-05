@@ -6,7 +6,7 @@ html, body {
   padding: 0;
   margin: 0;
   font-family: 'Helvetica Neue', Helvetica, Arial;
-  overflow: hidden;
+  overflow: hidden !important;
 }
 
 .hidden {
@@ -14,17 +14,15 @@ html, body {
 }
 
 #app-container,
-#app-container > div {
+#app-container > div,
+#app-container > div > .container {
   width: 100%;
   height: 100%;
-}
-
-#app-container > div > .container {
-
+  overflow: hidden !important;
 }
 
 .top-nav {
-  padding: 0 10px 0 20px;
+  padding: 0 20px 0 20px;
 }
 
 .app-main {
@@ -57,7 +55,7 @@ html, body {
 .identity > .dropdown > a {
   display: flex;
   align-items: center;
-  padding: 12px 0;
+  padding: 13px 0 12px 0;
 }
 
 .identity > .dropdown > a > img {
