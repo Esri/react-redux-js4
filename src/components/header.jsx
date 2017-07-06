@@ -5,7 +5,7 @@ import UserScenesDropdown from './userscenesdropdown';
 
 const Header = () =>
 	<header className="top-nav">
-		<a href="./" className="top-nav-title">WebUP</a>
+		<a href="./" className="top-nav-title">ArcGIS React Redux</a>
 		<nav className="top-nav-list" role="navigation">
 			<UserScenesDropdown />
 		</nav>

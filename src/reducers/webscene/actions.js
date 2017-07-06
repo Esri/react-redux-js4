@@ -1,3 +1,4 @@
+import esriConfig from 'esri/config';
 import SceneView from 'esri/views/SceneView';
 import WebScene from 'esri/WebScene';
 
@@ -9,6 +10,11 @@ export const SELECTION_REMOVE = 'SELECTION_REMOVE';
 export const SELECTION_RESET = 'SELECTION_RESET';
 export const VIEW_CHANGE = 'VIEW_CHANGE';
 
+//esriConfig.request.corsEnabledServers.push('tile.stamen.com');
+esriConfig.request.corsEnabledServers.push('a.tile.stamen.com');
+esriConfig.request.corsEnabledServers.push('b.tile.stamen.com');
+esriConfig.request.corsEnabledServers.push('c.tile.stamen.com');
+esriConfig.request.corsEnabledServers.push('d.tile.stamen.com');
 
 const hasItem = (array, OID) => {
   return array.indexOf(OID) > -1;

@@ -13,3 +13,7 @@ It provides two useful React component examples:
 
 * *WebSceneView* to show a SceneView with a WebScene
 * *Identity* to handle Portal login
+
+# Registering your App
+
+For this code to work, you need to [register an app](http://doc.arcgis.com/en/marketplace/provider/register-app.htm), add the correct redirect URI, and add the application ID to **constants.js**.

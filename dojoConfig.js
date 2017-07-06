@@ -27,8 +27,7 @@ window.dojoConfig = {
     main: 'redux-thunk'
   }, {
     name: 'app',
-    //location: location.pathname.replace(/\/[^\/]+$/, '') + '/dist',
-    location: 'http://localhost:8080/dist',
+    location: location.origin + '/dist',
     main: 'main'
   }]
 };

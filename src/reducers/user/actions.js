@@ -72,9 +72,9 @@ export function queryItems(portal) {
     return (dispatch, getState) => {
         portal.queryItems({
                 query: "owner:" + portal.user.username + " AND type: Web Scene",
-                sortField: "numViews",
+                sortField: "modified",
                 sortOrder: "desc",
-                num: 20
+                num: 15
             })
             .then(({ results }) => dispatch(setUserWebscenes(results)));
     }
