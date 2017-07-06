@@ -10,7 +10,6 @@ export const SELECTION_REMOVE = 'SELECTION_REMOVE';
 export const SELECTION_RESET = 'SELECTION_RESET';
 export const VIEW_CHANGE = 'VIEW_CHANGE';
 
-//esriConfig.request.corsEnabledServers.push('tile.stamen.com');
 esriConfig.request.corsEnabledServers.push('a.tile.stamen.com');
 esriConfig.request.corsEnabledServers.push('b.tile.stamen.com');
 esriConfig.request.corsEnabledServers.push('c.tile.stamen.com');

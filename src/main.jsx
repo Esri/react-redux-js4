@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 
 import App from './components/App';
 import reducer from './reducers/app';
-import { checkSignInStatus } from './reducers/identity/actions';
+import { checkSignInStatus } from './reducers/user/actions';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 store.dispatch(checkSignInStatus());
