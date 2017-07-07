@@ -62,6 +62,8 @@ export function loadWebscene(webSceneId) {
     	var { webscene : { sceneView }} = getState();
         if (!sceneView) return;
 
+      dispatch(selectionReset());
+
     	var webScene = new WebScene({ portalItem: { id: webSceneId } });
 
     	sceneView.map = webScene;
