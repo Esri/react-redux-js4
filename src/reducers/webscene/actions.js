@@ -8,7 +8,6 @@ export const SET_HIGHLIGHT = 'SET_HIGHLIGHT';
 export const SELECTION_ADD = 'SELECTION_ADD';
 export const SELECTION_REMOVE = 'SELECTION_REMOVE';
 export const SELECTION_RESET = 'SELECTION_RESET';
-export const VIEW_CHANGE = 'VIEW_CHANGE';
 
 esriConfig.request.corsEnabledServers.push('a.tile.stamen.com');
 esriConfig.request.corsEnabledServers.push('b.tile.stamen.com');
@@ -80,7 +79,6 @@ export function loadWebscene(webSceneId) {
 
             // event handlers
             sceneView.on('click', event => dispatch(clickScreenPoint(event.screenPoint, event.native.shiftKey || event.native.ctrlKey || event.native.metaKey)));
-            sceneView.watch('interacting, scale, zoom', () => dispatch(viewChange(sceneView)));
         });
     }
 };
@@ -139,12 +137,3 @@ export function selectionReset() {
   	type: SELECTION_RESET
   };
 };
-
-export function viewChange(view) {
-  return { 
-  	type: VIEW_CHANGE, 
-  	view 
-  };
-}
-
-
