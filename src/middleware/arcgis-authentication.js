@@ -69,7 +69,6 @@ const arcgisMiddleWare = store => next => action => {
 }
 
 const loadIdentityAndDispatch = (store) => {
-  console.log('loading portal');
   portal.load()
     .then(() => {
       store.dispatch({
