@@ -1,34 +1,40 @@
-export const SELECTION_ADD = 'SELECTION_ADD';
-export const SELECTION_REMOVE = 'SELECTION_REMOVE';
-export const SELECTION_RESET = 'SELECTION_RESET';
-export const VIEW_CHANGE = 'VIEW_CHANGE';
+export const INIT_SCENE_VIEW = 'INIT_SCENE_VIEW'
+export const LOAD_WEB_SCENE = 'LOAD_WEB_SCENE'
+export const SELECTION_TOGGLE = 'SELECTION_TOGGLE'
+export const SELECTION_RESET = 'SELECTION_RESET'
+export const VIEW_CHANGE = 'VIEW_CHANGE'
 
 
-export function selectionAdd(OID) {
+export function initSceneView(container) {
   return { 
-  	type: SELECTION_ADD, 
-  	OID
-  };
-};
+    type: INIT_SCENE_VIEW,
+    container
+  }
+}
 
-export function selectionRemove(OID) {
+export function loadWebScene(id) {
   return { 
-  	type: SELECTION_REMOVE, 
-  	OID
-  };
-};
+    type: LOAD_WEB_SCENE,
+    id
+  }
+}
+
+export function selectionToggle(OID) {
+  return { 
+    type: SELECTION_TOGGLE, 
+    OID
+  }
+}
 
 export function selectionReset() {
   return { 
   	type: SELECTION_RESET
-  };
-};
+  }
+}
 
 export function viewChange(view) {
   return { 
   	type: VIEW_CHANGE, 
   	view 
-  };
+  }
 }
-
-

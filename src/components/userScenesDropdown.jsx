@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { loadWebscene } from '../middleware/arcgisapi';
+import { loadWebScene } from '../reducers/webscene/actions';
 
-const UserScenesDropdown = ({ username, websceneItems, _loadWebscene_ }) =>
+const UserScenesDropdown = ({ username, websceneItems, _loadWebScene_ }) =>
     <div className={username ? 'userscenesdropdown' : 'hidden'}>
         <div className='dropdown js-dropdown'>
           <a href className='top-nav-link dropdown-btn js-dropdown-toggle'>
@@ -12,7 +12,7 @@ const UserScenesDropdown = ({ username, websceneItems, _loadWebscene_ }) =>
           <nav className='dropdown-menu modifier-class' role="menu">
             <span className={websceneItems.length ? 'hidden' : 'dropdown-title'}><em>No scenes</em></span>
             {websceneItems.map((item, index) =>
-                <a href='#' className='dropdown-link' role='menu-item' key={item.id} onClick={_loadWebscene_(item.id)}>
+                <a href='#' className='dropdown-link' role='menu-item' key={item.id} onClick={_loadWebScene_(item.id)}>
                     {item.resourceInfo.title}
                 </a>
             )}
@@ -26,9 +26,9 @@ const mapStateToProps = ({ user: { username, websceneItems } }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    _loadWebscene_(websceneid) {
+    _loadWebScene_(websceneid) {
         return () => {
-            dispatch(loadWebscene(websceneid))
+            dispatch(loadWebScene(websceneid))
         }
     }
 });
