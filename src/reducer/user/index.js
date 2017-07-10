@@ -6,9 +6,9 @@ import thumbnailurl from './thumbnailurl';
 import websceneItems from './websceneitems'
 
 export default combineReducers({
-    username,
-    fullname,
-    email,
-    thumbnailurl,
-    websceneItems
+  username,
+  fullname,
+  email,
+  thumbnailurl,
+  websceneItems
 });

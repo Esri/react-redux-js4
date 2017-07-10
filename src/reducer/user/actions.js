@@ -1,9 +1,3 @@
-import OAuthInfo from 'esri/identity/OAuthInfo';
-import IdentityManager from 'esri/identity/IdentityManager';
-import Portal from 'esri/portal/Portal';
-
-import { APP_ID } from '../../constants';
-
 export const GET_IDENTITY = 'GET_IDENTITY';
 export const SET_IDENTITY = 'SET_IDENTITY';
 export const SIGN_IN = 'SIGN_IN';
