@@ -4,14 +4,15 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
-import arcgis from './middleware/arcgisapi';
+import authentication from './middleware/arcgis-authentication';
+import sceneview from './middleware/arcgis-sceneview';
 
 import App from './components/App';
 import reducer from './reducers/app';
 import { checkSignInStatus } from './reducers/user/actions';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk, arcgis)));
+const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk, authentication, sceneview)));
 
 store.dispatch(checkSignInStatus());
 

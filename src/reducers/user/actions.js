@@ -1,83 +1,47 @@
-import OAuthInfo from 'esri/identity/OAuthInfo';
-import IdentityManager from 'esri/identity/IdentityManager';
-import Portal from 'esri/portal/Portal';
+import OAuthInfo from 'esri/identity/OAuthInfo'
+import IdentityManager from 'esri/identity/IdentityManager'
+import Portal from 'esri/portal/Portal'
 
-import { APP_ID } from '../../constants';
+import { APP_ID } from '../../constants'
 
 //export const SELECTION_CHANGE = 'SELECTION_CHANGE';
-export const SET_IDENTITY = 'SET_IDENTITY';
-export const SET_USER_WEBSCENES = 'SET_USER_WEBSCENES';
+export const CHECK_SIGN_IN_STATUS = 'CHECK_SIGN_IN_STATUS'
+export const GET_IDENTITY = 'GET_IDENTITY'
+export const SET_IDENTITY = 'SET_IDENTITY'
+export const SIGN_IN = 'SIGN_IN'
+export const SIGN_OUT = 'SIGN_OUT'
+export const GET_USER_WEBSCENES = 'GET_USER_WEBSCENES'
+export const SET_USER_WEBSCENES = 'SET_USER_WEBSCENES'
 
 
 export function checkSignInStatus() {
-    return (dispatch) => {
-        var info = new OAuthInfo({
-            appId: APP_ID,
-            popup: false
-          });
-
-        IdentityManager.registerOAuthInfos([info]); 
-
-        IdentityManager.checkSignInStatus(info.portalUrl + "/sharing")
-            .then((response) => {
-                dispatch(getIdentity());
-            });
-    }
-}
-
-export function signIn() {
-    return (dispatch) => {
-        var info = new OAuthInfo({
-            appId: APP_ID,
-            popup: false
-          });
-
-        IdentityManager.registerOAuthInfos([info]); 
-
-        IdentityManager.checkSignInStatus(info.portalUrl + "/sharing")
-            .then((response) => {
-                dispatch(getIdentity());
-            })
-            .otherwise(() => {
-                IdentityManager.getCredential(info.portalUrl + "/sharing")
-                    .then(() => {
-                        dispatch(getIdentity());
-                    })
-                    .otherwise(error => console.log(error));
-            });
-    }
-}
-
-export function signOut() {
-    return (dispatch) => {
-        IdentityManager.destroyCredentials();
-        window.location.reload();
-    }
+  return {
+    type: CHECK_SIGN_IN_STATUS
+  }
 }
 
 export function getIdentity() {
-    return (dispatch) => {
-        var portal = new Portal();
-        portal.authMode = 'immediate';
-        portal.load()
-            .then(() => {
-                dispatch(setIdentity(portal.user.username, portal.user.fullName, portal.user.email, portal.user.thumbnailUrl));
-                dispatch(queryItems(portal));
-            })
-            .otherwise(error => console.log(error));
-    }
+  return {
+    type: GET_IDENTITY
+  }
 }
 
-export function queryItems(portal) {
-    return (dispatch, getState) => {
-        portal.queryItems({
-                query: "owner:" + portal.user.username + " AND type: Web Scene",
-                sortField: "modified",
-                sortOrder: "desc",
-                num: 15
-            })
-            .then(({ results }) => dispatch(setUserWebscenes(results)));
-    }
+export function signIn() {
+  return {
+    type: SIGN_IN
+  }
+}
+
+export function signOut() {
+  return {
+    type: SIGN_OUT
+  }
+}
+
+export function getUserWebscenes() {
+  return {
+    type: GET_USER_WEBSCENES
+  }
 }
 
 export function setIdentity(username, fullname, email, thumbnailurl) {

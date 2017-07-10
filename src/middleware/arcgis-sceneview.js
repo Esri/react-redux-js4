@@ -18,10 +18,12 @@ const arcgisMiddleWare = store => next => action => {
   switch (action.type) {
 
     case INIT_SCENE_VIEW:
+
       arcgis.sceneView = new SceneView({ container: action.container });
       return next(action);
 
     case LOAD_WEB_SCENE:
+
       if (!arcgis.sceneView) return;
 
       arcgis.webScene = new WebScene({ portalItem: { id: action.id } });
@@ -43,6 +45,7 @@ const arcgisMiddleWare = store => next => action => {
 
     case SELECTION_RESET:
     case SELECTION_TOGGLE:
+    
       next(action);
       return updateHighlight(store.getState().webscene.selection);
 
