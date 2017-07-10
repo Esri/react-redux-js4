@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { initSceneView } from '../reducers/webscene/actions';
+import { initSceneView } from '../middleware/arcgisapi';
 
 
 class WebSceneView extends React.Component {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { loadWebscene } from '../reducers/webscene/actions';
+import { loadWebscene } from '../middleware/arcgisapi';
 
 const UserScenesDropdown = ({ username, websceneItems, _loadWebscene_ }) =>
     <div className={username ? 'userscenesdropdown' : 'hidden'}>
