@@ -11,8 +11,8 @@ Web Scene viewer boilerplate web application using React and Redux. This boilerp
 
 It provides two useful React middleware examples:
 
-* *arcgis-sceneview* to show a SceneView with a WebScene
-* *arcgis-authentication* to handle Portal login
+* **arcgis-authentication** to handle Portal login
+* **arcgis-sceneview** to show a SceneView with a WebScene
 
 # Registering your App
 
