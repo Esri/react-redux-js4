@@ -2,7 +2,7 @@ import esriConfig from 'esri/config';
 import SceneView from 'esri/views/SceneView';
 import WebScene from 'esri/WebScene';
 
-import { INIT_SCENE_VIEW, LOAD_WEB_SCENE, VIEW_CHANGE, SELECTION_TOGGLE, SELECTION_RESET } from '../reducers/webscene/actions';
+import { INIT_SCENE_VIEW, LOAD_WEB_SCENE, VIEW_CHANGE, SELECTION_TOGGLE, SELECTION_RESET } from '../reducer/webscene/actions';
 
 esriConfig.request.corsEnabledServers.push('a.tile.stamen.com');
 esriConfig.request.corsEnabledServers.push('b.tile.stamen.com');
@@ -45,7 +45,7 @@ const arcgisMiddleWare = store => next => action => {
 
     case SELECTION_RESET:
     case SELECTION_TOGGLE:
-    
+
       next(action);
       return updateHighlight(store.getState().webscene.selection);
 

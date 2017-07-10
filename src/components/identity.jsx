@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { signIn, signOut } from '../reducers/user/actions'
+import { signIn, signOut } from '../reducer/user/actions'
 
 const Identity = ({ username, fullname, thumbnailurl, _signIn_, _signOut_}) =>
     <div className='identity'>

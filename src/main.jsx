@@ -8,13 +8,13 @@ import authentication from './middleware/arcgis-authentication';
 import sceneview from './middleware/arcgis-sceneview';
 
 import App from './components/App';
-import reducer from './reducers/app';
-import { checkSignInStatus } from './reducers/user/actions';
+import reducer from './reducer/app';
+import { getIdentity } from './reducer/user/actions';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk, authentication, sceneview)));
 
-store.dispatch(checkSignInStatus());
+store.dispatch(getIdentity());
 
 let node = document.getElementById('app-container');
 

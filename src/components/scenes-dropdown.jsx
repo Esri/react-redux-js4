@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { loadWebScene } from '../reducers/webscene/actions';
+import { loadWebScene } from '../reducer/webscene/actions';
 
-const UserScenesDropdown = ({ username, websceneItems, _loadWebScene_ }) =>
+const ScenesDropdown = ({ username, websceneItems, _loadWebScene_ }) =>
     <div className={username ? 'userscenesdropdown' : 'hidden'}>
         <div className='dropdown js-dropdown'>
           <a href className='top-nav-link dropdown-btn js-dropdown-toggle'>
@@ -33,4 +33,4 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserScenesDropdown);
+export default connect(mapStateToProps, mapDispatchToProps)(ScenesDropdown);

@@ -1,10 +1,10 @@
-import OAuthInfo from 'esri/identity/OAuthInfo'
-import IdentityManager from 'esri/identity/IdentityManager'
-import Portal from 'esri/portal/Portal'
+import OAuthInfo from 'esri/identity/OAuthInfo';
+import IdentityManager from 'esri/identity/IdentityManager';
+import Portal from 'esri/portal/Portal';
 
-import { APP_ID } from '../constants'
+import { APP_ID } from '../constants';
 
-import { CHECK_SIGN_IN_STATUS, GET_IDENTITY, SET_IDENTITY, SIGN_IN, SIGN_OUT, GET_USER_WEBSCENES, SET_USER_WEBSCENES } from '../reducers/user/actions'
+import { GET_IDENTITY, SET_IDENTITY, SIGN_IN, SIGN_OUT, GET_USER_WEBSCENES, SET_USER_WEBSCENES } from '../reducer/user/actions';
 
 
 const info = new OAuthInfo({
@@ -21,34 +21,31 @@ portal.authMode = 'immediate';
 const arcgisMiddleWare = store => next => action => {
   switch (action.type) {
 
-    case CHECK_SIGN_IN_STATUS:
-      console.log('check sign in status');
+    case GET_IDENTITY:
       IdentityManager.checkSignInStatus(info.portalUrl + "/sharing")
-        .then((response) => {
-            store.dispatch({
-              type: GET_IDENTITY
-            });
+        .then(() => loadIdentityAndDispatch(store));
+      return next(action);
+
+
+    case SIGN_IN:
+      console.log('sign in');
+      IdentityManager.checkSignInStatus(info.portalUrl + "/sharing")
+        .then(() => loadIdentityAndDispatch(store))
+        .otherwise(() => {
+          IdentityManager.getCredential(info.portalUrl + "/sharing")
+            .then(() => loadIdentityAndDispatch(store))
+            .otherwise(error => console.log(error));
         });
 
       return next(action);
 
-    case GET_IDENTITY:
 
-      portal.load()
-        .then(() => {
-          store.dispatch({
-            type: SET_IDENTITY,
-            username: portal.user.username,
-            fullname: portal.user.fullName,
-            email: portal.user.email, 
-            thumbnailurl: portal.user.thumbnailUrl
-          });
-          store.dispatch({
-            type: GET_USER_WEBSCENES
-          })
-        })
+    case SIGN_OUT:
 
+      IdentityManager.destroyCredentials();
+      window.location.reload();
       return next(action);
+
 
     case GET_USER_WEBSCENES:
 
@@ -65,36 +62,27 @@ const arcgisMiddleWare = store => next => action => {
 
       return next(action);
 
-    case SIGN_IN:
-
-      IdentityManager.checkSignInStatus(info.portalUrl + "/sharing")
-        .then(() => {
-          store.dispatch({
-            type: GET_IDENTITY
-          });
-        })
-        .otherwise(() => {
-          IdentityManager.getCredential(info.portalUrl + "/sharing")
-            .then(() => {
-              store.dispatch({
-                type: GET_IDENTITY
-              });
-            })
-            .otherwise(error => console.log(error));
-        });
-
-      return next(action);
-
-    case SIGN_OUT:
-
-      IdentityManager.destroyCredentials();
-      window.location.reload();
-      return next(action);
-
 
     default:
       return next(action);
   }
+}
+
+const loadIdentityAndDispatch = (store) => {
+  console.log('loading portal');
+  portal.load()
+    .then(() => {
+      store.dispatch({
+        type: SET_IDENTITY,
+        username: portal.user.username,
+        fullname: portal.user.fullName,
+        email: portal.user.email, 
+        thumbnailurl: portal.user.thumbnailUrl
+      });
+      store.dispatch({
+        type: GET_USER_WEBSCENES
+      })
+    })
 }
 
 export default arcgisMiddleWare;
