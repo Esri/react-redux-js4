@@ -9,7 +9,7 @@ Web Scene viewer boilerplate web application using React and Redux. This boilerp
 * [Redux Thunk](https://github.com/gaearon/redux-thunk)
 * [Calcite Web](http://esri.github.io/calcite-web/)
 
-It provides two useful React middleware examples:
+It provides two useful Redux middleware examples:
 
 * **arcgis-authentication** to handle Portal login
 * **arcgis-sceneview** to show a SceneView with a WebScene
