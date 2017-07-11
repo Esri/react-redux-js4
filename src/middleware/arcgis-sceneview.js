@@ -2,7 +2,7 @@ import esriConfig from 'esri/config';
 import SceneView from 'esri/views/SceneView';
 import WebScene from 'esri/WebScene';
 
-import { INIT_SCENE_VIEW, LOAD_WEB_SCENE, VIEW_CHANGE, SELECTION_TOGGLE, SELECTION_RESET } from '../reducer/webscene/actions';
+import { INIT_SCENE_VIEW, LOAD_WEB_SCENE, VIEW_CHANGE, SELECTION_SET, SELECTION_TOGGLE, SELECTION_RESET } from '../reducer/webscene/actions';
 
 esriConfig.request.corsEnabledServers.push('a.tile.stamen.com');
 esriConfig.request.corsEnabledServers.push('b.tile.stamen.com');
@@ -43,6 +43,7 @@ const arcgisMiddleWare = store => next => action => {
       });
       return;
 
+    case SELECTION_SET:
     case SELECTION_RESET:
     case SELECTION_TOGGLE:
 
@@ -69,19 +70,26 @@ const registerInteractionEvent = (view, store) => {
 
 const registerClickEvent = (view, store) => {
   view.on('click', event => {
-    if (!event.native.shiftKey && !event.native.ctrlKey && !event.native.metaKey) {
-      store.dispatch({
-        type: SELECTION_RESET
-      });
-    }
+    var multiSelect = event.native.shiftKey || event.native.ctrlKey || event.native.metaKey;
 
     view.hitTest(event.screenPoint)
       .then(response => {
         if (response.results && response.results[0] && response.results[0].graphic) {
-          store.dispatch({
-            type: SELECTION_TOGGLE,
-            OID: response.results[0].graphic.attributes.OID
-          });
+          if (multiSelect) {
+            store.dispatch({
+              type: SELECTION_TOGGLE,
+              OID: response.results[0].graphic.attributes.OID
+            });
+          } else {
+            store.dispatch({
+              type: SELECTION_SET,
+              OIDArray: [response.results[0].graphic.attributes.OID]
+            });
+          }
+        } else {
+          if (!multiSelect) {
+            store.dispatch({ type: SELECTION_RESET });
+          }
         }
       });
   });
