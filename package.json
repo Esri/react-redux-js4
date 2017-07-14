@@ -18,7 +18,6 @@
     "gulp-connect": "^5.0.0"
   },
   "dependencies": {
-    "bower": "^1.8.0",
-    "react-redux": "^5.0.5"
+    "bower": "^1.8.0"
   }
 }
