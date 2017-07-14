@@ -1,14 +1,16 @@
 export const GET_IDENTITY = 'GET_IDENTITY';
-export const SET_IDENTITY = 'SET_IDENTITY';
 export const SIGN_IN = 'SIGN_IN';
 export const SIGN_OUT = 'SIGN_OUT';
 export const GET_USER_WEBSCENES = 'GET_USER_WEBSCENES';
-export const SET_USER_WEBSCENES = 'SET_USER_WEBSCENES';
 
 
-export function getIdentity() {
+export function getIdentity(username, fullname, email, thumbnailurl) {
   return {
-    type: GET_IDENTITY
+    type: GET_IDENTITY,
+    username,
+    fullname,
+    email,
+    thumbnailurl
   }
 }
 
@@ -24,25 +26,9 @@ export function signOut() {
   }
 }
 
-export function getUserWebscenes() {
+export function getUserWebscenes(websceneItems) {
   return {
-    type: GET_USER_WEBSCENES
+    type: GET_USER_WEBSCENES,
+    websceneItems
   }
-}
-
-export function setIdentity(username, fullname, email, thumbnailurl) {
-  return { 
-    type: SET_IDENTITY, 
-    username,
-    fullname,
-    email,
-    thumbnailurl
-  };
-}
-
-export function setUserWebscenes(websceneItems) {
-    return {
-        type: SET_USER_WEBSCENES,
-        websceneItems
-    }
 }

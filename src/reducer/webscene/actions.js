@@ -13,10 +13,11 @@ export function initSceneView(container) {
   }
 }
 
-export function loadWebScene(id) {
+export function loadWebScene(websceneId, name) {
   return { 
     type: LOAD_WEB_SCENE,
-    id
+    websceneId,
+    name
   }
 }
 

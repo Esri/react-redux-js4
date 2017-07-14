@@ -1,11 +1,11 @@
-import { GET_IDENTITY } from './actions';
+import { LOAD_WEB_SCENE } from './actions';
 
 const initialState = null;
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case GET_IDENTITY:
-      return action.thumbnailurl || initialState;
+    case LOAD_WEB_SCENE:
+      return action.name || initialState;
     default:
       return state;
   }
