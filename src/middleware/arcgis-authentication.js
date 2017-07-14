@@ -28,9 +28,7 @@ const arcgisMiddleWare = store => next => action => {
             thumbnailurl: portal.user.thumbnailUrl
           });
 
-          store.dispatch({
-            type: GET_USER_WEBSCENES
-          });
+          store.dispatch({ type: GET_USER_WEBSCENES });
         });
 
 
@@ -41,7 +39,7 @@ const arcgisMiddleWare = store => next => action => {
 
     case SIGN_OUT:
       IdentityManager.destroyCredentials();
-      return window.location.reload();
+      window.location.reload();
       return next(action);
 
 
