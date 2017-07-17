@@ -52,7 +52,6 @@ const arcgisMiddleWare = store => next => action => {
           
           // add the webscene name to the action and dispatch
           action.name = arcgis.webScene.portalItem.title;
-          console.log(action);
           next(action);
         });
 
