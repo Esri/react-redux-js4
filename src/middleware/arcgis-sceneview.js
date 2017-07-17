@@ -22,6 +22,11 @@ const arcgisMiddleWare = store => next => action => {
      */
     case INIT_SCENE_VIEW:
       arcgis.sceneView = new SceneView({ container: action.container });
+
+      // Register interaction event listeners
+      registerInteractionEvent(arcgis.sceneView, store);
+      registerClickEvent(arcgis.sceneView, store);
+      
       return next(action);
 
     /**
@@ -45,10 +50,6 @@ const arcgisMiddleWare = store => next => action => {
         .then(sceneLayerView => {
           arcgis.sceneLayerView = sceneLayerView;
           
-          // Register interaction event listeners
-          registerInteractionEvent(arcgis.sceneView, store);
-          registerClickEvent(arcgis.sceneView, store);
-
           // add the webscene name to the action and dispatch
           action.name = viewport.webScene.portalItem.title;
           next(action);
