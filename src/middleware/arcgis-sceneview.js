@@ -26,7 +26,7 @@ const arcgisMiddleWare = store => next => action => {
       // Register interaction event listeners
       registerInteractionEvent(arcgis.sceneView, store);
       registerClickEvent(arcgis.sceneView, store);
-      
+
       return next(action);
 
     /**
@@ -51,7 +51,8 @@ const arcgisMiddleWare = store => next => action => {
           arcgis.sceneLayerView = sceneLayerView;
           
           // add the webscene name to the action and dispatch
-          action.name = viewport.webScene.portalItem.title;
+          action.name = arcgis.webScene.portalItem.title;
+          console.log(action);
           next(action);
         });
 
