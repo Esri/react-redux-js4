@@ -5,7 +5,8 @@ var connect = require('gulp-connect');
 gulp.task('react', function () {
   return gulp.src([
     'src/*.jsx', 'src/**/*.jsx', 'src/**/**/*.jsx',
-    'src/*.js', 'src/**/*.js', 'src/**/**/*.js'
+    'src/*.js', 'src/**/*.js', 'src/**/**/*.js',
+    '!src/**/**/__tests__/*.js'
   ])
   .pipe(babel({
     sourceMaps: 'inline',
