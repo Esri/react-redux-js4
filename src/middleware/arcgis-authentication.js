@@ -1,6 +1,6 @@
-import OAuthInfo from 'esri/identity/OAuthInfo';
-import IdentityManager from 'esri/identity/IdentityManager';
-import Portal from 'esri/portal/Portal';
+import OAuthInfo from 'esri/identity/OAuthInfo'; // eslint-disable-line
+import IdentityManager from 'esri/identity/IdentityManager'; // eslint-disable-line
+import Portal from 'esri/portal/Portal'; // eslint-disable-line
 
 import { APP_ID } from '../constants';
 

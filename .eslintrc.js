@@ -3,5 +3,6 @@ module.exports = {
     "import/no-unresolved": "off",
     "env": {
       "browser": true,
+       "jest": true,
     },
 };

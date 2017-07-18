@@ -1,6 +1,6 @@
-import esriConfig from 'esri/config';
-import SceneView from 'esri/views/SceneView';
-import WebScene from 'esri/WebScene';
+import esriConfig from 'esri/config'; // eslint-disable-line
+import SceneView from 'esri/views/SceneView'; // eslint-disable-line
+import WebScene from 'esri/WebScene'; // eslint-disable-line
 
 import { INIT_SCENE_VIEW, LOAD_WEB_SCENE, VIEW_CHANGE, SELECTION_SET, SELECTION_TOGGLE, SELECTION_RESET } from '../reducer/webscene/actions';
 
