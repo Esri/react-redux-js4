@@ -13,7 +13,7 @@ const ScenesDropdown = ({ username, websceneItems, _loadWebScene_ }) =>
             <span className={websceneItems.length ? 'hidden' : 'dropdown-title'}><em>No scenes</em></span>
             {websceneItems.map((item, index) =>
                 <a href='#' className='dropdown-link' role='menu-item' key={item.id} onClick={_loadWebScene_(item.id)}>
-                    {item.resourceInfo.title}
+                    {item.title}
                 </a>
             )}
           </nav>
