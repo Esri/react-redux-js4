@@ -8,21 +8,25 @@ import { initSceneView } from '../reducer/webscene/actions';
 
 class WebSceneView extends React.Component {
 
-    componentDidMount() {
-        this.props.init(this.refs.sceneView);
-    }
-  
-    render() {
-        return (
-            <div className="websceneview" ref="sceneView"></div>
-        );
-    }
+  componentDidMount() {
+    this.props.init(this.sceneView);
+  }
+
+  render() {
+    return (
+      <div className="websceneview" ref={ref => (this.sceneView = ref)} />
+    );
+  }
 }
 
+WebSceneView.propTypes = {
+  init: PropTypes.func.isRequired,
+};
+
 function mapDispatchToProps(dispatch) {
-    return {
-        init: bindActionCreators(initSceneView, dispatch),
-    };
+  return {
+    init: bindActionCreators(initSceneView, dispatch),
+  };
 }
 
 export default connect(null, mapDispatchToProps)(WebSceneView);

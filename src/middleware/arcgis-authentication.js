@@ -10,7 +10,7 @@ import {
   SIGN_IN,
   SIGN_OUT,
   GET_USER_WEBSCENES,
-  SET_USER_WEBSCENES
+  SET_USER_WEBSCENES,
 } from '../reducer/user/actions';
 
 
@@ -20,12 +20,12 @@ const portal = new Portal({ authMode: 'immediate' });
 IdentityManager.registerOAuthInfos([info]);
 
 
-const arcgisMiddleWare = store => next => action => {
+const arcgisMiddleWare = store => next => (action) => {
   switch (action.type) {
 
     case GET_IDENTITY:
       next(action);
-      return IdentityManager.checkSignInStatus(info.portalUrl + "/sharing")
+      return IdentityManager.checkSignInStatus(`${info.portalUrl}/sharing`)
         .then(() => portal.load())
         .then(() => {
           store.dispatch({
@@ -33,7 +33,7 @@ const arcgisMiddleWare = store => next => action => {
             username: portal.user.username,
             fullname: portal.user.fullName,
             email: portal.user.email,
-            thumbnailurl: portal.user.thumbnailUrl
+            thumbnailurl: portal.user.thumbnailUrl,
           });
 
           store.dispatch({ type: GET_USER_WEBSCENES });
@@ -43,7 +43,7 @@ const arcgisMiddleWare = store => next => action => {
 
 
     case SIGN_IN:
-      IdentityManager.getCredential(info.portalUrl + "/sharing");
+      IdentityManager.getCredential(`${info.portalUrl}/sharing`);
       return next(action);
 
 
@@ -56,21 +56,21 @@ const arcgisMiddleWare = store => next => action => {
     case GET_USER_WEBSCENES:
       next(action);
       return portal.queryItems({
-        query: "owner:" + portal.user.username + " AND type: Web Scene",
-        sortField: "modified",
-        sortOrder: "desc",
-        num: 15
+        query: `owner:${portal.user.username} AND type: Web Scene`,
+        sortField: 'modified',
+        sortOrder: 'desc',
+        num: 15,
       })
         .then(({ results }) => store.dispatch({
           type: SET_USER_WEBSCENES,
-          websceneItems: results
+          websceneItems: results,
         }));
 
 
     default:
       return next(action);
   }
-}
+};
 
 
 export default arcgisMiddleWare;

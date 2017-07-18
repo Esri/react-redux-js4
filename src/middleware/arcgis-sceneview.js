@@ -9,14 +9,54 @@ esriConfig.request.corsEnabledServers.push('b.tile.stamen.com');
 esriConfig.request.corsEnabledServers.push('c.tile.stamen.com');
 esriConfig.request.corsEnabledServers.push('d.tile.stamen.com');
 
-
 const arcgis = {};
 
+const registerInteractionEvent = (view, store) => {
+  view.watch('interacting, scale, zoom', () => {
+    store.dispatch({
+      type: VIEW_CHANGE,
+      view: {
+        interacting: view.interacting,
+        zoom: view.zoom,
+        scale: view.scale,
+      },
+    });
+  });
+};
 
-const arcgisMiddleWare = store => next => action => {
+const registerClickEvent = (view, store) => {
+  view.on('click', (event) => {
+    const multiSelect = event.native.shiftKey || event.native.ctrlKey || event.native.metaKey;
 
+    view.hitTest(event.screenPoint)
+      .then((response) => {
+        if (response.results && response.results[0] && response.results[0].graphic) {
+          if (multiSelect) {
+            store.dispatch({
+              type: SELECTION_TOGGLE,
+              OID: response.results[0].graphic.attributes.OID,
+            });
+          } else {
+            store.dispatch({
+              type: SELECTION_SET,
+              OIDArray: [response.results[0].graphic.attributes.OID],
+            });
+          }
+        } else if (!multiSelect) {
+          store.dispatch({ type: SELECTION_RESET });
+        }
+      });
+  });
+};
+
+const updateHighlight = (selection) => {
+  if (arcgis.highlight) arcgis.highlight.remove();
+  arcgis.highlight = arcgis.sceneLayerView.highlight(selection);
+};
+
+
+const arcgisMiddleWare = store => next => (action) => {
   switch (action.type) {
-
     /**
      * Initialize scene view on a viewport container.
      */
@@ -33,7 +73,7 @@ const arcgisMiddleWare = store => next => action => {
      * Load web scene and register interaction listeners.
      */
     case LOAD_WEB_SCENE:
-      if (!arcgis.sceneView) return;
+      if (!arcgis.sceneView) return next(action);
 
       // Initialize web scene
       arcgis.webScene = new WebScene({ portalItem: { id: action.websceneId } });
@@ -47,12 +87,12 @@ const arcgisMiddleWare = store => next => action => {
 
           return arcgis.sceneView.whenLayerView(arcgis.sceneLayer);
         })
-        .then(sceneLayerView => {
+        .then((sceneLayerView) => {
           arcgis.sceneLayerView = sceneLayerView;
-          
+
           // add the webscene name to the action and dispatch
-          action.name = arcgis.webScene.portalItem.title;
-          next(action);
+          const newAction = Object.assign({ ...action, name: arcgis.webScene.portalItem.title });
+          next(newAction);
         });
 
     /**
@@ -70,52 +110,7 @@ const arcgisMiddleWare = store => next => action => {
     default:
       return next(action);
   }
-}
-
-const registerInteractionEvent = (view, store) => {
-  view.watch('interacting, scale, zoom', () => {
-    store.dispatch({
-      type: VIEW_CHANGE,
-      view: {
-        interacting: view.interacting,
-        zoom: view.zoom,
-        scale: view.scale
-      }
-    }
-  )});
-}
-
-const registerClickEvent = (view, store) => {
-  view.on('click', event => {
-    var multiSelect = event.native.shiftKey || event.native.ctrlKey || event.native.metaKey;
-
-    view.hitTest(event.screenPoint)
-      .then(response => {
-        if (response.results && response.results[0] && response.results[0].graphic) {
-          if (multiSelect) {
-            store.dispatch({
-              type: SELECTION_TOGGLE,
-              OID: response.results[0].graphic.attributes.OID
-            });
-          } else {
-            store.dispatch({
-              type: SELECTION_SET,
-              OIDArray: [response.results[0].graphic.attributes.OID]
-            });
-          }
-        } else {
-          if (!multiSelect) {
-            store.dispatch({ type: SELECTION_RESET });
-          }
-        }
-      });
-  });
-}
-
-const updateHighlight = (selection) => {
-  if (arcgis.highlight) arcgis.highlight.remove();
-  arcgis.highlight = arcgis.sceneLayerView.highlight(selection);
-}
+};
 
 
 export default arcgisMiddleWare;
