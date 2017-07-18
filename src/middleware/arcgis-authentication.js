@@ -4,24 +4,32 @@ import Portal from 'esri/portal/Portal';
 
 import { APP_ID } from '../constants';
 
-import { GET_IDENTITY, SIGN_IN, SIGN_OUT, GET_USER_WEBSCENES } from '../reducer/user/actions';
+import {
+  GET_IDENTITY,
+  SET_IDENTITY,
+  SIGN_IN,
+  SIGN_OUT,
+  GET_USER_WEBSCENES,
+  SET_USER_WEBSCENES
+} from '../reducer/user/actions';
 
 
 const info = new OAuthInfo({ appId: APP_ID, popup: false });
 const portal = new Portal({ authMode: 'immediate' });
 
-IdentityManager.registerOAuthInfos([info]); 
+IdentityManager.registerOAuthInfos([info]);
 
 
 const arcgisMiddleWare = store => next => action => {
   switch (action.type) {
 
     case GET_IDENTITY:
+      next(action);
       return IdentityManager.checkSignInStatus(info.portalUrl + "/sharing")
         .then(() => portal.load())
         .then(() => {
-          next({ 
-            ...action,
+          store.dispatch({
+            type: SET_IDENTITY,
             username: portal.user.username,
             fullname: portal.user.fullName,
             email: portal.user.email,
@@ -44,13 +52,17 @@ const arcgisMiddleWare = store => next => action => {
 
 
     case GET_USER_WEBSCENES:
+      next(action);
       return portal.queryItems({
         query: "owner:" + portal.user.username + " AND type: Web Scene",
         sortField: "modified",
         sortOrder: "desc",
         num: 15
       })
-        .then(({ results }) => next({ ...action, websceneItems: results}));
+        .then(({ results }) => store.dispatch({
+          type: SET_USER_WEBSCENES,
+          websceneItems: results
+        }));
 
 
     default:
