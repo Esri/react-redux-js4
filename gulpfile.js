@@ -1,6 +1,7 @@
-var gulp = require('gulp');
-var babel = require('gulp-babel');
-var connect = require('gulp-connect');
+const gulp = require('gulp');
+const babel = require('gulp-babel');
+const connect = require('gulp-connect');
+const eslint = require('gulp-eslint');
 
 gulp.task('react', function () {
   return gulp.src([
@@ -27,7 +28,17 @@ gulp.task('watch', function(){
 gulp.task('webserver', function() {
   connect.server({
     livereload: true
-  }); 
+  });
 });
+
+gulp.task('lint', () => {
+  return gulp.src([
+    'src/*.jsx', 'src/**/*.jsx', 'src/**/**/*.jsx',
+    'src/*.js', 'src/**/*.js', 'src/**/**/*.js'
+  ])
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
+})
 
 gulp.task('default', ['react', 'webserver', 'watch']);

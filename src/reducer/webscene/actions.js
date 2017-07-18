@@ -1,49 +1,49 @@
-export const INIT_SCENE_VIEW = 'INIT_SCENE_VIEW'
-export const LOAD_WEB_SCENE = 'LOAD_WEB_SCENE'
-export const SELECTION_SET = 'SELECTION_SET'
-export const SELECTION_TOGGLE = 'SELECTION_TOGGLE'
-export const SELECTION_RESET = 'SELECTION_RESET'
-export const VIEW_CHANGE = 'VIEW_CHANGE'
+export const INIT_SCENE_VIEW = 'INIT_SCENE_VIEW';
+export const LOAD_WEB_SCENE = 'LOAD_WEB_SCENE';
+export const SELECTION_SET = 'SELECTION_SET';
+export const SELECTION_TOGGLE = 'SELECTION_TOGGLE';
+export const SELECTION_RESET = 'SELECTION_RESET';
+export const VIEW_CHANGE = 'VIEW_CHANGE';
 
 
 export function initSceneView(container) {
-  return { 
+  return {
     type: INIT_SCENE_VIEW,
-    container
-  }
+    container,
+  };
 }
 
 export function loadWebScene(websceneId, name) {
-  return { 
+  return {
     type: LOAD_WEB_SCENE,
     websceneId,
-    name
-  }
+    name,
+  };
 }
 
 export function selectionSet(OIDArray) {
-  return { 
-    type: SELECTION_SET, 
-    OIDArray
-  }
+  return {
+    type: SELECTION_SET,
+    OIDArray,
+  };
 }
 
 export function selectionToggle(OID) {
-  return { 
-    type: SELECTION_TOGGLE, 
-    OID
-  }
+  return {
+    type: SELECTION_TOGGLE,
+    OID,
+  };
 }
 
 export function selectionReset() {
-  return { 
-  	type: SELECTION_RESET
-  }
+  return {
+    type: SELECTION_RESET,
+  };
 }
 
 export function viewChange(view) {
-  return { 
-  	type: VIEW_CHANGE, 
-  	view 
-  }
+  return {
+    type: VIEW_CHANGE,
+    view,
+  };
 }

@@ -7,8 +7,8 @@ export const SET_USER_WEBSCENES = 'SET_USER_WEBSCENES';
 
 export function getIdentity() {
   return {
-    type: GET_IDENTITY
-  }
+    type: GET_IDENTITY,
+  };
 }
 
 export function setIdentity(username, fullname, email, thumbnailurl) {
@@ -17,31 +17,31 @@ export function setIdentity(username, fullname, email, thumbnailurl) {
     username,
     fullname,
     email,
-    thumbnailurl
-  }
+    thumbnailurl,
+  };
 }
 
 export function signIn() {
   return {
-    type: SIGN_IN
-  }
+    type: SIGN_IN,
+  };
 }
 
 export function signOut() {
   return {
-    type: SIGN_OUT
-  }
+    type: SIGN_OUT,
+  };
 }
 
 export function getUserWebscenes() {
   return {
-    type: GET_USER_WEBSCENES
-  }
+    type: GET_USER_WEBSCENES,
+  };
 }
 
 export function setUserWebscenes(websceneItems) {
   return {
     type: SET_USER_WEBSCENES,
-    websceneItems
-  }
+    websceneItems,
+  };
 }

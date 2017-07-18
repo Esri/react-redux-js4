@@ -6,9 +6,9 @@ import scale from './scale';
 import zoom from './zoom';
 
 export default combineReducers({
-	name,
+  name,
   selection,
   interacting,
   scale,
-  zoom
+  zoom,
 });
