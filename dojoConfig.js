@@ -3,31 +3,31 @@ window.dojoConfig = {
   deps: ['app/main'],
   packages: [{
     name: 'react',
-    location: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/',
-    main: 'react'
+    location: `${location.origin}/node_modules/react/dist/`,
+    main: 'react',
   }, {
     name: 'react-dom',
-    location: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/',
-    main: 'react-dom'
+    location: `${location.origin}/node_modules/react-dom/dist/`,
+    main: 'react-dom',
   }, {
     name: 'prop-types',
-    location: 'https://unpkg.com/prop-types/',
-    main: 'prop-types'
+    location: `${location.origin}/node_modules/prop-types/`,
+    main: 'prop-types',
   }, {
     name: 'redux',
-    location: 'https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.1/',
-    main: 'redux'
+    location: `${location.origin}/node_modules/redux/dist/`,
+    main: 'redux',
   }, {
     name: 'react-redux',
-    location: 'https://cdnjs.cloudflare.com/ajax/libs/react-redux/5.0.5/',
-    main: 'react-redux'
+    location: `${location.origin}/node_modules/react-redux/dist/`,
+    main: 'react-redux',
   }, {
     name: 'redux-thunk',
-    location: 'https://cdnjs.cloudflare.com/ajax/libs/redux-thunk/2.2.0/',
-    main: 'redux-thunk'
+    location: `${location.origin}/node_modules/redux-thunk/dist/`,
+    main: 'redux-thunk',
   }, {
     name: 'app',
-    location: location.origin + '/dist',
-    main: 'main'
-  }]
+    location: `${location.origin}/dist`,
+    main: 'main',
+  }],
 };
