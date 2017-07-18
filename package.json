@@ -7,7 +7,7 @@
     "test": "jest",
     "test:watch": "npm test -- --watch"
   },
-  "author": "Rene Rubalcava <rrubalcava@odoe.net>",
+  "author": "Michael Van den Bergh <mvandenbergh@esri.com>",
   "license": "MIT",
   "devDependencies": {
     "babel-jest": "^20.0.3",
