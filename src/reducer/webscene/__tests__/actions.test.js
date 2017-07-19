@@ -1,11 +1,8 @@
-import * as actions from '../actions'
-import * as types from '../actions'
+import * as actions from '../actions';
 
 describe('actions', () => {
   it('should create an action to reset the selection', () => {
-    const expectedAction = {
-      type: types.SELECTION_RESET
-    }
-    expect(actions.selectionReset()).toEqual(expectedAction)
-  })
-})
+    const expectedAction = { type: actions.SELECTION_RESET };
+    expect(actions.selectionReset()).toEqual(expectedAction);
+  });
+});

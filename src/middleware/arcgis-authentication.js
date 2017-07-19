@@ -22,7 +22,6 @@ IdentityManager.registerOAuthInfos([info]);
 
 const arcgisMiddleWare = store => next => (action) => {
   switch (action.type) {
-
     case GET_IDENTITY:
       next(action);
       return IdentityManager.checkSignInStatus(`${info.portalUrl}/sharing`)

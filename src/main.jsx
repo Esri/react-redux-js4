@@ -7,24 +7,25 @@ import thunk from 'redux-thunk';
 import authentication from './middleware/arcgis-authentication';
 import sceneview from './middleware/arcgis-sceneview';
 
-import App from './components/App';
+import App from './components/app';
 import reducer from './reducer/app';
 import { getIdentity } from './reducer/user/actions';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk, authentication, sceneview)));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // eslint-disable-line
+const store = createStore(reducer,
+  composeEnhancers(applyMiddleware(thunk, authentication, sceneview)));
 
 store.dispatch(getIdentity());
 
-let node = document.getElementById('app-container');
+const node = document.getElementById('app-container');
 
 ReactDOM.render(
   <div>
-  	<Provider store={store}>
-  		<App />
+    <Provider store={store}>
+      <App />
     </Provider>
   </div>,
-  node
+  node,
 );
 
-calcite.init();
+calcite.init(); // eslint-disable-line

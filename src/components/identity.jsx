@@ -22,7 +22,7 @@ const Identity = ({ username, fullname, thumbnailurl, _signIn_, _signOut_ }) => 
       Sign In
     </a>
   </div>
-  );
+);
 
 Identity.propTypes = {
   username: PropTypes.string,

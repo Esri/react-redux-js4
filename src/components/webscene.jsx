@@ -5,9 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import { initSceneView } from '../reducer/webscene/actions';
 
-
 class WebSceneView extends React.Component {
-
   componentDidMount() {
     this.props.init(this.sceneView);
   }
