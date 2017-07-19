@@ -3,10 +3,10 @@ import IdentityManager from 'esri/identity/IdentityManager'; // eslint-disable-l
 
 import * as types from '../../reducer/user/actions';
 
-jest.mock('esri/identity/OAuthInfo', () => class OAuthInfo {
-  constructor() {
-    this.portalUrl = 'http://bla';
-  }
+jest.mock('esri/identity/OAuthInfo', () => {
+  const OAuthInfo = jest.fn();
+  OAuthInfo.prototype.portalUrl = 'http://bla';
+  return OAuthInfo;
 }, { virtual: true });
 
 jest.mock('esri/identity/IdentityManager', () => ({
@@ -16,19 +16,18 @@ jest.mock('esri/identity/IdentityManager', () => ({
   destroyCredentials: jest.fn(),
 }), { virtual: true });
 
-jest.mock('esri/portal/Portal', () => class Portal {
-  constructor() {
-    this.load = jest.fn(() => Promise.resolve());
-    this.user = {
-      username: 'user123',
-      fullName: 'John',
-      email: 'john@gmail.com',
-      thumbnailUrl: 'http://blabla.jpg',
-    };
-    this.queryItems = jest.fn(() => Promise.resolve({ results: [{ id: 0, name: 'web scene' }] }));
-  }
+jest.mock('esri/portal/Portal', () => {
+  const Portal = jest.fn();
+  Portal.prototype.load = jest.fn(() => Promise.resolve());
+  Portal.prototype.user = {
+    username: 'user123',
+    fullName: 'John',
+    email: 'john@gmail.com',
+    thumbnailUrl: 'http://blabla.jpg',
+  };
+  Portal.prototype.queryItems = jest.fn(() => Promise.resolve({ results: [{ id: 0, name: 'web scene' }] }));
+  return Portal;
 }, { virtual: true });
-
 
 const create = () => {
   const store = {

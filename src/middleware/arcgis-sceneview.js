@@ -96,6 +96,8 @@ const arcgisMiddleWare = store => next => (action) => {
           // add the webscene name to the action and dispatch
           const newAction = Object.assign({ ...action, name: arcgis.webScene.portalItem.title });
           next(newAction);
+
+          return Promise.resolve();
         });
 
     /**
