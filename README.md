@@ -1,8 +1,9 @@
 # ArcGIS JS API 4.4 / React / Redux Boilerplate
 
-Web Scene viewer boilerplate web application using React and Redux. This boilerplate example integrates:
+Web Scene viewer boilerplate web application using React and Redux, which includes the ArcGIS JS API
+as middleware. This boilerplate example integrates:
 
-* ArcGIS JS API 4.4
+* [ArcGIS JS API 4.4](https://developers.arcgis.com/javascript/)
 * [React](https://facebook.github.io/react/)
 * [Redux](http://redux.js.org/)
 * [React Redux](https://github.com/reactjs/react-redux) (connect)
@@ -13,6 +14,16 @@ It provides two useful Redux middleware examples:
 
 * **arcgis-authentication** to handle Portal login
 * **arcgis-sceneview** to show a SceneView with a WebScene
+
+# Tests
+
+This example includes [Jest](http://facebook.github.io/jest/) tests on:
+
+* Action creators
+* Reducers
+* ArcGIS Middleware
+
+For more details on testing see [Writing Tests - Redux](http://redux.js.org/docs/recipes/WritingTests.html).
 
 # Registering your App
 
