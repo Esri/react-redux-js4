@@ -10,7 +10,7 @@ html, body {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 #app-container,
@@ -38,7 +38,7 @@ html, body {
 .websceneview {
   height: 100%;
   width: 100%;
-} 
+}
 
 .info {
   position: absolute;
@@ -71,6 +71,3 @@ html, body {
 .identity > button {
   margin: 12px;
 }
-
-
-

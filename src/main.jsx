@@ -28,4 +28,4 @@ ReactDOM.render(
   node,
 );
 
-calcite.init(); // eslint-disable-line
+//calcite.init(); // eslint-disable-line
