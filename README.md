@@ -17,7 +17,7 @@ It provides two useful Redux middleware examples:
 
 # Tests
 
-This example includes [Jest](http://facebook.github.io/jest/) tests on:
+This example includes [Jest](http://facebook.github.io/jest/) tests for:
 
 * Action creators
 * Reducers
@@ -28,3 +28,21 @@ For more details on testing see [Writing Tests - Redux](http://redux.js.org/docs
 # Registering your App
 
 For this code to work, you need to [register an app](http://doc.arcgis.com/en/marketplace/provider/register-app.htm), add the correct redirect URI (e.g. `http://localhost:8080`), and add the application ID to `src/constants.js`.
+
+# Instructions
+
+Install dependencies:
+
+`npm install`
+
+Run tests:
+
+`npm test`
+
+Run [ESLint](http://eslint.org/):
+
+`gulp lint`
+
+Build and run live server:
+
+`gulp`
