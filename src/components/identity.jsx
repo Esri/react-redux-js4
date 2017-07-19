@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import * as actions from '../reducer/user/actions';
 
-export class Identity extends Component {
+class Identity extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,11 +27,7 @@ export class Identity extends Component {
           className={`dropdown ${this.props.username ? '' : ' hidden'} ${this.state.open ? ' is-active' : ''}`}
           onBlur={() => this.collapseMenu()}
         >
-          <a
-            href="#"
-            className="top-nav-link dropdown-btn js-dropdown-toggle"
-            onMouseDown={() => this.toggleMenu()}
-          >
+          <a href="#" className="top-nav-link dropdown-btn" onMouseDown={() => this.toggleMenu()}>
             <img src={this.props.thumbnailurl} alt="thumbnail" />
             {this.props.fullname && this.props.fullname.split(' ')[0]}
             <i className="icon-ui-down-arrow" />
