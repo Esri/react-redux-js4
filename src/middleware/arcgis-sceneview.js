@@ -51,7 +51,7 @@ const registerClickEvent = (view, store) => {
 
 const updateHighlight = (selection) => {
   if (arcgis.highlight) arcgis.highlight.remove();
-  arcgis.highlight = arcgis.sceneLayerView.highlight(selection);
+  if (arcgis.sceneLayerView) arcgis.highlight = arcgis.sceneLayerView.highlight(selection);
 };
 
 
@@ -74,6 +74,9 @@ const arcgisMiddleWare = store => next => (action) => {
      */
     case LOAD_WEB_SCENE:
       if (!arcgis.sceneView) return next(action);
+
+      // Reset selection
+      store.dispatch({ type: SELECTION_RESET });
 
       // Initialize web scene
       arcgis.webScene = new WebScene({ portalItem: { id: action.websceneId } });
