@@ -9,7 +9,10 @@ jest.mock('esri/views/SceneView', () => {
   const MockSceneView = jest.fn();
   MockSceneView.prototype.watch = jest.fn();
   MockSceneView.prototype.on = jest.fn();
-  MockSceneView.prototype.whenLayerView = jest.fn(() => Promise.resolve());
+  MockSceneView.highlight = jest.fn();
+  MockSceneView.prototype.whenLayerView = jest.fn(() => Promise.resolve({
+    highlight: MockSceneView.highlight,
+  }));
   return MockSceneView;
 }, { virtual: true });
 
@@ -25,7 +28,7 @@ jest.mock('esri/WebScene', () => {
 
 const create = () => {
   const store = {
-    getState: jest.fn(() => ({})),
+    getState: jest.fn(() => ({ webscene: { selection: [1, 2] } })),
     dispatch: jest.fn(),
   };
   const next = jest.fn();
@@ -75,5 +78,16 @@ describe('async actions', () => {
       });
     expect(store.dispatch).toHaveBeenCalledWith({ type: types.SELECTION_RESET });
     expect(WebScene).toHaveBeenCalledWith({ portalItem: { id: 'abc1234' } });
+  });
+
+  it('updates highlights on SELECTION_SET', () => {
+    const { next, invoke } = create();
+    const action = {
+      type: types.SELECTION_SET,
+      OIDArray: [1, 2],
+    };
+    invoke(action);
+    expect(next).toHaveBeenCalledWith(action);
+    expect(SceneView.highlight).toHaveBeenCalledWith([1, 2]);
   });
 });
