@@ -10,8 +10,8 @@ function setup() {
 }
 
 describe('components', () => {
-  describe('Header', () => {
-    it('should render self and subcomponents', () => {
+  describe('<Header />', () => {
+    it('should render self', () => {
       const { wrapper } = setup();
 
       expect(wrapper.find('header').hasClass('top-nav')).toBe(true);
