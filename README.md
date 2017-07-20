@@ -23,11 +23,18 @@ This example includes [Jest](http://facebook.github.io/jest/) tests for:
 * Reducers
 * ArcGIS Middleware
 
-For more details on testing see [Writing Tests - Redux](http://redux.js.org/docs/recipes/WritingTests.html).
+And [Enzyme](http://airbnb.io/enzyme/index.html) tests for:
+
+* Components
+
+For more details on testing see
+[Writing Tests - Redux](http://redux.js.org/docs/recipes/WritingTests.html).
 
 # Registering your App
 
-For this code to work, you need to [register an app](http://doc.arcgis.com/en/marketplace/provider/register-app.htm), add the correct redirect URI (e.g. `http://localhost:8080`), and add the application ID to `src/constants.js`.
+For this code to work, you need to
+[register an app](http://doc.arcgis.com/en/marketplace/provider/register-app.htm), add the correct
+redirect URI (e.g. `http://localhost:8080`), and add the application ID to `src/constants.js`.
 
 # Instructions
 
