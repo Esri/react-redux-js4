@@ -26,6 +26,10 @@ window.dojoConfig = {
     location: `${location.origin}/node_modules/redux-thunk/dist/`,
     main: 'redux-thunk',
   }, {
+    name: 'enzyme',
+    location: `${location.origin}/node_modules/enzyme/build/`,
+    main: 'index',
+  }, {
     name: 'app',
     location: `${location.origin}/dist`,
     main: 'main',
