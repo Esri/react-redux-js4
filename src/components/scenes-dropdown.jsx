@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import * as actions from '../reducer/webscene/actions';
 
-class ScenesDropdown extends Component {
+export class ScenesDropdown extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,7 +37,7 @@ class ScenesDropdown extends Component {
             </span>
             {this.props.websceneItems.map(item => (
               <a
-                href="#open-webscene"
+                href="#"
                 className="dropdown-link"
                 key={item.id}
                 onMouseDown={this.props.loadWebScene(item.id)}

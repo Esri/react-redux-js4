@@ -90,7 +90,7 @@ const arcgisMiddleWare = store => next => (action) => {
       arcgis.sceneView.map = arcgis.webScene;
 
       // When initialized...
-      arcgis.webScene
+      return arcgis.webScene
         .then(() => {
           arcgis.sceneLayer = arcgis.webScene.layers.getItemAt(0);
           arcgis.sceneLayer.popupEnabled = false;
@@ -106,8 +106,6 @@ const arcgisMiddleWare = store => next => (action) => {
 
           return Promise.resolve();
         });
-
-      break;
     }
 
     /**
