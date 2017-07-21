@@ -2,7 +2,14 @@ import esriConfig from 'esri/config'; // eslint-disable-line
 import SceneView from 'esri/views/SceneView'; // eslint-disable-line
 import WebScene from 'esri/WebScene'; // eslint-disable-line
 
-import { INIT_SCENE_VIEW, LOAD_WEB_SCENE, VIEW_CHANGE, SELECTION_SET, SELECTION_TOGGLE, SELECTION_RESET } from '../reducer/webscene/actions';
+import {
+  INIT_SCENE_VIEW,
+  LOAD_WEB_SCENE,
+  VIEW_CHANGE,
+  SELECTION_SET,
+  SELECTION_TOGGLE,
+  SELECTION_RESET,
+} from '../reducer/webscene/actions';
 
 esriConfig.request.corsEnabledServers.push('a.tile.stamen.com');
 esriConfig.request.corsEnabledServers.push('b.tile.stamen.com');
@@ -60,22 +67,22 @@ const arcgisMiddleWare = store => next => (action) => {
     /**
      * Initialize scene view on a viewport container.
      */
-    case INIT_SCENE_VIEW:
+    case INIT_SCENE_VIEW: {
       arcgis.sceneView = new SceneView({ container: action.container });
 
-      // Register interaction event listeners
       registerInteractionEvent(arcgis.sceneView, store);
       registerClickEvent(arcgis.sceneView, store);
 
-      return next(action);
+      next(action);
+      break;
+    }
 
     /**
      * Load web scene and register interaction listeners.
      */
-    case LOAD_WEB_SCENE:
-      if (!arcgis.sceneView) return next(action);
+    case LOAD_WEB_SCENE: {
+      if (!arcgis.sceneView) break;
 
-      // Reset selection
       store.dispatch({ type: SELECTION_RESET });
 
       // Initialize web scene
@@ -83,7 +90,7 @@ const arcgisMiddleWare = store => next => (action) => {
       arcgis.sceneView.map = arcgis.webScene;
 
       // When initialized...
-      return arcgis.webScene
+      arcgis.webScene
         .then(() => {
           arcgis.sceneLayer = arcgis.webScene.layers.getItemAt(0);
           arcgis.sceneLayer.popupEnabled = false;
@@ -100,20 +107,27 @@ const arcgisMiddleWare = store => next => (action) => {
           return Promise.resolve();
         });
 
+      break;
+    }
+
     /**
      * Update highlights and reports on selection change.
      */
     case SELECTION_SET:
     case SELECTION_RESET:
-    case SELECTION_TOGGLE:
+    case SELECTION_TOGGLE: {
       next(action);
 
       // Update needs to happen after the action dispatched, to have the correct selection.
-      return updateHighlight(store.getState().webscene.selection);
+      updateHighlight(store.getState().webscene.selection);
 
+      break;
+    }
 
-    default:
-      return next(action);
+    default: {
+      next(action);
+      break;
+    }
   }
 };
 
