@@ -3,7 +3,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
 import { Info } from '../info';
-import * as actions from '../../reducer/webscene/actions'
+import * as actions from '../../reducer/webscene/actions';
 import reducer from '../../reducer/webscene';
 
 
@@ -20,7 +20,7 @@ function setup() {
   const wrapper = mount(
     <Provider store={store}>
       <Info {...props} />
-    </Provider>
+    </Provider>,
   );
 
   return { props, wrapper };
@@ -45,7 +45,7 @@ describe('components', () => {
           scale: 3.4,
         },
       });
-      const { props, wrapper } = setup();
+      const { wrapper } = setup();
       expect(wrapper.find('.card-content').children().at(0).text()).toBe('interacting: true');
       expect(wrapper.find('.card-content').children().at(1).text()).toBe('scale: 3.40');
       expect(wrapper.find('.card-content').children().at(2).text()).toBe('zoom: 1.20');
@@ -56,7 +56,7 @@ describe('components', () => {
         type: actions.SELECTION_SET,
         OIDArray: [1, 2],
       });
-      const { props, wrapper } = setup();
+      const { wrapper } = setup();
       expect(wrapper.find('.card-content').children().at(3).text()).toBe('selected items: 2');
     });
   });

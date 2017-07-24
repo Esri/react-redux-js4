@@ -127,6 +127,8 @@ const arcgisMiddleWare = store => next => (action) => {
       break;
     }
   }
+
+  return null;
 };
 
 

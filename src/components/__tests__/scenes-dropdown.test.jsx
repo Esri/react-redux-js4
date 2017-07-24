@@ -29,7 +29,7 @@ describe('components', () => {
       expect(wrapper.find('.dropdown-link').at(1).text()).toBe('Webscene 2');
     });
 
-     it('should call loadWebScene when web scene link is clicked', () => {
+    it('should call loadWebScene when web scene link is clicked', () => {
       const { props, wrapper } = setup();
       wrapper.find('.dropdown-link').at(0).simulate('click');
       expect(props.loadWebScene).toHaveBeenCalledWith('12345');
