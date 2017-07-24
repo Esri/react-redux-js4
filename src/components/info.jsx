@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 
-const Info = ({ interacting, scale, zoom, selectionLength }) => (
+export const Info = ({ interacting, scale, zoom, selectionLength }) => (
   <div className="info">
     <div className="card">
       <div className="card-content">
