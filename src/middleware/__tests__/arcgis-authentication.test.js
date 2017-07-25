@@ -3,6 +3,8 @@ import IdentityManager from 'esri/identity/IdentityManager'; // eslint-disable-l
 
 import * as types from '../../reducer/user/actions';
 
+jest.mock('esri/config', () => ({ request: { corsEnabledServers: [] } }), { virtual: true });
+
 jest.mock('esri/identity/OAuthInfo', () => {
   const OAuthInfo = jest.fn();
   OAuthInfo.prototype.portalUrl = 'http://bla';
