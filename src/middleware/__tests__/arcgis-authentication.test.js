@@ -1,37 +1,39 @@
 import authentication from '../arcgis-authentication';
 import IdentityManager from 'esri/identity/IdentityManager'; // eslint-disable-line
+import OAuthInfo from 'esri/identity/OAuthInfo'; // eslint-disable-line
+import Portal from 'esri/portal/Portal'; // eslint-disable-line
 
 import * as types from '../../reducer/user/actions';
+import { APP_ID, APP_PORTAL_URL } from '../../constants';
 
 jest.mock('esri/config', () => ({ request: { corsEnabledServers: [] } }), { virtual: true });
 
 jest.mock('esri/identity/OAuthInfo', () => {
-  const OAuthInfo = jest.fn();
-  OAuthInfo.prototype.portalUrl = 'http://bla';
-  return OAuthInfo;
+  const OAuthInfoMock = jest.fn();
+  OAuthInfoMock.prototype.portalUrl = 'http://bla';
+  return OAuthInfoMock;
 }, { virtual: true });
 
-jest.mock('esri/identity/IdentityManager', () => ({
-  registerOAuthInfos: jest.fn(),
-  checkSignInStatus: jest.fn(() => Promise.resolve()),
-  getCredential: jest.fn(),
-  destroyCredentials: jest.fn(),
-}), { virtual: true });
+jest.mock('esri/identity/IdentityManager', () => {
+  const IdentityManagerMock = jest.fn();
+  IdentityManagerMock.registerOAuthInfos = jest.fn();
+  IdentityManagerMock.checkSignInStatus = jest.fn(() => Promise.resolve());
+  IdentityManagerMock.getCredential = jest.fn();
+  IdentityManagerMock.destroyCredentials = jest.fn();
+  return IdentityManagerMock;
+}, { virtual: true });
 
 jest.mock('esri/portal/Portal', () => {
-  const Portal = jest.fn();
-  Portal.prototype.load = jest.fn(() => Promise.resolve());
-  Portal.prototype.user = {
+  const PortalMock = jest.fn();
+  PortalMock.prototype.load = jest.fn(() => Promise.resolve());
+  PortalMock.prototype.user = {
     username: 'user123',
     fullName: 'John',
     email: 'john@gmail.com',
     thumbnailUrl: 'http://blabla.jpg',
   };
-  Portal.prototype.queryItems = jest.fn(() => {
-    console.log('query items');
-    return Promise.resolve({ results: [{ id: 0, name: 'web scene' }] });
-  });
-  return Portal;
+  PortalMock.prototype.queryItems = jest.fn(() => Promise.resolve({ results: [{ id: 0, name: 'web scene' }] }));
+  return PortalMock;
 }, { virtual: true });
 
 const create = () => {
@@ -52,12 +54,22 @@ describe('async actions', () => {
     expect(next).toHaveBeenCalledWith(action);
   });
 
+  it('is initialized with OAuthInfo and Portal', () => {
+    expect(OAuthInfo).toHaveBeenCalledWith({
+      appId: APP_ID,
+      popup: false,
+      portalUrl: APP_PORTAL_URL,
+    });
+    expect(Portal).toHaveBeenCalled();
+  });
+
   it('loads portal and dispatches SET_IDENTITY on GET_IDENTITY', () => {
     const { next, invoke, store } = create();
     const action = { type: types.GET_IDENTITY };
-    expect.hasAssertions();
+    expect.assertions(5);
     invoke(action)
       .then(() => {
+        expect(Portal.mock.instances[0].load).toHaveBeenCalled();
         expect(store.dispatch).toHaveBeenCalledWith({
           type: types.SET_IDENTITY,
           username: 'user123',
@@ -65,7 +77,9 @@ describe('async actions', () => {
           email: 'john@gmail.com',
           thumbnailurl: 'http://blabla.jpg',
         });
-        expect(store.dispatch).toHaveBeenCalledWith({ type: types.GET_USER_WEBSCENES });
+        expect(store.dispatch).toHaveBeenCalledWith({
+          type: types.GET_USER_WEBSCENES,
+        });
       });
     expect(next).toHaveBeenCalledWith(action);
     expect(IdentityManager.checkSignInStatus).toHaveBeenCalledWith('http://bla/sharing');
