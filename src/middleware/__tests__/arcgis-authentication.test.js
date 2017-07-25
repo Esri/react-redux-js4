@@ -87,7 +87,7 @@ describe('async actions', () => {
     expect(next).toHaveBeenCalledWith(action);
   });
 
-  /* it('loads user web scenes and dispatches SET_USER_WEBSCENES', () => {
+  it('loads user web scenes and dispatches SET_USER_WEBSCENES', () => {
     const { next, invoke, store } = create();
     const action = { type: types.GET_USER_WEBSCENES };
     expect.assertions(2);
@@ -99,5 +99,5 @@ describe('async actions', () => {
         });
       });
     expect(next).toHaveBeenCalledWith(action);
-  }); */
+  });
 });
