@@ -41,12 +41,12 @@ const registerClickEvent = (view, store) => {
           if (multiSelect) {
             store.dispatch({
               type: SELECTION_TOGGLE,
-              OID: response.results[0].graphic.attributes.OID,
+              OID: response.results[0].graphic.attributes[arcgis.sceneLayer.objectIdField],
             });
           } else {
             store.dispatch({
               type: SELECTION_SET,
-              OIDArray: [response.results[0].graphic.attributes.OID],
+              OIDArray: [response.results[0].graphic.attributes[arcgis.sceneLayer.objectIdField]],
             });
           }
         } else if (!multiSelect) {

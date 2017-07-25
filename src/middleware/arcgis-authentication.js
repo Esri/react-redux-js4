@@ -1,8 +1,9 @@
+import esriConfig from 'esri/config'; // eslint-disable-line
 import OAuthInfo from 'esri/identity/OAuthInfo'; // eslint-disable-line
 import IdentityManager from 'esri/identity/IdentityManager'; // eslint-disable-line
 import Portal from 'esri/portal/Portal'; // eslint-disable-line
 
-import { APP_ID } from '../constants';
+import { APP_ID, APP_PORTAL_URL } from '../constants';
 
 import {
   GET_IDENTITY,
@@ -13,9 +14,10 @@ import {
   SET_USER_WEBSCENES,
 } from '../reducer/user/actions';
 
-
-const info = new OAuthInfo({ appId: APP_ID, popup: false });
+esriConfig.portalUrl = APP_PORTAL_URL;
+const info = new OAuthInfo({ appId: APP_ID, popup: false, portalUrl: APP_PORTAL_URL });
 const portal = new Portal({ authMode: 'immediate' });
+
 
 IdentityManager.registerOAuthInfos([info]);
 
