@@ -15,6 +15,8 @@ It provides two useful Redux middleware examples:
 * **arcgis-authentication** to handle Portal login
 * **arcgis-sceneview** to show a SceneView with a WebScene
 
+It currently supports Web Scenes with one Scene Layer.
+
 # Tests
 
 This example includes [Jest](http://facebook.github.io/jest/) tests for:
