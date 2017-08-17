@@ -26,8 +26,11 @@
     "gulp-babel": "^6.1.1",
     "gulp-connect": "^5.0.0",
     "gulp-eslint": "^4.0.0",
+    "gulp-util": "^3.0.8",
     "jest": "^20.0.4",
-    "react-test-renderer": "^15.6.1"
+    "react-test-renderer": "^15.6.1",
+    "webpack": "^3.5.5",
+    "webpack-dev-server": "^2.7.1"
   },
   "dependencies": {
     "bower": "^1.8.0",
