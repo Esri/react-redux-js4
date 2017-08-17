@@ -9,6 +9,8 @@ import {
   SELECTION_SET,
   SELECTION_TOGGLE,
   SELECTION_RESET,
+  INIT_DATE,
+  SET_DATE,
 } from '../reducer/webscene/actions';
 
 esriConfig.request.corsEnabledServers.push('a.tile.stamen.com');
@@ -17,6 +19,8 @@ esriConfig.request.corsEnabledServers.push('c.tile.stamen.com');
 esriConfig.request.corsEnabledServers.push('d.tile.stamen.com');
 
 const arcgis = {};
+
+window._debug = arcgis;
 
 const registerInteractionEvent = (view, store) => {
   view.watch('interacting, scale, zoom', () => {
@@ -104,6 +108,11 @@ const arcgisMiddleWare = store => next => (action) => {
           const newAction = Object.assign({ ...action, name: arcgis.webScene.portalItem.title });
           next(newAction);
 
+          store.dispatch({
+            type: INIT_DATE,
+            date: arcgis.sceneView.environment.lighting.date,
+          });
+
           return Promise.resolve();
         });
     }
@@ -119,6 +128,12 @@ const arcgisMiddleWare = store => next => (action) => {
       // Update needs to happen after the action dispatched, to have the correct selection.
       updateHighlight(store.getState().webscene.selection);
 
+      break;
+    }
+
+    case SET_DATE: {
+      arcgis.sceneView.environment.lighting.date = new Date(action.date);
+      next(action);
       break;
     }
 
