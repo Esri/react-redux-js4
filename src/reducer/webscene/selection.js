@@ -2,27 +2,34 @@ import { SELECTION_SET, SELECTION_TOGGLE, SELECTION_RESET } from './actions';
 
 const initialState = [];
 
-const hasItem = (array, OID) => array.indexOf(OID) > -1;
+const findItem = (array, layer, OID) =>
+  array.find(item => item.layer === layer && item.OID === OID);
 
-const addItem = (array, OID) => {
+const addItem = (array, layer, OID) => {
   const newArray = array.slice();
-  newArray.push(OID);
+  newArray.push({
+    layer,
+    OID,
+  });
   return newArray;
 };
 
-const removeItem = (array, OID) => {
+const removeItem = (array, layer, OID) => {
   const newArray = array.slice();
-  newArray.splice(array.indexOf(OID), 1);
+  newArray.splice(array.findIndex(item => item.layer === layer && item.OID === OID), 1);
   return newArray;
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case SELECTION_SET:
-      return action.OIDArray.slice();
+      return [{
+        layer: action.layer,
+        OID: action.OID,
+      }];
     case SELECTION_TOGGLE:
-      return hasItem(state, action.OID)
-        ? removeItem(state, action.OID) : addItem(state, action.OID);
+      return findItem(state, action.layer, action.OID)
+        ? removeItem(state, action.layer, action.OID) : addItem(state, action.layer, action.OID);
     case SELECTION_RESET:
       return initialState;
     default:

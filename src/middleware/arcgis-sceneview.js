@@ -19,6 +19,7 @@ esriConfig.request.corsEnabledServers.push('c.tile.stamen.com');
 esriConfig.request.corsEnabledServers.push('d.tile.stamen.com');
 
 const arcgis = {};
+const highlights = [];
 
 window._debug = arcgis;
 
@@ -41,18 +42,13 @@ const registerClickEvent = (view, store) => {
 
     view.hitTest(event.screenPoint)
       .then((response) => {
-        if (response.results && response.results[0] && response.results[0].graphic) {
-          if (multiSelect) {
-            store.dispatch({
-              type: SELECTION_TOGGLE,
-              OID: response.results[0].graphic.attributes[arcgis.sceneLayer.objectIdField],
-            });
-          } else {
-            store.dispatch({
-              type: SELECTION_SET,
-              OIDArray: [response.results[0].graphic.attributes[arcgis.sceneLayer.objectIdField]],
-            });
-          }
+        const graphic = response.results && response.results[0] && response.results[0].graphic;
+        if (graphic) {
+          store.dispatch({
+            type: multiSelect ? SELECTION_TOGGLE : SELECTION_SET,
+            layer: graphic.layer.id,
+            OID: graphic.attributes[graphic.layer.objectIdField],
+          });
         } else if (!multiSelect) {
           store.dispatch({ type: SELECTION_RESET });
         }
@@ -61,8 +57,20 @@ const registerClickEvent = (view, store) => {
 };
 
 const updateHighlight = (selection) => {
-  if (arcgis.highlight) arcgis.highlight.remove();
-  if (arcgis.sceneLayerView) arcgis.highlight = arcgis.sceneLayerView.highlight(selection);
+  while (highlights.length) {
+    highlights[0].remove();
+    highlights.splice(0, 1);
+  }
+
+  arcgis.sceneView.layerViews.items.forEach(layerView =>
+    highlights.push(
+      layerView.highlight(
+        selection
+          .filter(item => item.layer === layerView.layer.id)
+          .map(item => item.OID),
+        ),
+      ),
+  );
 };
 
 
@@ -90,21 +98,14 @@ const arcgisMiddleWare = store => next => (action) => {
       store.dispatch({ type: SELECTION_RESET });
 
       // Initialize web scene
-      arcgis.webScene = new WebScene({ portalItem: { id: action.websceneId } });
-      arcgis.sceneView.map = arcgis.webScene;
+      const webScene = new WebScene({ portalItem: { id: action.websceneId } });
+      arcgis.sceneView.map = webScene;
 
       // When initialized...
-      return arcgis.webScene
+      return webScene
         .then(() => {
-          arcgis.sceneLayer = arcgis.webScene.layers.getItemAt(0);
-          arcgis.sceneLayer.popupEnabled = false;
+          webScene.layers.items.forEach(layer => (layer.popupEnabled = false));
 
-          return arcgis.sceneView.whenLayerView(arcgis.sceneLayer);
-        })
-        .then((sceneLayerView) => {
-          arcgis.sceneLayerView = sceneLayerView;
-
-          // add the webscene name to the action and dispatch
           const newAction = Object.assign({ ...action, name: arcgis.webScene.portalItem.title });
           next(newAction);
 

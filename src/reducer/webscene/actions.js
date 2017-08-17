@@ -31,16 +31,18 @@ export function viewChange(view) {
   };
 }
 
-export function selectionSet(OIDArray) {
+export function selectionSet(layer, OID) {
   return {
     type: SELECTION_SET,
-    OIDArray,
+    layer,
+    OID,
   };
 }
 
-export function selectionToggle(OID) {
+export function selectionToggle(layer, OID) {
   return {
     type: SELECTION_TOGGLE,
+    layer,
     OID,
   };
 }
