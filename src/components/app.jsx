@@ -8,11 +8,11 @@ import TimeNav from './widgets/time-nav';
 import ShadowsNav from './widgets/shadows-nav';
 
 
-const App = ({ name }) => (
+const App = ({ websceneId, name }) => (
   <div className="container">
     <Header />
     <div className="app-main">
-      <WebSceneView />
+      <WebSceneView websceneId={websceneId} />
       {name && <div className="app-widgets">
         <TimeNav />
         <ShadowsNav />
@@ -23,10 +23,12 @@ const App = ({ name }) => (
 
 App.propTypes = {
   name: PropTypes.string,
+  websceneId: PropTypes.string,
 };
 
 App.defaultProps = {
   name: null,
+  websceneId: null,
 };
 
 const mapStateToProps = ({ webscene: { name } }) => ({

@@ -1,10 +1,11 @@
 export const INIT_SCENE_VIEW = 'INIT_SCENE_VIEW';
 export const LOAD_WEB_SCENE = 'LOAD_WEB_SCENE';
 
-export function initSceneView(container) {
+export function initSceneView(container, id) {
   return {
     type: INIT_SCENE_VIEW,
     container,
+    id,
   };
 }
 

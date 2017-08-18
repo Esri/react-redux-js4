@@ -27,11 +27,17 @@ const arcgisMiddleWare = store => next => (action) => {
      * Initialize scene view on a viewport container.
      */
     case INIT_SCENE_VIEW: {
+      next(action);
       arcgis.sceneView = new SceneView({ container: action.container });
 
       registerClickEvent(arcgis.sceneView, store);
 
-      next(action);
+      if (action.id) {
+        store.dispatch({
+          type: LOAD_WEB_SCENE,
+          id: action.id,
+        });
+      }
       break;
     }
 

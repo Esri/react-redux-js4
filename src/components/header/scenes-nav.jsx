@@ -2,23 +2,39 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import * as actions from '../../reducer/webscene/actions';
 
 export class ScenesNav extends Component {
   constructor(props) {
     super(props);
     this.state = {
       open: false,
+      mouse: false,
     };
   }
 
+  mouseEnter() {
+    this.setState({
+      mouse: true,
+    });
+  }
+
+  mouseLeave() {
+    this.setState({
+      mouse: false,
+    });
+  }
+
   toggleMenu() {
-    this.setState({ open: !this.state.open });
+    this.setState({
+      open: !this.state.open,
+    });
   }
 
   collapseMenu() {
+    if (this.state.mouse) return;
     this.setState({ open: false });
   }
+
 
   render() {
     return (
@@ -26,6 +42,8 @@ export class ScenesNav extends Component {
         <div
           className={`dropdown ${this.state.open ? ' is-active' : ''}`}
           onBlur={() => this.collapseMenu()}
+          onMouseEnter={() => this.mouseEnter()}
+          onMouseLeave={() => this.mouseLeave()}
         >
           <a href="#" className="top-nav-link dropdown-btn" onMouseDown={() => this.toggleMenu()}>
             Scenes &nbsp;
@@ -37,10 +55,9 @@ export class ScenesNav extends Component {
             </span>
             {this.props.websceneItems.map(item => (
               <a
-                href="#"
+                href={`/?id=${item.id}`}
                 className="dropdown-link"
                 key={item.id}
-                onMouseDown={this.props.loadWebScene(item.id)}
               >
                 {item.title}
               </a>
@@ -54,7 +71,6 @@ export class ScenesNav extends Component {
 
 ScenesNav.propTypes = {
   websceneItems: PropTypes.array,
-  loadWebScene: PropTypes.func.isRequired,
 };
 
 ScenesNav.defaultProps = {
@@ -65,12 +81,4 @@ const mapStateToProps = ({ user: { websceneItems } }) => ({
   websceneItems,
 });
 
-const mapDispatchToProps = dispatch => ({
-  loadWebScene(websceneid) {
-    return () => {
-      dispatch(actions.loadWebScene(websceneid));
-    };
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ScenesNav);
+export default connect(mapStateToProps)(ScenesNav);
