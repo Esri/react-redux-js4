@@ -9,9 +9,12 @@ import {
   SELECTION_SET,
   SELECTION_TOGGLE,
   SELECTION_RESET,
-  INIT_DATE,
-  SET_DATE,
 } from '../reducer/webscene/actions';
+
+import {
+  SET_ENVIRONMENT,
+  SET_DATE,
+} from '../reducer/environment/actions';
 
 esriConfig.request.corsEnabledServers.push('a.tile.stamen.com');
 esriConfig.request.corsEnabledServers.push('b.tile.stamen.com');
@@ -21,7 +24,7 @@ esriConfig.request.corsEnabledServers.push('d.tile.stamen.com');
 const arcgis = {};
 const highlights = [];
 
-window._debug = arcgis;
+window.arcgis = arcgis;
 
 const registerInteractionEvent = (view, store) => {
   view.watch('interacting, scale, zoom', () => {
@@ -106,12 +109,18 @@ const arcgisMiddleWare = store => next => (action) => {
         .then(() => {
           webScene.layers.items.forEach(layer => (layer.popupEnabled = false));
 
-          const newAction = Object.assign({ ...action, name: arcgis.webScene.portalItem.title });
-          next(newAction);
+          next({ ...action, name: webScene.portalItem.title });
 
+          const environment = arcgis.sceneView.map.initialViewProperties.environment;
+          const UTCOffset = environment.lighting.displayUTCOffset;
+          const date = new Date(environment.lighting.date);
+          date.setUTCHours(date.getUTCHours() + UTCOffset);
+          
           store.dispatch({
-            type: INIT_DATE,
-            date: arcgis.sceneView.environment.lighting.date,
+            type: SET_ENVIRONMENT,
+            date,
+            UTCOffset,
+            shadows: environment.lighting.directShadowsEnabled,
           });
 
           return Promise.resolve();
@@ -132,8 +141,15 @@ const arcgisMiddleWare = store => next => (action) => {
       break;
     }
 
+    case SET_ENVIRONMENT:
     case SET_DATE: {
-      arcgis.sceneView.environment.lighting.date = new Date(action.date);
+      next(action);
+      const { environment: { date, utcoffset, shadows } } = store.getState();
+      const newDate = new Date(date);
+      newDate.setUTCHours(newDate.getUTCHours() - utcoffset);
+      arcgis.sceneView.environment.lighting.date = newDate;
+      arcgis.sceneView.environment.lighting.displayUTCOffset = utcoffset;
+      arcgis.sceneView.environment.lighting.directShadowsEnabled = shadows;
       next(action);
       break;
     }

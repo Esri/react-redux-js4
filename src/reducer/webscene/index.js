@@ -4,7 +4,6 @@ import selection from './selection';
 import interacting from './interacting';
 import scale from './scale';
 import zoom from './zoom';
-import date from './date';
 
 export default combineReducers({
   name,
@@ -12,5 +11,4 @@ export default combineReducers({
   interacting,
   scale,
   zoom,
-  date,
 });

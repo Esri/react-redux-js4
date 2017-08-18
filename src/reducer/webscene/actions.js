@@ -6,9 +6,6 @@ export const SELECTION_SET = 'SELECTION_SET';
 export const SELECTION_TOGGLE = 'SELECTION_TOGGLE';
 export const SELECTION_RESET = 'SELECTION_RESET';
 
-export const INIT_DATE = 'INIT_DATE';
-export const SET_DATE = 'SET_DATE';
-
 export function initSceneView(container) {
   return {
     type: INIT_SCENE_VIEW,
@@ -50,19 +47,5 @@ export function selectionToggle(layer, OID) {
 export function selectionReset() {
   return {
     type: SELECTION_RESET,
-  };
-}
-
-export function initDate(date) {
-  return {
-    type: INIT_DATE,
-    date,
-  };
-}
-
-export function setDate(date) {
-  return {
-    type: SET_DATE,
-    date,
   };
 }

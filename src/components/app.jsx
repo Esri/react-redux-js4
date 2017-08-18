@@ -3,6 +3,7 @@ import React from 'react';
 import Header from './header';
 import WebSceneView from './webscene';
 import Info from './info';
+import TimeNav from './timenav';
 
 
 const App = () => (
@@ -11,6 +12,7 @@ const App = () => (
     <div className="app-main">
       <WebSceneView />
       <Info />
+      <TimeNav />
     </div>
   </div>
 );
