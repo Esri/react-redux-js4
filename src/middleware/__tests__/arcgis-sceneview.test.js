@@ -3,11 +3,12 @@ import SceneView from 'esri/views/SceneView'; // eslint-disable-line
 import WebScene from 'esri/WebScene'; // eslint-disable-line
 
 import { INIT_SCENE_VIEW, LOAD_WEB_SCENE } from '../../reducer/webscene/actions';
-import { SELECTION_SET, SELECTION_RESET } from '../../reducer/selection/actions';
+import { SELECTION_SET, SELECTION_RESET, SELECTION_TOGGLE } from '../../reducer/selection/actions';
 import { SET_ENVIRONMENT } from '../../reducer/environment/actions';
 
 import { registerClickEvent } from '../arcgis-sceneview/interaction';
 import { updateHighlights } from '../arcgis-sceneview/highlights';
+import { setEnvironment } from '../arcgis-sceneview/environment';
 
 /**
  * Mocks
@@ -60,6 +61,9 @@ jest.mock('../arcgis-sceneview/highlights', () => ({
   updateHighlights: jest.fn(),
 }), { virtual: true });
 
+jest.mock('../arcgis-sceneview/environment', () => ({
+  setEnvironment: jest.fn(),
+}), { virtual: true });
 
 /**
  * Middleware stuff
@@ -71,6 +75,11 @@ const create = () => {
         layer: 'foo',
         OID: 3,
       }],
+      environment: {
+        date: new Date(Date.UTC(2017, 1, 1, 11)),
+        utcoffset: -3,
+        shadows: true,
+      },
     })),
     dispatch: jest.fn(),
   };
@@ -84,16 +93,16 @@ const create = () => {
  * Tests
  */
 describe('async actions', () => {
-
-
   it('passes through non-function action', () => {
     const { next, invoke } = create();
     const action = { type: 'TEST' };
     invoke(action);
     expect(next).toHaveBeenCalledWith(action);
   });
+});
 
 
+describe('Arcgis SceneView middleware - scene loading', () => {
   it('initializes a new SceneView on INIT_SCENE_VIEW and registers event listeners', () => {
     const { next, invoke } = create();
     const action = {
@@ -130,8 +139,10 @@ describe('async actions', () => {
     expect(store.dispatch).toHaveBeenCalledWith({ type: SELECTION_RESET });
     expect(WebScene).toHaveBeenCalledWith({ portalItem: { id: 'abc1234' } });
   });
+});
 
 
+describe('Arcgis SceneView middleware - selection', () => {
   it('updates highlights on SELECTION_SET', () => {
     const { next, invoke } = create();
     const action = {
@@ -147,5 +158,59 @@ describe('async actions', () => {
       layer: 'foo',
       OID: 3,
     }]);
+  });
+
+
+  it('updates highlights on SELECTION_RESET', () => {
+    const { next, invoke } = create();
+    const action = {
+      type: SELECTION_RESET,
+    };
+    invoke(action);
+    expect(next).toHaveBeenCalledWith(action);
+    expect(updateHighlights).toHaveBeenCalledWith({
+      map: {},
+    }, [{
+      layer: 'foo',
+      OID: 3,
+    }]);
+  });
+
+
+  it('updates highlights on SELECTION_TOGGLE', () => {
+    const { next, invoke } = create();
+    const action = {
+      type: SELECTION_TOGGLE,
+      layer: 'foo',
+      OID: 3,
+    };
+    invoke(action);
+    expect(next).toHaveBeenCalledWith(action);
+    expect(updateHighlights).toHaveBeenCalledWith({
+      map: {},
+    }, [{
+      layer: 'foo',
+      OID: 3,
+    }]);
+  });
+});
+
+describe('Arcgis SceneView middleware - environment', () => {
+  it('updates environment on SET_ENVIRONMENT', () => {
+    const { next, invoke } = create();
+    const action = {
+      type: SET_ENVIRONMENT,
+      date: new Date(Date.UTC(2017, 1, 1, 11)),
+      UTCOffset: -3,
+      shadows: true,
+    };
+    invoke(action);
+    expect(next).toHaveBeenCalledWith(action);
+    expect(setEnvironment).toHaveBeenCalledWith(
+      { map: {} },
+      new Date(Date.UTC(2017, 1, 1, 14)),
+      -3,
+      true,
+    );
   });
 });

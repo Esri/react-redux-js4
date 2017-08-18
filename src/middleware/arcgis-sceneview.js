@@ -8,6 +8,7 @@ import { SET_ENVIRONMENT, SET_DATE, SET_SHADOWS } from '../reducer/environment/a
 
 import { registerClickEvent } from './arcgis-sceneview/interaction';
 import { updateHighlights } from './arcgis-sceneview/highlights';
+import { setEnvironment } from './arcgis-sceneview/environment';
 
 esriConfig.request.corsEnabledServers.push('a.tile.stamen.com');
 esriConfig.request.corsEnabledServers.push('b.tile.stamen.com');
@@ -93,9 +94,7 @@ const arcgisMiddleWare = store => next => (action) => {
       const { environment: { date, utcoffset, shadows } } = store.getState();
       const newDate = new Date(date);
       newDate.setUTCHours(newDate.getUTCHours() - utcoffset);
-      arcgis.sceneView.environment.lighting.date = newDate;
-      arcgis.sceneView.environment.lighting.displayUTCOffset = utcoffset;
-      arcgis.sceneView.environment.lighting.directShadowsEnabled = shadows;
+      setEnvironment(arcgis.sceneView, newDate, utcoffset, shadows);
       break;
     }
 
