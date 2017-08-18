@@ -1,24 +1,36 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import Header from './header';
+import Header from './header/header';
 import WebSceneView from './webscene';
-import Info from './info';
-import TimeNav from './timenav';
-import ShadowsNav from './shadowsnav';
+import TimeNav from './widgets/timenav';
+import ShadowsNav from './widgets/shadowsnav';
 
 
-const App = () => (
+const App = ({ name }) => (
   <div className="container">
     <Header />
     <div className="app-main">
       <WebSceneView />
-      <div className="app-widgets">
+      {name && <div className="app-widgets">
         <TimeNav />
         <ShadowsNav />
-        <Info />
-      </div>
+      </div>}
     </div>
   </div>
 );
 
-export default App;
+App.propTypes = {
+  name: PropTypes.string,
+};
+
+App.defaultProps = {
+  name: null,
+};
+
+const mapStateToProps = ({ webscene: { name } }) => ({
+  name,
+});
+
+export default connect(mapStateToProps)(App);

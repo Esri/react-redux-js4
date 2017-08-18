@@ -4,7 +4,7 @@ export const SET_SHADOWS = 'SET_SHADOWS';
 
 export function setEnvironment(date, UTCOffset, shadows) {
   return {
-    type: SET_DATE,
+    type: SET_ENVIRONMENT,
     date,
     UTCOffset,
     shadows,

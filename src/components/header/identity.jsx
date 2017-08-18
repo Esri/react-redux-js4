@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import * as actions from '../reducer/user/actions';
+import * as actions from '../../reducer/user/actions';
 
 export class Identity extends Component {
   constructor(props) {

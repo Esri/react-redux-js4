@@ -2,80 +2,22 @@ import esriConfig from 'esri/config'; // eslint-disable-line
 import SceneView from 'esri/views/SceneView'; // eslint-disable-line
 import WebScene from 'esri/WebScene'; // eslint-disable-line
 
-import {
-  INIT_SCENE_VIEW,
-  LOAD_WEB_SCENE,
-  VIEW_CHANGE,
-  SELECTION_SET,
-  SELECTION_TOGGLE,
-  SELECTION_RESET,
-} from '../reducer/webscene/actions';
+import { INIT_SCENE_VIEW, LOAD_WEB_SCENE } from '../reducer/webscene/actions';
+import { SELECTION_SET, SELECTION_TOGGLE, SELECTION_RESET } from '../reducer/selection/actions';
+import { SET_ENVIRONMENT, SET_DATE, SET_SHADOWS } from '../reducer/environment/actions';
 
-import {
-  SET_ENVIRONMENT,
-  SET_DATE,
-  SET_SHADOWS,
-} from '../reducer/environment/actions';
+import { registerClickEvent } from './arcgis-sceneview/interaction';
+import { updateHighlights } from './arcgis-sceneview/highlights';
 
 esriConfig.request.corsEnabledServers.push('a.tile.stamen.com');
 esriConfig.request.corsEnabledServers.push('b.tile.stamen.com');
 esriConfig.request.corsEnabledServers.push('c.tile.stamen.com');
 esriConfig.request.corsEnabledServers.push('d.tile.stamen.com');
 
+
 const arcgis = {};
-const highlights = [];
 
 window.arcgis = arcgis;
-
-const registerInteractionEvent = (view, store) => {
-  view.watch('interacting, scale, zoom', () => {
-    store.dispatch({
-      type: VIEW_CHANGE,
-      view: {
-        interacting: view.interacting,
-        zoom: view.zoom,
-        scale: view.scale,
-      },
-    });
-  });
-};
-
-const registerClickEvent = (view, store) => {
-  view.on('click', (event) => {
-    const multiSelect = event.native.shiftKey || event.native.ctrlKey || event.native.metaKey;
-
-    view.hitTest(event.screenPoint)
-      .then((response) => {
-        const graphic = response.results && response.results[0] && response.results[0].graphic;
-        if (graphic) {
-          store.dispatch({
-            type: multiSelect ? SELECTION_TOGGLE : SELECTION_SET,
-            layer: graphic.layer.id,
-            OID: graphic.attributes[graphic.layer.objectIdField],
-          });
-        } else if (!multiSelect) {
-          store.dispatch({ type: SELECTION_RESET });
-        }
-      });
-  });
-};
-
-const updateHighlight = (selection) => {
-  while (highlights.length) {
-    highlights[0].remove();
-    highlights.splice(0, 1);
-  }
-
-  arcgis.sceneView.layerViews.items.forEach(layerView =>
-    highlights.push(
-      layerView.highlight(
-        selection
-          .filter(item => item.layer === layerView.layer.id)
-          .map(item => item.OID),
-        ),
-      ),
-  );
-};
 
 
 const arcgisMiddleWare = store => next => (action) => {
@@ -86,7 +28,6 @@ const arcgisMiddleWare = store => next => (action) => {
     case INIT_SCENE_VIEW: {
       arcgis.sceneView = new SceneView({ container: action.container });
 
-      registerInteractionEvent(arcgis.sceneView, store);
       registerClickEvent(arcgis.sceneView, store);
 
       next(action);
@@ -102,7 +43,7 @@ const arcgisMiddleWare = store => next => (action) => {
       store.dispatch({ type: SELECTION_RESET });
 
       // Initialize web scene
-      const webScene = new WebScene({ portalItem: { id: action.websceneId } });
+      const webScene = new WebScene({ portalItem: { id: action.id } });
       arcgis.sceneView.map = webScene;
 
       // When initialized...
@@ -137,7 +78,8 @@ const arcgisMiddleWare = store => next => (action) => {
       next(action);
 
       // Update needs to happen after the action dispatched, to have the correct selection.
-      updateHighlight(store.getState().webscene.selection);
+      const { selection } = store.getState();
+      updateHighlights(arcgis.sceneView, selection);
 
       break;
     }
@@ -146,6 +88,8 @@ const arcgisMiddleWare = store => next => (action) => {
     case SET_DATE:
     case SET_SHADOWS: {
       next(action);
+
+      // Update needs to happen after the action dispatched, to have the correct environment.
       const { environment: { date, utcoffset, shadows } } = store.getState();
       const newDate = new Date(date);
       newDate.setUTCHours(newDate.getUTCHours() - utcoffset);

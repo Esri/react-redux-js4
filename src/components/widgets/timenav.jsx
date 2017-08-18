@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as actions from '../reducer/environment/actions';
+import * as actions from '../../reducer/environment/actions';
 
 const pad2 = value => (value.toString().length === 1 ? `0${value.toString()}` : value.toString());
 
@@ -38,21 +38,19 @@ export class TimeNav extends Component {
 
   render() {
     return (
-      <div className="time-nav">
-        <div className="card">
-          <div className="card-content">
-            <label htmlFor="time">Time: {`${this.getTimeString()}`}</label>
-            <input
-              className="time-range-slider"
-              id="time"
-              type="range"
-              min="0"
-              max="23.99"
-              step="0.02"
-              value={this.getSliderValue()}
-              onChange={this.handleChange}
-            />
-          </div>
+      <div className="time-nav card">
+        <div className="card-content">
+          <label htmlFor="time">Time: {`${this.getTimeString()}`}</label>
+          <input
+            className="time-range-slider"
+            id="time"
+            type="range"
+            min="0"
+            max="23.99"
+            step="0.02"
+            value={this.getSliderValue()}
+            onChange={this.handleChange}
+          />
         </div>
       </div>
     );

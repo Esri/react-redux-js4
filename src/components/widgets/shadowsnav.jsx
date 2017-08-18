@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as actions from '../reducer/environment/actions';
+import * as actions from '../../reducer/environment/actions';
 
 export class ShadowNav extends Component {
   constructor(props) {
@@ -17,22 +17,20 @@ export class ShadowNav extends Component {
 
   render() {
     return (
-      <div className="shadow-nav">
-        <div className="card">
-          <div className="card-content">
-            <fieldset className="fieldset-checkbox">
-              <label htmlFor="shadows">
-                <input
-                  type="checkbox"
-                  id="shadows"
-                  checked={this.props.shadows}
-                  onChange={this.handleChange}
-                />
-                &nbsp;
-                Shadows
-              </label>
-            </fieldset>
-          </div>
+      <div className="shadow-nav card">
+        <div className="card-content">
+          <fieldset className="fieldset-checkbox">
+            <label htmlFor="shadows">
+              <input
+                type="checkbox"
+                id="shadows"
+                checked={this.props.shadows}
+                onChange={this.handleChange}
+              />
+              &nbsp;
+              Shadows
+            </label>
+          </fieldset>
         </div>
       </div>
     );

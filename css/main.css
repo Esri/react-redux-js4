@@ -53,8 +53,8 @@ html, body {
   margin-bottom: 5px;
 }
 
-.time-nav > div > div> label,
-.shadow-nav > div > div > fieldset {
+.time-nav > div> label,
+.shadow-nav > div > fieldset {
   margin: 0;
 }
 
