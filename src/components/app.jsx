@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 
 import Header from './header/header';
 import WebSceneView from './webscene';
-import TimeNav from './widgets/timenav';
-import ShadowsNav from './widgets/shadowsnav';
+import TimeNav from './widgets/time-nav';
+import ShadowsNav from './widgets/shadows-nav';
 
 
 const App = ({ name }) => (

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../reducer/webscene/actions';
 
-export class ScenesDropdown extends Component {
+export class ScenesNav extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -52,12 +52,12 @@ export class ScenesDropdown extends Component {
   }
 }
 
-ScenesDropdown.propTypes = {
+ScenesNav.propTypes = {
   websceneItems: PropTypes.array,
   loadWebScene: PropTypes.func.isRequired,
 };
 
-ScenesDropdown.defaultProps = {
+ScenesNav.defaultProps = {
   websceneItems: [],
 };
 
@@ -73,4 +73,4 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ScenesDropdown);
+export default connect(mapStateToProps, mapDispatchToProps)(ScenesNav);

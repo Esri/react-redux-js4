@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { ScenesDropdown } from '../scenes-dropdown';
+import { ScenesNav } from '../scenes-nav';
 
 function setup() {
   const props = {
@@ -14,13 +14,13 @@ function setup() {
     }],
     loadWebScene: jest.fn(),
   };
-  const wrapper = mount(<ScenesDropdown {...props} />);
+  const wrapper = mount(<ScenesNav {...props} />);
 
   return { props, wrapper };
 }
 
 describe('components', () => {
-  describe('<ScenesDropdown />', () => {
+  describe('<ScenesNav />', () => {
     it('should render self with two scenes in the dropdown', () => {
       const { wrapper } = setup();
       expect(wrapper.find('.userscenesdropdown').hasClass('hidden')).toBe(false);

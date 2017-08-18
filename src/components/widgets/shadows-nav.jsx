@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import * as actions from '../../reducer/environment/actions';
 
-export class ShadowNav extends Component {
+export class ShadowsNav extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -37,7 +37,7 @@ export class ShadowNav extends Component {
   }
 }
 
-ShadowNav.propTypes = {
+ShadowsNav.propTypes = {
   shadows: PropTypes.bool.isRequired,
   setShadows: PropTypes.func.isRequired,
 };
@@ -52,4 +52,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShadowNav);
+export default connect(mapStateToProps, mapDispatchToProps)(ShadowsNav);
