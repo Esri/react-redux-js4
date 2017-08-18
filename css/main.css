@@ -36,25 +36,25 @@ html, body {
 }
 
 .websceneview {
+  position: absolute;
   height: 100%;
   width: 100%;
 }
 
+.app-widgets {
+  margin: 15px;
+  float: right;
+}
+
+.time-nav,
+.shadow-nav,
 .info {
-  position: absolute;
-  bottom: 30px;
-  right: 15px;
   width: 300px;
+  margin-bottom: 5px;
 }
 
-.time-nav {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 300px;
-}
-
-.time-nav > div > div> label {
+.time-nav > div > div> label,
+.shadow-nav > div > div > fieldset {
   margin: 0;
 }
 

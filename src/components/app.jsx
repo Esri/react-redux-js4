@@ -4,6 +4,7 @@ import Header from './header';
 import WebSceneView from './webscene';
 import Info from './info';
 import TimeNav from './timenav';
+import ShadowsNav from './shadowsnav';
 
 
 const App = () => (
@@ -11,8 +12,11 @@ const App = () => (
     <Header />
     <div className="app-main">
       <WebSceneView />
-      <Info />
-      <TimeNav />
+      <div className="app-widgets">
+        <TimeNav />
+        <ShadowsNav />
+        <Info />
+      </div>
     </div>
   </div>
 );

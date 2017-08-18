@@ -14,6 +14,7 @@ import {
 import {
   SET_ENVIRONMENT,
   SET_DATE,
+  SET_SHADOWS,
 } from '../reducer/environment/actions';
 
 esriConfig.request.corsEnabledServers.push('a.tile.stamen.com');
@@ -115,7 +116,7 @@ const arcgisMiddleWare = store => next => (action) => {
           const UTCOffset = environment.lighting.displayUTCOffset;
           const date = new Date(environment.lighting.date);
           date.setUTCHours(date.getUTCHours() + UTCOffset);
-          
+
           store.dispatch({
             type: SET_ENVIRONMENT,
             date,
@@ -142,7 +143,8 @@ const arcgisMiddleWare = store => next => (action) => {
     }
 
     case SET_ENVIRONMENT:
-    case SET_DATE: {
+    case SET_DATE:
+    case SET_SHADOWS: {
       next(action);
       const { environment: { date, utcoffset, shadows } } = store.getState();
       const newDate = new Date(date);
@@ -150,7 +152,6 @@ const arcgisMiddleWare = store => next => (action) => {
       arcgis.sceneView.environment.lighting.date = newDate;
       arcgis.sceneView.environment.lighting.displayUTCOffset = utcoffset;
       arcgis.sceneView.environment.lighting.directShadowsEnabled = shadows;
-      next(action);
       break;
     }
 
