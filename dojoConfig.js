@@ -1,6 +1,9 @@
 window.dojoConfig = {
   async: true,
-  deps: ['app/main'],
+  deps: ['app/bundle'],
+  callback: (bundle) => {
+    console.log(bundle);
+  },
   packages: [{
     name: 'react',
     location: `${location.origin}${location.pathname}/node_modules/react/dist/`,
@@ -32,6 +35,6 @@ window.dojoConfig = {
   }, {
     name: 'app',
     location: `${location.origin}${location.pathname}/dist`,
-    main: 'main',
+    main: 'bundle',
   }],
 };

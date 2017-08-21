@@ -9,5 +9,7 @@ module.exports = {
     publicPath: '../dist/',
     filename: 'bundle.js',
     chunkFilename: '[id].bundle.js',
+    library: 'app/bundle',
+    libraryTarget: 'amd',
   },
 };

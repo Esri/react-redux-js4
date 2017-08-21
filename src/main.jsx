@@ -11,6 +11,7 @@ import App from './components/app';
 import reducer from './reducer/app';
 import { getIdentity } from './reducer/user/actions';
 
+// export default () => {
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // eslint-disable-line
 const store = createStore(reducer,
   composeEnhancers(applyMiddleware(thunk, authentication, sceneview)));
@@ -27,3 +28,4 @@ ReactDOM.render(
   </div>,
   node,
 );
+// };
