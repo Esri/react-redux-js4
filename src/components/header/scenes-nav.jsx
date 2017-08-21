@@ -45,10 +45,10 @@ export class ScenesNav extends Component {
           onMouseEnter={() => this.mouseEnter()}
           onMouseLeave={() => this.mouseLeave()}
         >
-          <a href="#" className="top-nav-link dropdown-btn" onMouseDown={() => this.toggleMenu()}>
+          <button className="top-nav-link dropdown-btn" onMouseDown={() => this.toggleMenu()}>
             Scenes &nbsp;
             <i className="icon-ui-down-arrow" />
-          </a>
+          </button>
           <nav className="dropdown-menu modifier-class">
             <span className={`dropdown-title ${this.props.websceneItems.length ? 'hidden' : ''}`}>
               <em>No scenes</em>

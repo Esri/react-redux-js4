@@ -1,38 +1,27 @@
-@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-
-html, body {
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-  font-family: 'Helvetica Neue', Helvetica, Arial;
+html {
   overflow: hidden !important;
+}
+
+div#app-container > div > div.container {
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .hidden {
   display: none !important;
 }
 
-#app-container,
-#app-container > div,
-#app-container > div > .container {
-  width: 100%;
-  height: 100%;
-  overflow: hidden !important;
-}
-
 .top-nav {
   padding: 0 20px 0 20px;
+  flex: 0 0 auto;
 }
 
 .app-main {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 65px;
-  align-items: stretch;
-  background-color: whitesmoke;
+  position: relative;
+  flex: 1 0 auto;
 }
 
 .websceneview {
@@ -47,8 +36,7 @@ html, body {
 }
 
 .time-nav,
-.shadow-nav,
-.info {
+.shadow-nav {
   width: 300px;
   margin-bottom: 5px;
 }
@@ -63,26 +51,38 @@ html, body {
   align-items: center;
 }
 
-.identity > .dropdown > a {
+.identity > .dropdown > button {
   display: flex;
   align-items: center;
   padding: 13px 0 12px 0;
 }
 
-.identity > .dropdown > a > img {
+.identity > .dropdown > button > img {
   width: 36px;
   height: 36px;
   margin-right: 10px;
 }
 
-.identity > .dropdown > a > i {
+.identity > .dropdown > button > i {
   margin-left: 10px;
 }
 
-.identity > button {
-  margin: 12px;
+
+/* Calcite stuff */
+
+button.top-nav-link {
+  cursor: pointer;
+  background: inherit;
+  border-left: none;
+  border-right: none;
+  border-top: none;
 }
 
+button.dropdown-link {
+  cursor: pointer;
+  background: inherit;
+  border: none;
+}
 
 /* Range slider overrides */
 

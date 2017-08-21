@@ -13,8 +13,8 @@ export const updateHighlights = (view, selection) => {
         selection
           .filter(item => item.layer === layerView.layer.id)
           .map(item => item.OID),
-        ),
       ),
+    ),
   );
 };
 
