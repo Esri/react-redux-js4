@@ -7,7 +7,9 @@ import { initSceneView } from '../reducer/webscene/actions';
 
 export class WebSceneView extends React.Component {
   componentDidMount() {
-    this.props.init(this.sceneView);
+    if (this.props.websceneId) {
+      this.props.init(this.sceneView, this.props.websceneId);
+    }
   }
 
   render() {
@@ -19,6 +21,11 @@ export class WebSceneView extends React.Component {
 
 WebSceneView.propTypes = {
   init: PropTypes.func.isRequired,
+  websceneId: PropTypes.string,
+};
+
+WebSceneView.defaultProps = {
+  websceneId: null,
 };
 
 function mapDispatchToProps(dispatch) {

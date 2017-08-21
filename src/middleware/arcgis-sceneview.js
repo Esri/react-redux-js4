@@ -2,64 +2,23 @@ import esriConfig from 'esri/config'; // eslint-disable-line
 import SceneView from 'esri/views/SceneView'; // eslint-disable-line
 import WebScene from 'esri/WebScene'; // eslint-disable-line
 
-import {
-  INIT_SCENE_VIEW,
-  LOAD_WEB_SCENE,
-  VIEW_CHANGE,
-  SELECTION_SET,
-  SELECTION_TOGGLE,
-  SELECTION_RESET,
-} from '../reducer/webscene/actions';
+import { INIT_SCENE_VIEW, LOAD_WEB_SCENE } from '../reducer/webscene/actions';
+import { SELECTION_SET, SELECTION_TOGGLE, SELECTION_RESET } from '../reducer/selection/actions';
+import { SET_ENVIRONMENT, SET_DATE, SET_SHADOWS } from '../reducer/environment/actions';
+
+import { registerClickEvent } from './arcgis-sceneview/interaction';
+import { updateHighlights } from './arcgis-sceneview/highlights';
+import { setEnvironment } from './arcgis-sceneview/environment';
 
 esriConfig.request.corsEnabledServers.push('a.tile.stamen.com');
 esriConfig.request.corsEnabledServers.push('b.tile.stamen.com');
 esriConfig.request.corsEnabledServers.push('c.tile.stamen.com');
 esriConfig.request.corsEnabledServers.push('d.tile.stamen.com');
 
+
 const arcgis = {};
 
-const registerInteractionEvent = (view, store) => {
-  view.watch('interacting, scale, zoom', () => {
-    store.dispatch({
-      type: VIEW_CHANGE,
-      view: {
-        interacting: view.interacting,
-        zoom: view.zoom,
-        scale: view.scale,
-      },
-    });
-  });
-};
-
-const registerClickEvent = (view, store) => {
-  view.on('click', (event) => {
-    const multiSelect = event.native.shiftKey || event.native.ctrlKey || event.native.metaKey;
-
-    view.hitTest(event.screenPoint)
-      .then((response) => {
-        if (response.results && response.results[0] && response.results[0].graphic) {
-          if (multiSelect) {
-            store.dispatch({
-              type: SELECTION_TOGGLE,
-              OID: response.results[0].graphic.attributes[arcgis.sceneLayer.objectIdField],
-            });
-          } else {
-            store.dispatch({
-              type: SELECTION_SET,
-              OIDArray: [response.results[0].graphic.attributes[arcgis.sceneLayer.objectIdField]],
-            });
-          }
-        } else if (!multiSelect) {
-          store.dispatch({ type: SELECTION_RESET });
-        }
-      });
-  });
-};
-
-const updateHighlight = (selection) => {
-  if (arcgis.highlight) arcgis.highlight.remove();
-  if (arcgis.sceneLayerView) arcgis.highlight = arcgis.sceneLayerView.highlight(selection);
-};
+window.arcgis = arcgis;
 
 
 const arcgisMiddleWare = store => next => (action) => {
@@ -68,12 +27,17 @@ const arcgisMiddleWare = store => next => (action) => {
      * Initialize scene view on a viewport container.
      */
     case INIT_SCENE_VIEW: {
+      next(action);
       arcgis.sceneView = new SceneView({ container: action.container });
 
-      registerInteractionEvent(arcgis.sceneView, store);
       registerClickEvent(arcgis.sceneView, store);
 
-      next(action);
+      if (action.id) {
+        store.dispatch({
+          type: LOAD_WEB_SCENE,
+          id: action.id,
+        });
+      }
       break;
     }
 
@@ -86,23 +50,27 @@ const arcgisMiddleWare = store => next => (action) => {
       store.dispatch({ type: SELECTION_RESET });
 
       // Initialize web scene
-      arcgis.webScene = new WebScene({ portalItem: { id: action.websceneId } });
-      arcgis.sceneView.map = arcgis.webScene;
+      const webScene = new WebScene({ portalItem: { id: action.id } });
+      arcgis.sceneView.map = webScene;
 
       // When initialized...
-      return arcgis.webScene
+      return webScene
         .then(() => {
-          arcgis.sceneLayer = arcgis.webScene.layers.getItemAt(0);
-          arcgis.sceneLayer.popupEnabled = false;
+          webScene.layers.items.forEach(layer => (layer.popupEnabled = false));
 
-          return arcgis.sceneView.whenLayerView(arcgis.sceneLayer);
-        })
-        .then((sceneLayerView) => {
-          arcgis.sceneLayerView = sceneLayerView;
+          next({ ...action, name: webScene.portalItem.title });
 
-          // add the webscene name to the action and dispatch
-          const newAction = Object.assign({ ...action, name: arcgis.webScene.portalItem.title });
-          next(newAction);
+          const environment = arcgis.sceneView.map.initialViewProperties.environment;
+          const UTCOffset = environment.lighting.displayUTCOffset;
+          const date = new Date(environment.lighting.date);
+          date.setUTCHours(date.getUTCHours() + UTCOffset);
+
+          store.dispatch({
+            type: SET_ENVIRONMENT,
+            date,
+            UTCOffset,
+            shadows: environment.lighting.directShadowsEnabled,
+          });
 
           return Promise.resolve();
         });
@@ -117,8 +85,22 @@ const arcgisMiddleWare = store => next => (action) => {
       next(action);
 
       // Update needs to happen after the action dispatched, to have the correct selection.
-      updateHighlight(store.getState().webscene.selection);
+      const { selection } = store.getState();
+      updateHighlights(arcgis.sceneView, selection);
 
+      break;
+    }
+
+    case SET_ENVIRONMENT:
+    case SET_DATE:
+    case SET_SHADOWS: {
+      next(action);
+
+      // Update needs to happen after the action dispatched, to have the correct environment.
+      const { environment: { date, utcoffset, shadows } } = store.getState();
+      const newDate = new Date(date);
+      newDate.setUTCHours(newDate.getUTCHours() - utcoffset);
+      setEnvironment(arcgis.sceneView, newDate, utcoffset, shadows);
       break;
     }
 

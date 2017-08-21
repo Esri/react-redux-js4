@@ -33,7 +33,6 @@
     "webpack-dev-server": "^2.7.1"
   },
   "dependencies": {
-    "bower": "^1.8.0",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",

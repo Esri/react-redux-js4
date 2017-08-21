@@ -2,23 +2,39 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import * as actions from '../reducer/webscene/actions';
 
-export class ScenesDropdown extends Component {
+export class ScenesNav extends Component {
   constructor(props) {
     super(props);
     this.state = {
       open: false,
+      mouse: false,
     };
   }
 
+  mouseEnter() {
+    this.setState({
+      mouse: true,
+    });
+  }
+
+  mouseLeave() {
+    this.setState({
+      mouse: false,
+    });
+  }
+
   toggleMenu() {
-    this.setState({ open: !this.state.open });
+    this.setState({
+      open: !this.state.open,
+    });
   }
 
   collapseMenu() {
+    if (this.state.mouse) return;
     this.setState({ open: false });
   }
+
 
   render() {
     return (
@@ -26,21 +42,22 @@ export class ScenesDropdown extends Component {
         <div
           className={`dropdown ${this.state.open ? ' is-active' : ''}`}
           onBlur={() => this.collapseMenu()}
+          onMouseEnter={() => this.mouseEnter()}
+          onMouseLeave={() => this.mouseLeave()}
         >
-          <a href="#" className="top-nav-link dropdown-btn" onMouseDown={() => this.toggleMenu()}>
+          <button className="top-nav-link dropdown-btn" onMouseDown={() => this.toggleMenu()}>
             Scenes &nbsp;
             <i className="icon-ui-down-arrow" />
-          </a>
+          </button>
           <nav className="dropdown-menu modifier-class">
             <span className={`dropdown-title ${this.props.websceneItems.length ? 'hidden' : ''}`}>
               <em>No scenes</em>
             </span>
             {this.props.websceneItems.map(item => (
               <a
-                href="#"
+                href={`/?id=${item.id}`}
                 className="dropdown-link"
                 key={item.id}
-                onMouseDown={this.props.loadWebScene(item.id)}
               >
                 {item.title}
               </a>
@@ -52,12 +69,11 @@ export class ScenesDropdown extends Component {
   }
 }
 
-ScenesDropdown.propTypes = {
+ScenesNav.propTypes = {
   websceneItems: PropTypes.array,
-  loadWebScene: PropTypes.func.isRequired,
 };
 
-ScenesDropdown.defaultProps = {
+ScenesNav.defaultProps = {
   websceneItems: [],
 };
 
@@ -65,12 +81,4 @@ const mapStateToProps = ({ user: { websceneItems } }) => ({
   websceneItems,
 });
 
-const mapDispatchToProps = dispatch => ({
-  loadWebScene(websceneid) {
-    return () => {
-      dispatch(actions.loadWebScene(websceneid));
-    };
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ScenesDropdown);
+export default connect(mapStateToProps)(ScenesNav);

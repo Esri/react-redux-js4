@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import * as actions from '../reducer/user/actions';
+import * as actions from '../../reducer/user/actions';
 
-export class Identity extends Component {
+export class IdentityNav extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,28 +27,33 @@ export class Identity extends Component {
           className={`dropdown ${this.props.username ? '' : ' hidden'} ${this.state.open ? ' is-active' : ''}`}
           onBlur={() => this.collapseMenu()}
         >
-          <a href="#" className="top-nav-link dropdown-btn" onMouseDown={() => this.toggleMenu()}>
+          <button className="top-nav-link dropdown-btn" onMouseDown={() => this.toggleMenu()}>
             <img src={this.props.thumbnailurl} alt="thumbnail" />
             <span className="shortname">{this.props.fullname && this.props.fullname.split(' ')[0]}</span>
             <i className="icon-ui-down-arrow" />
-          </a>
+          </button>
           <nav className="dropdown-menu dropdown-right modifier-class">
             <span className="dropdown-title">{this.props.username}</span>
-            <a href="#" id="sign-out" className="dropdown-link" onMouseDown={this.props.signOut()}>
+            <a
+              href="#sign-out"
+              id="sign-out"
+              className="dropdown-link"
+              onMouseDown={this.props.signOut()}
+            >
               Sign Out
             </a>
           </nav>
         </div>
-        <a href="#" id="sign-in" className={this.props.username ? 'hidden' : 'top-nav-link'} onClick={this.props.signIn()}>
+        <button id="sign-in" className={this.props.username ? 'hidden' : 'top-nav-link'} onClick={this.props.signIn()}>
           <i className="icon-ui-user" />
           Sign In
-        </a>
+        </button>
       </div>
     );
   }
 }
 
-Identity.propTypes = {
+IdentityNav.propTypes = {
   username: PropTypes.string,
   fullname: PropTypes.string,
   thumbnailurl: PropTypes.string,
@@ -56,7 +61,7 @@ Identity.propTypes = {
   signOut: PropTypes.func.isRequired,
 };
 
-Identity.defaultProps = {
+IdentityNav.defaultProps = {
   username: '',
   fullname: '',
   thumbnailurl: '',
@@ -81,4 +86,4 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Identity);
+export default connect(mapStateToProps, mapDispatchToProps)(IdentityNav);

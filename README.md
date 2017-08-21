@@ -13,9 +13,7 @@ as middleware. This boilerplate example integrates:
 It provides two useful Redux middleware examples:
 
 * **arcgis-authentication** to handle Portal login
-* **arcgis-sceneview** to show a SceneView with a WebScene
-
-It currently supports Web Scenes with one Scene Layer.
+* **arcgis-sceneview** to show a SceneView with a WebScene, handle selection, and environment changes.
 
 # Tests
 
