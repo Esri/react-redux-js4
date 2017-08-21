@@ -18,7 +18,7 @@ describe('components', () => {
       expect(wrapper.find('a').hasClass('top-nav-title')).toBe(true);
       expect(wrapper.find('a').text()).toBe('ArcGIS React Redux');
       expect(wrapper.find('Connect(ScenesNav)').length).toBe(1);
-      expect(wrapper.find('Connect(Identity)').length).toBe(1);
+      expect(wrapper.find('Connect(IdentityNav)').length).toBe(1);
     });
   });
 });

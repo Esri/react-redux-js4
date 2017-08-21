@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Identity from './identity';
+import IdentityNav from './identity-nav';
 import ScenesNav from './scenes-nav';
 
 const Header = () => (
@@ -10,7 +10,7 @@ const Header = () => (
       <ScenesNav />
     </nav>
     <nav className="class-top-nav-list right">
-      <Identity />
+      <IdentityNav />
     </nav>
   </header>
 );

@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { Identity } from '../identity';
+import { IdentityNav } from '../identity-nav';
 
 function setupSignedIn() {
   const props = {
@@ -10,7 +10,7 @@ function setupSignedIn() {
     signIn: jest.fn(),
     signOut: jest.fn(),
   };
-  const wrapper = mount(<Identity {...props} />);
+  const wrapper = mount(<IdentityNav {...props} />);
 
   return { props, wrapper };
 }
@@ -23,7 +23,7 @@ function setupNotSignedIn() {
     signIn: jest.fn(),
     signOut: jest.fn(),
   };
-  const wrapper = mount(<Identity {...props} />);
+  const wrapper = mount(<IdentityNav {...props} />);
 
   return { props, wrapper };
 }

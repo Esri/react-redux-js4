@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../reducer/user/actions';
 
-export class Identity extends Component {
+export class IdentityNav extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -53,7 +53,7 @@ export class Identity extends Component {
   }
 }
 
-Identity.propTypes = {
+IdentityNav.propTypes = {
   username: PropTypes.string,
   fullname: PropTypes.string,
   thumbnailurl: PropTypes.string,
@@ -61,7 +61,7 @@ Identity.propTypes = {
   signOut: PropTypes.func.isRequired,
 };
 
-Identity.defaultProps = {
+IdentityNav.defaultProps = {
   username: '',
   fullname: '',
   thumbnailurl: '',
@@ -86,4 +86,4 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Identity);
+export default connect(mapStateToProps, mapDispatchToProps)(IdentityNav);
