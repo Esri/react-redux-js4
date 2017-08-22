@@ -15,6 +15,35 @@ It provides two useful Redux middleware examples:
 * **arcgis-authentication** to handle Portal login
 * **arcgis-sceneview** to show a SceneView with a WebScene, handle selection, and environment changes.
 
+# Instructions
+
+## Registering your App
+
+For this code to work, you need to
+[register an app](http://doc.arcgis.com/en/marketplace/provider/register-app.htm) in ArcGIS Online,
+add the correct redirect URI (e.g. `http://localhost:8080`), and add the application ID to
+`src/constants.js`.
+
+## Installing
+
+Download the repository and install the dependencies:
+
+`npm install`
+
+## Running
+
+Run tests:
+
+`npm test`
+
+Run [ESLint](http://eslint.org/):
+
+`gulp lint`
+
+Build and run live server:
+
+`gulp server`
+
 # Development Workflow
 
 This package uses [Gulp](https://gulpjs.com/) for automation.
@@ -52,27 +81,3 @@ And [Enzyme](http://airbnb.io/enzyme/index.html) tests for:
 
 For more details on testing see
 [Writing Tests - Redux](http://redux.js.org/docs/recipes/WritingTests.html).
-
-# Registering your App
-
-For this code to work, you need to
-[register an app](http://doc.arcgis.com/en/marketplace/provider/register-app.htm), add the correct
-redirect URI (e.g. `http://localhost:8080`), and add the application ID to `src/constants.js`.
-
-# Instructions
-
-Install dependencies:
-
-`npm install`
-
-Run tests:
-
-`npm test`
-
-Run [ESLint](http://eslint.org/):
-
-`gulp lint`
-
-Build and run live server:
-
-`gulp`
