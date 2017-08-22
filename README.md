@@ -17,20 +17,31 @@ It provides two useful Redux middleware examples:
 
 # Instructions
 
-## Registering your App
+### Registering your App
 
 For this code to work, you need to
 [register an app](http://doc.arcgis.com/en/marketplace/provider/register-app.htm) in ArcGIS Online,
-add the correct redirect URI (e.g. `http://localhost:8080`), and add the application ID to
+add the correct redirect URI (e.g. `http://localhost:8080`), and add the App ID to
 `src/constants.js`.
 
-## Installing
+* [How to register an app in ArcGIS Online](http://doc.arcgis.com/en/marketplace/provider/register-app.htm)
+* Make sure to set the correct redirect URI (e.g. `http://localhost:8080`)
+* Update `src/constants.js` to contain your App ID (and portal URL if not ArcGIS Online).
+
+```javascript
+export const APP_ID = '<insert App ID here>';
+export const APP_PORTAL_URL = 'https://www.arcgis.com';
+
+export default APP_ID;
+```
+
+### Installing
 
 Download the repository and install the dependencies:
 
 `npm install`
 
-## Running
+### Running
 
 Run tests:
 
@@ -46,12 +57,12 @@ Build and run live server:
 
 # Development Workflow
 
-This package uses [Gulp](https://gulpjs.com/) for automation.
-
 The [ArcGIS JS API](https://developers.arcgis.com/javascript/) is based on
 [Dojo](https://dojotoolkit.org/). To make this ES6 application work, we use
 [Babel](https://babeljs.io/) to transpile and [Webpack](https://webpack.github.io/) to bundle it
 into an AMD module. This AMD module is configured as the application (app) in `dojoConfig.js`.
+
+This package uses [Gulp](https://gulpjs.com/) for workflow automation.
 
 # Redux Dev Tools
 
