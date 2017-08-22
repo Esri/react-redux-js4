@@ -17,12 +17,26 @@ It provides two useful Redux middleware examples:
 
 # Development Workflow
 
-This boilerplate uses [Gulp](https://gulpjs.com/) for automation.
+This package uses [Gulp](https://gulpjs.com/) for automation.
 
-The [ArcGIS JS API](https://developers.arcgis.com/javascript/) is based on Dojo. To make this
-ES6 application work, we use [Babel](https://babeljs.io/) to transpile and
-[Webpack](https://webpack.github.io/) to bundle it into an AMD module. This AMD module is configured
-as the application root in the `dojoConfig.js`.
+The [ArcGIS JS API](https://developers.arcgis.com/javascript/) is based on
+[Dojo](https://dojotoolkit.org/). To make this ES6 application work, we use
+[Babel](https://babeljs.io/) to transpile and [Webpack](https://webpack.github.io/) to bundle it
+into an AMD module. This AMD module is configured as the application (app) in `dojoConfig.js`.
+
+# Redux Dev Tools
+
+This package supports the [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension)
+for Chrome. You can browse the state and dispatch actions live while the application is running.
+
+# Hot Module Replacement
+
+This example supports [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/).
+Updates to components or reducers are automatically exchanged while the application is running.
+
+Of course, this does not apply to changes to the ArcGIS middleware. Also, keep in mind that
+because an ArcGIS web scene is connected to a DOM element, the web scene needs to be reloaded each
+time the components are refreshed.
 
 # Tests
 
