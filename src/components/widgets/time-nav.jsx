@@ -14,12 +14,16 @@ export class TimeNav extends Component {
   }
 
   getTimeString() {
+    if (!this.props.date) return '';
+
     const hours = this.props.date.getUTCHours();
     const minutes = this.props.date.getUTCMinutes();
     return `${pad2(hours)}:${pad2(minutes)}`;
   }
 
   getSliderValue() {
+    if (!this.props.date) return 0;
+
     const value = this.props.date.getUTCHours() + (this.props.date.getUTCMinutes() / 60);
     return value;
   }
@@ -58,8 +62,12 @@ export class TimeNav extends Component {
 }
 
 TimeNav.propTypes = {
-  date: PropTypes.instanceOf(Date).isRequired,
+  date: PropTypes.instanceOf(Date),
   setDate: PropTypes.func.isRequired,
+};
+
+TimeNav.defaultProps = {
+  date: new Date(Date.UTC(2017, 3, 15, 12, 0)),
 };
 
 const mapStateToProps = ({ environment: { date } }) => ({

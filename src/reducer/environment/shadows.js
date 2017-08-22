@@ -1,6 +1,6 @@
 import { SET_ENVIRONMENT, SET_SHADOWS } from './actions';
 
-const initialState = false;
+const initialState = null;
 
 export default (state = initialState, action) => {
   switch (action.type) {

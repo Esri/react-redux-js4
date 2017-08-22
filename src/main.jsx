@@ -1,7 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { AppContainer } from 'react-hot-loader';
 
 import App from './components/app';
 import store from './store/configure-store';
@@ -14,11 +13,9 @@ const getURLParameter = name =>
 const node = document.getElementById('app-container');
 
 render(
-  <AppContainer>
-    <Provider store={store}>
-      <App websceneId={getURLParameter('id')} />
-    </Provider>
-  </AppContainer>,
+  <Provider store={store}>
+    <App websceneId={getURLParameter('id')} />
+  </Provider>,
   node,
 );
 

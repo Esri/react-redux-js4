@@ -38,8 +38,12 @@ export class ShadowsNav extends Component {
 }
 
 ShadowsNav.propTypes = {
-  shadows: PropTypes.bool.isRequired,
+  shadows: PropTypes.bool,
   setShadows: PropTypes.func.isRequired,
+};
+
+ShadowsNav.defaultProps = {
+  shadows: false,
 };
 
 const mapStateToProps = ({ environment: { shadows } }) => ({

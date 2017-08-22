@@ -1,6 +1,6 @@
 import { SET_ENVIRONMENT, SET_DATE } from './actions';
 
-const initialState = new Date(Date.UTC(2017, 3, 15, 12, 0));
+const initialState = null;
 
 export default (state = initialState, action) => {
   switch (action.type) {
