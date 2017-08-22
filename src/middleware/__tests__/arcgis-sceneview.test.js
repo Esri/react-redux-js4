@@ -2,7 +2,7 @@ import sceneviewMiddelware from '../arcgis-sceneview';
 import SceneView from 'esri/views/SceneView'; // eslint-disable-line
 import WebScene from 'esri/WebScene'; // eslint-disable-line
 
-import { INIT_SCENE_VIEW, LOAD_WEB_SCENE } from '../../reducer/webscene/actions';
+import { INIT_SCENE } from '../../reducer/webscene/actions';
 import { SELECTION_SET, SELECTION_RESET, SELECTION_TOGGLE } from '../../reducer/selection/actions';
 import { SET_ENVIRONMENT } from '../../reducer/environment/actions';
 
@@ -103,23 +103,11 @@ describe('async actions', () => {
 
 
 describe('Arcgis SceneView middleware - scene loading', () => {
-  it('initializes a new SceneView on INIT_SCENE_VIEW and registers event listeners', () => {
-    const { next, invoke } = create();
-    const action = {
-      type: INIT_SCENE_VIEW,
-      container: 'ref',
-    };
-    invoke(action);
-    expect(SceneView).toHaveBeenCalledWith({ container: 'ref' });
-    expect(registerClickEvent).toHaveBeenCalled();
-    expect(next).toHaveBeenCalledWith(action);
-  });
-
-
-  it('initializes a new WebScene on LOAD_WEB_SCENE and dispatches actions', () => {
+  it('initializes a new Scene View with Web Scene on INIT_SCENE', () => {
     const { next, invoke, store } = create();
     const action = {
-      type: LOAD_WEB_SCENE,
+      type: INIT_SCENE,
+      container: 'ref',
       id: 'abc1234',
     };
     expect.hasAssertions();
@@ -135,12 +123,14 @@ describe('Arcgis SceneView middleware - scene loading', () => {
           date: new Date(Date.UTC(2017, 1, 1, 11)),
           shadows: true,
         });
+        // should also update highlights
       });
-    expect(store.dispatch).toHaveBeenCalledWith({ type: SELECTION_RESET });
+    expect(SceneView).toHaveBeenCalledWith({ container: 'ref' });
+    expect(registerClickEvent).toHaveBeenCalled();
     expect(WebScene).toHaveBeenCalledWith({ portalItem: { id: 'abc1234' } });
+    expect(next).toHaveBeenCalledWith(action);
   });
 });
-
 
 describe('Arcgis SceneView middleware - selection', () => {
   it('updates highlights on SELECTION_SET', () => {

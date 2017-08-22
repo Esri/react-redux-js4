@@ -3,7 +3,7 @@ import * as types from '../actions';
 
 describe('selection reducer', () => {
   it('should return the initial state', () => {
-    expect(reducer(undefined, {})).toEqual(false);
+    expect(reducer(undefined, {})).toEqual(null);
   });
 
 
