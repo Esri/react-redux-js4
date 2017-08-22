@@ -3,6 +3,8 @@ const babel = require('gulp-babel');
 // const connect = require('gulp-connect');
 const eslint = require('gulp-eslint');
 
+const path = require('path');
+const fs = require('fs');
 const gutil = require('gulp-util');
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.config.babel');
