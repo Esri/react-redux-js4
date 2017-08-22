@@ -46,7 +46,6 @@ const arcgisMiddleWare = store => next => (action) => {
      */
     case LOAD_WEB_SCENE: {
       if (!arcgis.sceneView) break;
-
       store.dispatch({ type: SELECTION_RESET });
 
       // Initialize web scene

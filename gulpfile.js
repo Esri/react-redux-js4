@@ -1,6 +1,6 @@
 const gulp = require('gulp');
 const babel = require('gulp-babel');
-const connect = require('gulp-connect');
+// const connect = require('gulp-connect');
 const eslint = require('gulp-eslint');
 
 const gutil = require('gulp-util');
@@ -19,19 +19,18 @@ gulp.task('react', () => gulp.src([
   presets: ['es2015', 'stage-0', 'react'],
   plugins: ['transform-es2015-modules-amd'],
 }))
-.pipe(gulp.dest('dist'))
-.pipe(connect.reload()));
+.pipe(gulp.dest('dist')));
 
 gulp.task('watch', () => {
   gulp.watch([
     'src/*.jsx', 'src/**/*.jsx', 'src/**/**/*.jsx',
     'src/*.js', 'src/**/*.js', 'src/**/**/*.js',
-  ], ['react']);
+  ], ['webpack']);
 });
 
-gulp.task('webserver', () => {
-  connect.server({ livereload: true });
-});
+/* gulp.task('webserver', () => {
+  connect.server({ livereload: false });
+}); */
 
 gulp.task('lint', () => gulp.src([
   'src/*.jsx', 'src/**/*.jsx', 'src/**/**/*.jsx',
@@ -41,30 +40,10 @@ gulp.task('lint', () => gulp.src([
   .pipe(eslint.format())
   .pipe(eslint.failAfterError()));
 
-const esri = {
-  'esri/config': {
-    amd: 'esri/config',
-  },
-  'esri/WebScene': {
-    amd: 'esri/WebScene',
-  },
-  'esri/identity/IdentityManager': {
-    amd: 'esri/identity/IdentityManager',
-  },
-  'esri/identity/OAuthInfo': {
-    amd: 'esri/identity/OAuthInfo',
-  },
-  'esri/portal/Portal': {
-    amd: 'esri/portal/Portal',
-  },
-  'esri/views/SceneView': {
-    amd: 'esri/views/SceneView',
-  },
-};
 
 gulp.task('webpack', ['react'], (callback) => {
   const myConfig = Object.create(webpackConfig);
-  myConfig.externals = esri;
+  myConfig.externals = /^esri/;
 
   // run webpack
   webpack(myConfig, (err, stats) => {
@@ -77,18 +56,19 @@ gulp.task('webpack', ['react'], (callback) => {
   });
 });
 
-gulp.task('server', ['webpack'], () => {
+
+gulp.task('server', ['webpack', 'watch'], () => {
   // modify some webpack config options
   const myConfig = Object.create(webpackConfig);
-  myConfig.externals = esri;
+  myConfig.externals = /^esri/;
 
   // Start a webpack-dev-server
   new WebpackDevServer(webpack(myConfig), {
     publicPath: '/' + myConfig.output.publicPath,
+    hot: true,
     stats: {
       colors: true,
     },
-    hot: true,
   }).listen(8080, 'localhost', (err) => {
     if (err) throw new gutil.PluginError('webpack-dev-server', err);
     gutil.log('[webpack-dev-server]', 'http://localhost:8080/webpack-dev-server/index.html');
