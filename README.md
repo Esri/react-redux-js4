@@ -26,7 +26,8 @@ add the correct redirect URI (e.g. `http://localhost:8080`), and add the App ID 
 
 * [How to register an app in ArcGIS Online](http://doc.arcgis.com/en/marketplace/provider/register-app.htm)
 * Make sure to set the correct redirect URI (e.g. `http://localhost:8080`)
-* Update `src/constants.js` to contain your App ID (and portal URL if not ArcGIS Online).
+
+Finally, update `src/constants.js` to contain your App ID (and portal URL if not ArcGIS Online):
 
 ```javascript
 export const APP_ID = '<insert App ID here>';
