@@ -1,11 +1,10 @@
 {
-  "name": "esrijs4-redux",
+  "name": "esrijs4-react-redux",
   "version": "1.0.0",
   "description": "",
   "main": "dojoConfig.js",
   "scripts": {
     "test": "jest",
-    "test:watch": "npm test -- --watch"
   },
   "author": "Michael Van den Bergh <mvandenbergh@esri.com>",
   "license": "MIT",
