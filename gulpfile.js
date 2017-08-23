@@ -1,39 +1,35 @@
 const gulp = require('gulp');
 const babel = require('gulp-babel');
-// const connect = require('gulp-connect');
 const eslint = require('gulp-eslint');
-
-const path = require('path');
-const fs = require('fs');
 const gutil = require('gulp-util');
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.config.babel');
 const WebpackDevServer = require('webpack-dev-server');
 
-gulp.task('react', () => gulp.src([
+/* Babel */
+gulp.task('babel', () => gulp.src([
   'src/*.jsx', 'src/**/*.jsx', 'src/**/**/*.jsx',
   'src/*.js', 'src/**/*.js', 'src/**/**/*.js',
   '!src/**/__tests__/*.jsx', '!src/**/**/__tests__/*.jsx',
   '!src/**/__tests__/*.js', '!src/**/**/__tests__/*.js',
 ])
-.pipe(babel({
-  sourceMaps: 'inline',
-  presets: ['es2015', 'stage-0', 'react'],
-  plugins: ['transform-es2015-modules-amd'],
-}))
-.pipe(gulp.dest('dist')));
+  .pipe(babel({
+    sourceMaps: 'inline',
+    presets: ['es2015', 'stage-0', 'react'],
+    plugins: ['transform-es2015-modules-amd'],
+  }))
+  .pipe(gulp.dest('target')));
 
-gulp.task('watch', () => {
+
+/* Watcher */
+gulp.task('watch', () =>
   gulp.watch([
     'src/*.jsx', 'src/**/*.jsx', 'src/**/**/*.jsx',
     'src/*.js', 'src/**/*.js', 'src/**/**/*.js',
-  ], ['webpack']);
-});
+  ], ['webpack']));
 
-/* gulp.task('webserver', () => {
-  connect.server({ livereload: false });
-}); */
 
+/* ES Lint */
 gulp.task('lint', () => gulp.src([
   'src/*.jsx', 'src/**/*.jsx', 'src/**/**/*.jsx',
   'src/*.js', 'src/**/*.js', 'src/**/**/*.js',
@@ -43,7 +39,8 @@ gulp.task('lint', () => gulp.src([
   .pipe(eslint.failAfterError()));
 
 
-gulp.task('webpack', ['react'], (callback) => {
+/* Webpack */
+gulp.task('webpack', ['babel'], (callback) => {
   const myConfig = Object.create(webpackConfig);
   myConfig.externals = /^esri/;
 
@@ -59,6 +56,7 @@ gulp.task('webpack', ['react'], (callback) => {
 });
 
 
+/* Webpack Dev Server */
 gulp.task('server', ['webpack', 'watch'], () => {
   // modify some webpack config options
   const myConfig = Object.create(webpackConfig);
@@ -76,6 +74,3 @@ gulp.task('server', ['webpack', 'watch'], () => {
     gutil.log('[webpack-dev-server]', 'http://localhost:8080/webpack-dev-server/index.html');
   });
 });
-
-
-gulp.task('default', ['react', 'webserver', 'watch']);
