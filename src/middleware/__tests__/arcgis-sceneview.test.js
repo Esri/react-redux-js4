@@ -2,7 +2,7 @@ import sceneviewMiddelware from '../arcgis-sceneview';
 import SceneView from 'esri/views/SceneView'; // eslint-disable-line
 import WebScene from 'esri/WebScene'; // eslint-disable-line
 
-import { INIT_SCENE_VIEW, LOAD_WEB_SCENE } from '../../reducer/webscene/actions';
+import { INIT_SCENE } from '../../reducer/webscene/actions';
 import { SELECTION_SET, SELECTION_RESET, SELECTION_TOGGLE } from '../../reducer/selection/actions';
 import { SET_ENVIRONMENT } from '../../reducer/environment/actions';
 
@@ -21,9 +21,7 @@ jest.mock('esri/views/SceneView', () => {
   MockSceneView.prototype.watch = jest.fn();
   MockSceneView.prototype.on = jest.fn();
   MockSceneView.highlight = jest.fn();
-  MockSceneView.prototype.whenLayerView = jest.fn(() => Promise.resolve({
-    highlight: MockSceneView.highlight,
-  }));
+  MockSceneView.prototype.whenLayerView = jest.fn(() => Promise.resolve());
   return MockSceneView;
 }, { virtual: true });
 
@@ -35,6 +33,7 @@ jest.mock('esri/WebScene', () => {
     items: [{
       popupEnabled: true,
     }],
+    getItemAt: jest.fn(),
   };
   MockWebScene.prototype.portalItem = {
     title: 'WebScene title',
@@ -103,44 +102,40 @@ describe('async actions', () => {
 
 
 describe('Arcgis SceneView middleware - scene loading', () => {
-  it('initializes a new SceneView on INIT_SCENE_VIEW and registers event listeners', () => {
-    const { next, invoke } = create();
-    const action = {
-      type: INIT_SCENE_VIEW,
-      container: 'ref',
-    };
-    invoke(action);
-    expect(SceneView).toHaveBeenCalledWith({ container: 'ref' });
-    expect(registerClickEvent).toHaveBeenCalled();
-    expect(next).toHaveBeenCalledWith(action);
-  });
-
-
-  it('initializes a new WebScene on LOAD_WEB_SCENE and dispatches actions', () => {
+  it('initializes a new Scene View with Web Scene on INIT_SCENE', () => {
     const { next, invoke, store } = create();
     const action = {
-      type: LOAD_WEB_SCENE,
+      type: INIT_SCENE,
+      container: 'ref',
       id: 'abc1234',
     };
     expect.hasAssertions();
     invoke(action)
       .then(() => {
-        expect(next).toHaveBeenCalledWith(Object.assign({
-          ...action,
+        expect(next).toHaveBeenCalledWith({
+          type: INIT_SCENE,
+          container: 'ref',
+          id: 'abc1234',
           name: 'WebScene title',
-        }));
+        });
         expect(store.dispatch).toHaveBeenCalledWith({
           type: SET_ENVIRONMENT,
           UTCOffset: -1,
           date: new Date(Date.UTC(2017, 1, 1, 11)),
           shadows: true,
         });
+        expect(updateHighlights).toHaveBeenCalledWith({
+          map: {},
+        }, [{
+          layer: 'foo',
+          OID: 3,
+        }]);
       });
-    expect(store.dispatch).toHaveBeenCalledWith({ type: SELECTION_RESET });
+    expect(SceneView).toHaveBeenCalledWith({ container: 'ref' });
+    expect(registerClickEvent).toHaveBeenCalled();
     expect(WebScene).toHaveBeenCalledWith({ portalItem: { id: 'abc1234' } });
   });
 });
-
 
 describe('Arcgis SceneView middleware - selection', () => {
   it('updates highlights on SELECTION_SET', () => {

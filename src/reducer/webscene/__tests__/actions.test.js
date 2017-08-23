@@ -4,19 +4,10 @@ import * as actions from '../actions';
 describe('actions', () => {
   it('should create an action to initialize the scene view container', () => {
     const expectedAction = {
-      type: actions.INIT_SCENE_VIEW,
+      type: actions.INIT_SCENE,
       container: 'foo',
+      id: '123',
     };
-    expect(actions.initSceneView('foo')).toEqual(expectedAction);
-  });
-
-
-  it('should create an action to load a web scene', () => {
-    const expectedAction = {
-      type: actions.LOAD_WEB_SCENE,
-      id: 123,
-      name: 'foo',
-    };
-    expect(actions.loadWebScene(123, 'foo')).toEqual(expectedAction);
+    expect(actions.initSceneView('foo', '123')).toEqual(expectedAction);
   });
 });

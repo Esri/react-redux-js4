@@ -3,7 +3,7 @@ import * as types from '../actions';
 
 describe('date reducer', () => {
   it('should return the initial state', () => {
-    expect(reducer(undefined, {})).toEqual(new Date(Date.UTC(2017, 3, 15, 12, 0)));
+    expect(reducer(undefined, {})).toEqual(null);
   });
 
 

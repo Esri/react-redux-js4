@@ -2,7 +2,7 @@ html {
   overflow: hidden !important;
 }
 
-div#app-container > div > div.container {
+div#app-container > div.container {
   overflow: hidden;
   width: 100vw;
   height: 100vh;

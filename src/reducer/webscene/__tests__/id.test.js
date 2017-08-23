@@ -6,9 +6,9 @@ describe('webscene id reducer', () => {
     expect(reducer(undefined, {})).toEqual(null);
   });
 
-  it('should handle LOAD_WEB_SCENE', () => {
+  it('should handle INIT_SCENE', () => {
     expect(reducer(false, {
-      type: types.LOAD_WEB_SCENE,
+      type: types.INIT_SCENE,
       id: 123,
       name: 'foo',
     })).toEqual(123);

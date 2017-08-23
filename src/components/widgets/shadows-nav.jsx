@@ -24,7 +24,7 @@ export class ShadowsNav extends Component {
               <input
                 type="checkbox"
                 id="shadows"
-                checked={this.props.shadows}
+                checked={this.props.shadows !== null ? this.props.shadows : false}
                 onChange={this.handleChange}
               />
               &nbsp;
@@ -38,8 +38,12 @@ export class ShadowsNav extends Component {
 }
 
 ShadowsNav.propTypes = {
-  shadows: PropTypes.bool.isRequired,
+  shadows: PropTypes.bool,
   setShadows: PropTypes.func.isRequired,
+};
+
+ShadowsNav.defaultProps = {
+  shadows: false,
 };
 
 const mapStateToProps = ({ environment: { shadows } }) => ({

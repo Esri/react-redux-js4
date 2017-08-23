@@ -2,7 +2,7 @@ import esriConfig from 'esri/config'; // eslint-disable-line
 import SceneView from 'esri/views/SceneView'; // eslint-disable-line
 import WebScene from 'esri/WebScene'; // eslint-disable-line
 
-import { INIT_SCENE_VIEW, LOAD_WEB_SCENE } from '../reducer/webscene/actions';
+import { INIT_SCENE } from '../reducer/webscene/actions';
 import { SELECTION_SET, SELECTION_TOGGLE, SELECTION_RESET } from '../reducer/selection/actions';
 import { SET_ENVIRONMENT, SET_DATE, SET_SHADOWS } from '../reducer/environment/actions';
 
@@ -26,28 +26,12 @@ const arcgisMiddleWare = store => next => (action) => {
     /**
      * Initialize scene view on a viewport container.
      */
-    case INIT_SCENE_VIEW: {
-      next(action);
+    case INIT_SCENE: {
+      if (!action.id) return Promise.reject();
+
       arcgis.sceneView = new SceneView({ container: action.container });
 
       registerClickEvent(arcgis.sceneView, store);
-
-      if (action.id) {
-        store.dispatch({
-          type: LOAD_WEB_SCENE,
-          id: action.id,
-        });
-      }
-      break;
-    }
-
-    /**
-     * Load web scene and register interaction listeners.
-     */
-    case LOAD_WEB_SCENE: {
-      if (!arcgis.sceneView) break;
-
-      store.dispatch({ type: SELECTION_RESET });
 
       // Initialize web scene
       const webScene = new WebScene({ portalItem: { id: action.id } });
@@ -60,21 +44,38 @@ const arcgisMiddleWare = store => next => (action) => {
 
           next({ ...action, name: webScene.portalItem.title });
 
-          const environment = arcgis.sceneView.map.initialViewProperties.environment;
-          const UTCOffset = environment.lighting.displayUTCOffset;
-          const date = new Date(environment.lighting.date);
-          date.setUTCHours(date.getUTCHours() + UTCOffset);
+          return arcgis.sceneView.whenLayerView(webScene.layers.getItemAt(0));
+
+          /* return Promise.all(
+            webScene.layers.items
+              .map(layer => arcgis.sceneView.whenLayerView(layer)),
+          );*/
+        })
+        .then(() => {
+          // Update the environment settings (either from the state or from the scene)
+          const webSceneEnvironment = arcgis.sceneView.map.initialViewProperties.environment;
+          const date = new Date(webSceneEnvironment.lighting.date);
+          date.setUTCHours(date.getUTCHours() + webSceneEnvironment.lighting.displayUTCOffset);
+
+          const { environment } = store.getState();
 
           store.dispatch({
             type: SET_ENVIRONMENT,
-            date,
-            UTCOffset,
-            shadows: environment.lighting.directShadowsEnabled,
+            date: environment.date !== null ? environment.date : date,
+            UTCOffset: webSceneEnvironment.lighting.displayUTCOffset,
+            shadows: environment.shadows !== null ?
+              environment.shadows :
+              webSceneEnvironment.lighting.directShadowsEnabled,
           });
+
+          // Update the selection highlights
+          const { selection } = store.getState();
+          updateHighlights(arcgis.sceneView, selection);
 
           return Promise.resolve();
         });
     }
+
 
     /**
      * Update highlights and reports on selection change.
@@ -115,3 +116,8 @@ const arcgisMiddleWare = store => next => (action) => {
 
 
 export default arcgisMiddleWare;
+
+
+if (module.hot) {
+  module.hot.decline();
+}
