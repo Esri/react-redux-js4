@@ -4,7 +4,7 @@
   "description": "",
   "main": "dojoConfig.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest"
   },
   "author": "Michael Van den Bergh <mvandenbergh@esri.com>",
   "license": "MIT",
