@@ -21,9 +21,7 @@ jest.mock('esri/views/SceneView', () => {
   MockSceneView.prototype.watch = jest.fn();
   MockSceneView.prototype.on = jest.fn();
   MockSceneView.highlight = jest.fn();
-  MockSceneView.prototype.whenLayerView = jest.fn(() => Promise.resolve({
-    highlight: MockSceneView.highlight,
-  }));
+  MockSceneView.prototype.whenLayerView = jest.fn(() => Promise.resolve());
   return MockSceneView;
 }, { virtual: true });
 
@@ -35,6 +33,7 @@ jest.mock('esri/WebScene', () => {
     items: [{
       popupEnabled: true,
     }],
+    getItemAt: jest.fn(),
   };
   MockWebScene.prototype.portalItem = {
     title: 'WebScene title',
@@ -113,22 +112,28 @@ describe('Arcgis SceneView middleware - scene loading', () => {
     expect.hasAssertions();
     invoke(action)
       .then(() => {
-        expect(next).toHaveBeenCalledWith(Object.assign({
-          ...action,
+        expect(next).toHaveBeenCalledWith({
+          type: INIT_SCENE,
+          container: 'ref',
+          id: 'abc1234',
           name: 'WebScene title',
-        }));
+        });
         expect(store.dispatch).toHaveBeenCalledWith({
           type: SET_ENVIRONMENT,
           UTCOffset: -1,
           date: new Date(Date.UTC(2017, 1, 1, 11)),
           shadows: true,
         });
-        // should also update highlights
+        expect(updateHighlights).toHaveBeenCalledWith({
+          map: {},
+        }, [{
+          layer: 'foo',
+          OID: 3,
+        }]);
       });
     expect(SceneView).toHaveBeenCalledWith({ container: 'ref' });
     expect(registerClickEvent).toHaveBeenCalled();
     expect(WebScene).toHaveBeenCalledWith({ portalItem: { id: 'abc1234' } });
-    expect(next).toHaveBeenCalledWith(action);
   });
 });
 
