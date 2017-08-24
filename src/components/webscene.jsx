@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { initSceneView } from '../reducer/webscene/actions';
+import { initScene } from '../reducer/webscene/actions';
 
 export class WebSceneView extends React.Component {
   componentDidMount() {
@@ -30,7 +30,7 @@ WebSceneView.defaultProps = {
 
 function mapDispatchToProps(dispatch) {
   return {
-    init: bindActionCreators(initSceneView, dispatch),
+    init: bindActionCreators(initScene, dispatch),
   };
 }
 

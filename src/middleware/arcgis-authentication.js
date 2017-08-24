@@ -75,8 +75,3 @@ const arcgisMiddleWare = store => next => (action) => {
 
 
 export default arcgisMiddleWare;
-
-
-if (module.hot) {
-  module.hot.decline();
-}
