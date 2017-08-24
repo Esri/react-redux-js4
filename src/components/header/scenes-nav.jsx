@@ -38,32 +38,30 @@ export class ScenesNav extends Component {
 
   render() {
     return (
-      <div className={`userscenesdropdown ${this.props.websceneItems.length ? '' : 'hidden'}`}>
-        <div
-          className={`dropdown ${this.state.open ? ' is-active' : ''}`}
-          onBlur={() => this.collapseMenu()}
-          onMouseEnter={() => this.mouseEnter()}
-          onMouseLeave={() => this.mouseLeave()}
-        >
-          <button className="top-nav-link dropdown-btn" onMouseDown={() => this.toggleMenu()}>
-            Scenes &nbsp;
-            <i className="icon-ui-down-arrow" />
-          </button>
-          <nav className="dropdown-menu modifier-class">
-            <span className={`dropdown-title ${this.props.websceneItems.length ? 'hidden' : ''}`}>
-              <em>No scenes</em>
-            </span>
-            {this.props.websceneItems.map(item => (
-              <a
-                href={`/?id=${item.id}`}
-                className="dropdown-link"
-                key={item.id}
-              >
-                {item.title}
-              </a>
-            ))}
-          </nav>
-        </div>
+      <div
+        className={`dropdown ${this.state.open ? ' is-active' : ''} ${this.props.websceneItems.length ? '' : 'hidden'}`}
+        onBlur={() => this.collapseMenu()}
+        onMouseEnter={() => this.mouseEnter()}
+        onMouseLeave={() => this.mouseLeave()}
+      >
+        <button className="top-nav-link dropdown-btn" onMouseDown={() => this.toggleMenu()}>
+          Scenes &nbsp;
+          <i className="icon-ui-down-arrow" />
+        </button>
+        <nav className="dropdown-menu modifier-class">
+          <span className={`dropdown-title ${this.props.websceneItems.length ? 'hidden' : ''}`}>
+            <em>No scenes</em>
+          </span>
+          {this.props.websceneItems.map(item => (
+            <a
+              href={`/?id=${item.id}`}
+              className="dropdown-link"
+              key={item.id}
+            >
+              {item.title}
+            </a>
+          ))}
+        </nav>
       </div>
     );
   }
