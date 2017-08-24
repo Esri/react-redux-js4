@@ -8,6 +8,6 @@ describe('actions', () => {
       container: 'foo',
       id: '123',
     };
-    expect(actions.initSceneView('foo', '123')).toEqual(expectedAction);
+    expect(actions.initScene('foo', '123')).toEqual(expectedAction);
   });
 });
