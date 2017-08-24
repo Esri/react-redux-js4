@@ -29,12 +29,17 @@ const arcgisMiddleWare = store => next => (action) => {
     case INIT_SCENE: {
       if (!action.id) return Promise.reject();
 
+      let webScene = arcgis.sceneView && arcgis.sceneView.map;
+
       arcgis.sceneView = new SceneView({ container: action.container });
 
       registerClickEvent(arcgis.sceneView, store);
 
       // Initialize web scene
-      const webScene = new WebScene({ portalItem: { id: action.id } });
+      if (!webScene || action.id !== webScene.portalItem.id) {
+        webScene = new WebScene({ portalItem: { id: action.id } });
+      }
+
       arcgis.sceneView.map = webScene;
 
       // When initialized...
