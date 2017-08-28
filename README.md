@@ -15,6 +15,8 @@ It provides two useful Redux middleware examples:
 * **arcgis-authentication** to handle Portal login
 * **arcgis-sceneview** to show a SceneView with a WebScene, handle selection, and environment changes.
 
+![Cover image](/img/screenshot1.jpg?raw=true "Cover image")
+
 # Instructions
 
 ### Registering your App
@@ -40,21 +42,29 @@ export default APP_ID;
 
 Download the repository and install the dependencies:
 
-`npm install`
+```
+npm install
+```
 
 ### Running
 
 Run tests:
 
-`npm test`
+```
+npm test
+```
 
 Run [ESLint](http://eslint.org/):
 
-`gulp lint`
+```
+gulp lint
+```
 
 Build and run live server:
 
-`gulp server`
+```
+gulp server
+```
 
 # Development Workflow
 
@@ -70,11 +80,15 @@ This package uses [Gulp](https://gulpjs.com/) for workflow automation.
 This package supports the [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension)
 for Chrome. You can browse the state and dispatch actions live while the application is running.
 
+![Redux Dev Tools](/img/screenshot2.jpg?raw=true "Redux Dev Tools")
+
 # Hot Module Replacement
 
 This example supports [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/).
 Updated **components** or **reducers** are automatically replaced while the application is running.
 The state is preserved during updates, and the web scene does not need to be reloaded.
+
+![Hot Module Replacement](/img/screenshot3.jpg?raw=true "Hot Module Replacement")
 
 # Tests
 
