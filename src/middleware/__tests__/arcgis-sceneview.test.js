@@ -108,9 +108,13 @@ describe('async actions', () => {
 describe('Arcgis SceneView middleware - scene loading', () => {
   it('initializes a new Scene View with Web Scene on INIT_SCENE', () => {
     const { next, invoke, store } = create();
+    const container = {
+      appendChild: jest.fn(),
+    };
+    const newDiv = document.createElement('DIV');
     const action = {
       type: INIT_SCENE,
-      container: 'ref',
+      container,
       id: 'abc1234',
     };
     expect.hasAssertions();
@@ -118,7 +122,7 @@ describe('Arcgis SceneView middleware - scene loading', () => {
       .then(() => {
         expect(next).toHaveBeenCalledWith({
           type: INIT_SCENE,
-          container: 'ref',
+          container,
           id: 'abc1234',
           name: 'WebScene title',
         });
@@ -135,7 +139,8 @@ describe('Arcgis SceneView middleware - scene loading', () => {
           OID: 3,
         }]);
       });
-    expect(SceneView).toHaveBeenCalledWith({ container: 'ref' });
+    expect(SceneView).toHaveBeenCalledWith({ container: newDiv });
+    expect(container.appendChild).toHaveBeenCalledWith(newDiv);
     expect(registerClickEvent).toHaveBeenCalled();
     expect(WebScene).toHaveBeenCalledWith({ portalItem: { id: 'abc1234' } });
   });
