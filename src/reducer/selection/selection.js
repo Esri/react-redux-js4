@@ -1,4 +1,4 @@
-import { SELECTION_SET, SELECTION_TOGGLE, SELECTION_RESET } from './actions';
+import { SELECTION_SET, SELECTION_TOGGLE, SELECTION_RESET } from '../../constants/action-types';
 
 const initialState = [];
 

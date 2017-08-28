@@ -1,5 +1,6 @@
 import reducer from '../websceneitems';
-import * as types from '../actions';
+import * as types from '../../../constants/action-types';
+
 
 describe('websceneItems reducer', () => {
   it('should return the initial state', () => {

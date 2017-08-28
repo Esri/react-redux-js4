@@ -1,10 +1,11 @@
 import * as actions from '../actions';
+import * as types from '../../../constants/action-types';
 
 
 describe('actions', () => {
   it('should create an action to set the selection', () => {
     const expectedAction = {
-      type: actions.SELECTION_SET,
+      type: types.SELECTION_SET,
       layer: 'foo',
       OID: 3,
     };
@@ -14,7 +15,7 @@ describe('actions', () => {
 
   it('should create an action to toggle the selection', () => {
     const expectedAction = {
-      type: actions.SELECTION_TOGGLE,
+      type: types.SELECTION_TOGGLE,
       layer: 'foo',
       OID: 3,
     };
@@ -24,7 +25,7 @@ describe('actions', () => {
 
   it('should create an action to reset the selection', () => {
     const expectedAction = {
-      type: actions.SELECTION_RESET,
+      type: types.SELECTION_RESET,
     };
     expect(actions.selectionReset()).toEqual(expectedAction);
   });

@@ -1,4 +1,5 @@
-import { SELECTION_SET, SELECTION_TOGGLE, SELECTION_RESET } from '../../reducer/selection/actions';
+import { SELECTION_SET, SELECTION_TOGGLE, SELECTION_RESET } from '../../constants/action-types';
+
 
 export const registerClickEvent = (view, store) => {
   view.on('click', (event) => {

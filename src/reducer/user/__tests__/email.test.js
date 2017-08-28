@@ -1,5 +1,6 @@
 import reducer from '../email';
-import * as types from '../actions';
+import * as types from '../../../constants/action-types';
+
 
 describe('email reducer', () => {
   it('should return the initial state', () => {

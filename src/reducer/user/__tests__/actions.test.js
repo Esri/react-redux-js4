@@ -1,14 +1,16 @@
 import * as actions from '../actions';
+import * as types from '../../../constants/action-types';
+
 
 describe('actions', () => {
   it('should create an action to get the user identity', () => {
-    const expectedAction = { type: actions.GET_IDENTITY };
+    const expectedAction = { type: types.GET_IDENTITY };
     expect(actions.getIdentity()).toEqual(expectedAction);
   });
 
   it('should create an action to set the user identity', () => {
     const expectedAction = {
-      type: actions.SET_IDENTITY,
+      type: types.SET_IDENTITY,
       username: 'user123',
       fullname: 'John',
       email: 'john@doe.com',
@@ -19,23 +21,23 @@ describe('actions', () => {
   });
 
   it('should create an action to sign in', () => {
-    const expectedAction = { type: actions.SIGN_IN };
+    const expectedAction = { type: types.SIGN_IN };
     expect(actions.signIn()).toEqual(expectedAction);
   });
 
   it('should create an action to sign out', () => {
-    const expectedAction = { type: actions.SIGN_OUT };
+    const expectedAction = { type: types.SIGN_OUT };
     expect(actions.signOut()).toEqual(expectedAction);
   });
 
   it('should create an action to get the user\'s webscenes', () => {
-    const expectedAction = { type: actions.GET_USER_WEBSCENES };
+    const expectedAction = { type: types.GET_USER_WEBSCENES };
     expect(actions.getUserWebscenes()).toEqual(expectedAction);
   });
 
   it('should create an action to set the user\'s webscenes', () => {
     const expectedAction = {
-      type: actions.SET_USER_WEBSCENES,
+      type: types.SET_USER_WEBSCENES,
       websceneItems: ['1', '2'],
     };
     expect(actions.setUserWebscenes(['1', '2'])).toEqual(expectedAction);

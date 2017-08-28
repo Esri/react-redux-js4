@@ -1,5 +1,6 @@
 import reducer from '../name';
-import * as types from '../actions';
+import * as types from '../../../constants/action-types';
+
 
 describe('webscene name reducer', () => {
   it('should return the initial state', () => {

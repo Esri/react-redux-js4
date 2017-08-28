@@ -1,4 +1,4 @@
-import { INIT_SCENE } from './actions';
+import { INIT_SCENE } from '../../constants/action-types';
 
 const initialState = null;
 

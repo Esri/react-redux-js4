@@ -23,7 +23,6 @@ describe('components', () => {
   describe('<ScenesNav />', () => {
     it('should render self with two scenes in the dropdown', () => {
       const { wrapper } = setup();
-      expect(wrapper.find('.userscenesdropdown').hasClass('hidden')).toBe(false);
       expect(wrapper.find('.dropdown-link').length).toBe(2);
       expect(wrapper.find('.dropdown-link').at(0).text()).toBe('Webscene 1');
       expect(wrapper.find('.dropdown-link').at(0).props().href).toBe('/?id=12345');

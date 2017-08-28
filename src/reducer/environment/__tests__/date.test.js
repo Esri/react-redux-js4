@@ -1,5 +1,6 @@
 import reducer from '../date';
-import * as types from '../actions';
+import * as types from '../../../constants/action-types';
+
 
 describe('date reducer', () => {
   it('should return the initial state', () => {

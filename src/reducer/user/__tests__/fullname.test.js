@@ -1,5 +1,6 @@
 import reducer from '../fullname';
-import * as types from '../actions';
+import * as types from '../../../constants/action-types';
+
 
 describe('fullname reducer', () => {
   it('should return the initial state', () => {
