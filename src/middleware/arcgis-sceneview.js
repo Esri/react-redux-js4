@@ -34,19 +34,23 @@ const arcgisMiddleWare = store => next => (action) => {
      * Initialize scene view on a viewport container.
      */
     case INIT_SCENE: {
-      if (!action.id) return Promise.reject();
+      if (!action.id || !action.container) return Promise.reject();
 
-      let webScene = arcgis.sceneView && arcgis.sceneView.map;
+      // if sceneview container is already initialized, just add it back to the DOM.
+      if (arcgis.container) {
+        action.container.appendChild(arcgis.container);
+        return Promise.resolve();
+      }
 
-      arcgis.sceneView = new SceneView({ container: action.container });
+      // Otherwise, create a new container element and a new scene view.
+      arcgis.container = document.createElement('DIV');
+      action.container.appendChild(arcgis.container);
+      arcgis.sceneView = new SceneView({ container: arcgis.container });
 
       registerClickEvent(arcgis.sceneView, store);
 
       // Initialize web scene
-      if (!webScene || action.id !== webScene.portalItem.id) {
-        webScene = new WebScene({ portalItem: { id: action.id } });
-      }
-
+      const webScene = new WebScene({ portalItem: { id: action.id } });
       arcgis.sceneView.map = webScene;
 
       // When initialized...
