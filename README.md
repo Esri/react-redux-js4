@@ -45,7 +45,7 @@ export default APP_ID;
 Download the repository and install the dependencies:
 
 ```
-npm install
+$ npm install
 ```
 
 ### Running
@@ -53,19 +53,19 @@ npm install
 Run tests:
 
 ```
-npm test
+$ npm test
 ```
 
 Run [ESLint](http://eslint.org/):
 
 ```
-gulp lint
+$ gulp lint
 ```
 
 Build and run live server:
 
 ```
-gulp server
+$ gulp server
 ```
 
 # Development Workflow
