@@ -34,12 +34,12 @@ const arcgisMiddleWare = store => next => (action) => {
      * Initialize scene view on a viewport container.
      */
     case INIT_SCENE: {
-      if (!action.id || !action.container) return Promise.reject();
+      if (!action.id || !action.container) break;
 
       // if sceneview container is already initialized, just add it back to the DOM.
       if (arcgis.container) {
         action.container.appendChild(arcgis.container);
-        return Promise.resolve();
+        break;
       }
 
       // Otherwise, create a new container element and a new scene view.
@@ -127,7 +127,7 @@ const arcgisMiddleWare = store => next => (action) => {
     }
   }
 
-  return null;
+  return Promise.resolve();
 };
 
 
