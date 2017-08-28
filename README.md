@@ -25,13 +25,12 @@ The example application displays a web scene with a simple sun position slider.
 
 For this code to work, you need to
 [register an app](http://doc.arcgis.com/en/marketplace/provider/register-app.htm) in ArcGIS Online,
-add the correct redirect URI (e.g. `http://localhost:8080`), and add the App ID to [/src/constants/app-constants.js](/src/constants/app-constants.js)
-``.
+add the correct redirect URI (e.g. `http://localhost:8080`), and add the App ID to `[/src/constants/app-constants.js](/src/constants/app-constants.js)`.
 
 * [How to register an app in ArcGIS Online](http://doc.arcgis.com/en/marketplace/provider/register-app.htm)
 * Make sure to set the correct redirect URI (e.g. `http://localhost:8080`)
 
-Finally, update [/src/constants/app-constants.js](/src/constants/app-constants.js) to contain your App ID (and portal URL if not ArcGIS Online):
+Finally, update `[/src/constants/app-constants.js](/src/constants/app-constants.js)` to contain your App ID (and portal URL if not ArcGIS Online):
 
 ```javascript
 export const APP_ID = '<insert App ID here>';
@@ -74,7 +73,7 @@ The [ArcGIS JS API](https://developers.arcgis.com/javascript/) is based on
 [Dojo](https://dojotoolkit.org/). To make this ES6 application work, we use
 [Babel](https://babeljs.io/) to transpile and [Webpack](https://webpack.github.io/) to bundle it
 into an AMD module. This AMD module is configured as the application (app) in
-[dojoConfig.js](/dojoConfig.js).
+`[dojoConfig.js](/dojoConfig.js)`.
 
 This package uses [Gulp](https://gulpjs.com/) for workflow automation.
 
