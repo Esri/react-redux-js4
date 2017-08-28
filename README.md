@@ -73,10 +73,8 @@ for Chrome. You can browse the state and dispatch actions live while the applica
 # Hot Module Replacement
 
 This example supports [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/).
-Updates to components or reducers are automatically exchanged while the application is running.
-
-Keep in mind that because an ArcGIS web scene is connected to a DOM element, the web scene needs to
-be reloaded each time the components are refreshed.
+Updated **components** or **reducers** are automatically replaced while the application is running.
+The state is preserved during updates, and the web scene does not need to be reloaded.
 
 # Tests
 
