@@ -1,4 +1,4 @@
-import { SET_IDENTITY } from './actions';
+import { SET_IDENTITY } from '../../constants/action-types';
 
 const initialState = null;
 

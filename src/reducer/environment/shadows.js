@@ -1,4 +1,4 @@
-import { SET_ENVIRONMENT, SET_SHADOWS } from './actions';
+import { SET_ENVIRONMENT, SET_SHADOWS } from '../../constants/action-types';
 
 const initialState = null;
 

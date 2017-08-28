@@ -1,4 +1,4 @@
-import { SET_USER_WEBSCENES } from './actions';
+import { SET_USER_WEBSCENES } from '../../constants/action-types';
 
 const initialState = [];
 

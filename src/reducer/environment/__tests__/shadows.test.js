@@ -1,5 +1,6 @@
 import reducer from '../shadows';
-import * as types from '../actions';
+import * as types from '../../../constants/action-types';
+
 
 describe('selection reducer', () => {
   it('should return the initial state', () => {

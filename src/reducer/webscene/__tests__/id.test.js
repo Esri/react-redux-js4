@@ -1,5 +1,6 @@
 import reducer from '../id';
-import * as types from '../actions';
+import * as types from '../../../constants/action-types';
+
 
 describe('webscene id reducer', () => {
   it('should return the initial state', () => {

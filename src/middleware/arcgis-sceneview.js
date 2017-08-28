@@ -2,9 +2,16 @@ import esriConfig from 'esri/config'; // eslint-disable-line
 import SceneView from 'esri/views/SceneView'; // eslint-disable-line
 import WebScene from 'esri/WebScene'; // eslint-disable-line
 
-import { INIT_SCENE } from '../reducer/webscene/actions';
-import { SELECTION_SET, SELECTION_TOGGLE, SELECTION_RESET } from '../reducer/selection/actions';
-import { SET_ENVIRONMENT, SET_DATE, SET_SHADOWS } from '../reducer/environment/actions';
+import {
+  INIT_SCENE,
+  SELECTION_SET,
+  SELECTION_TOGGLE,
+  SELECTION_RESET,
+  SET_ENVIRONMENT,
+  SET_DATE,
+  SET_SHADOWS,
+} from '../constants/action-types';
+
 
 import { registerClickEvent } from './arcgis-sceneview/interaction';
 import { updateHighlights } from './arcgis-sceneview/highlights';

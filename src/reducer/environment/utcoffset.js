@@ -1,4 +1,4 @@
-import { SET_ENVIRONMENT } from './actions';
+import { SET_ENVIRONMENT } from '../../constants/action-types';
 
 const initialState = 0;
 

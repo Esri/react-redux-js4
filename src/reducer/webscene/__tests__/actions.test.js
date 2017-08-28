@@ -1,10 +1,11 @@
 import * as actions from '../actions';
+import * as types from '../../../constants/action-types';
 
 
 describe('actions', () => {
   it('should create an action to initialize the scene view container', () => {
     const expectedAction = {
-      type: actions.INIT_SCENE,
+      type: types.INIT_SCENE,
       container: 'foo',
       id: '123',
     };

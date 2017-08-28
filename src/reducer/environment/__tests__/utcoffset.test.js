@@ -1,5 +1,6 @@
 import reducer from '../utcoffset';
-import * as types from '../actions';
+import * as types from '../../../constants/action-types';
+
 
 describe('UTCOffset reducer', () => {
   it('should return the initial state', () => {

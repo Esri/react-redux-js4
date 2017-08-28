@@ -1,4 +1,4 @@
-import { SET_ENVIRONMENT, SET_DATE } from './actions';
+import { SET_ENVIRONMENT, SET_DATE } from '../../constants/action-types';
 
 const initialState = null;
 
