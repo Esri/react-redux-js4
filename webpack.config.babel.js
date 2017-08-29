@@ -16,6 +16,7 @@ module.exports = {
     library: 'app/bundle',
     libraryTarget: 'amd',
   },
+  devtool: '#inline-source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
