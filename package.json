@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "lint": "gulp lint",
-    "server": "gulp server"
+    "start": "gulp server"
   },
   "author": "Michael Van den Bergh <mvandenbergh@esri.com>",
   "license": "MIT",
