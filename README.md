@@ -6,11 +6,13 @@ as middleware. This boilerplate example integrates:
 * [ArcGIS JS API 4.4](https://developers.arcgis.com/javascript/)
 * [React](https://facebook.github.io/react/)
 * [Redux](http://redux.js.org/)
-* [React Redux](https://github.com/reactjs/react-redux) (connect)
+* [React Redux](https://github.com/reactjs/react-redux) (<em>i.e.</em>, the <strong>connect</strong>
+  function that connects your React components with your Redux store)
 * [Redux Thunk](https://github.com/gaearon/redux-thunk)
 * [Calcite Web](http://esri.github.io/calcite-web/)
 
-It provides two useful Redux middleware examples:
+It provides two useful Redux
+[middleware](https://medium.com/@jacobp100/you-arent-using-redux-middleware-enough-94ffe991e6) examples:
 
 * **arcgis-authentication** to handle Portal login
 * **arcgis-sceneview** to show a SceneView with a WebScene, handle selection, and environment changes.
@@ -21,12 +23,22 @@ The example application displays a web scene with a simple sun position slider.
 
 # Instructions
 
+### Installing
+
+Download the repository and install the dependencies:
+
+```
+$ npm install
+```
+
 ### Registering your App
 
 For this code to work, you need to
-[register an app](http://doc.arcgis.com/en/marketplace/provider/register-app.htm) in ArcGIS Online,
+[add](http://doc.arcgis.com/en/marketplace/provider/add-item-to-agol.htm) and
+[register](http://doc.arcgis.com/en/marketplace/provider/register-app.htm) an app in ArcGIS Online,
 add the correct redirect URI (e.g. `http://localhost:8080`), and add the App ID to [/src/constants/app-constants.js](/src/constants/app-constants.js).
 
+* [How to add an app in ArcGIS Online](http://doc.arcgis.com/en/marketplace/provider/add-item-to-agol.htm)
 * [How to register an app in ArcGIS Online](http://doc.arcgis.com/en/marketplace/provider/register-app.htm)
 * Make sure to set the correct redirect URI (e.g. `http://localhost:8080`)
 
@@ -35,17 +47,9 @@ Finally, update [/src/constants/app-constants.js](/src/constants/app-constants.j
 ```javascript
 export const APP_ID = '<insert App ID here>';
 export const APP_PORTAL_URL = 'https://www.arcgis.com';
-
-export default APP_ID;
 ```
 
-### Installing
-
-Download the repository and install the dependencies:
-
-```
-$ npm install
-```
+Note that you need at least one web scene in your account for the app to work correctly.
 
 ### Running
 

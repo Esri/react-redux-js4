@@ -27,7 +27,18 @@ const arcgis = {};
 
 window.arcgis = arcgis;
 
-
+/**
+ * Middleware function with the signature
+ *
+ * storeInstance =>
+ * functionToCallWithAnActionThatWillSendItToTheNextMiddleware =>
+ * actionThatDispatchWasCalledWith =>
+ * valueToUseAsTheReturnValueOfTheDispatchCall
+ *
+ * Typically written as
+ *
+ * store => next => action => result
+ */
 const arcgisMiddleWare = store => next => (action) => {
   switch (action.type) {
     /**
@@ -61,11 +72,6 @@ const arcgisMiddleWare = store => next => (action) => {
           next({ ...action, name: webScene.portalItem.title });
 
           return arcgis.sceneView.whenLayerView(webScene.layers.getItemAt(0));
-
-          /* return Promise.all(
-            webScene.layers.items
-              .map(layer => arcgis.sceneView.whenLayerView(layer)),
-          );*/
         })
         .then(() => {
           // Update the environment settings (either from the state or from the scene)

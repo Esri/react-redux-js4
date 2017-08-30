@@ -21,7 +21,18 @@ const portal = new Portal({ authMode: 'immediate' });
 
 IdentityManager.registerOAuthInfos([info]);
 
-
+/**
+ * Middleware function with the signature
+ *
+ * storeInstance =>
+ * functionToCallWithAnActionThatWillSendItToTheNextMiddleware =>
+ * actionThatDispatchWasCalledWith =>
+ * valueToUseAsTheReturnValueOfTheDispatchCall
+ *
+ * Typically written as
+ *
+ * store => next => action => result
+ */
 const arcgisMiddleWare = store => next => (action) => {
   switch (action.type) {
     case GET_IDENTITY:
