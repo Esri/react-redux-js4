@@ -48,8 +48,6 @@ export const APP_ID = '<insert App ID here>';
 export const APP_PORTAL_URL = 'https://www.arcgis.com';
 ```
 
-Note that you need at least one web scene in your account for the app to work correctly.
-
 ### Running
 
 Run tests:

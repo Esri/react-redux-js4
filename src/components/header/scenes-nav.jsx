@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { DEFAULT_SCENE_ID } from '../../constants/app-constants';
 
 export class ScenesNav extends Component {
   constructor(props) {
@@ -39,7 +40,7 @@ export class ScenesNav extends Component {
   render() {
     return (
       <div
-        className={`dropdown ${this.state.open ? ' is-active' : ''} ${this.props.websceneItems.length ? '' : 'hidden'}`}
+        className={`dropdown ${this.state.open ? ' is-active' : ''}`}
         onBlur={() => this.collapseMenu()}
         onMouseEnter={() => this.mouseEnter()}
         onMouseLeave={() => this.mouseLeave()}
@@ -50,7 +51,11 @@ export class ScenesNav extends Component {
         </button>
         <nav className="dropdown-menu modifier-class">
           <span className={`dropdown-title ${this.props.websceneItems.length ? 'hidden' : ''}`}>
-            <em>No scenes</em>
+            {this.props.username ?
+              <em>You have no web scenes.</em> :
+              <em>You are not logged in.</em>}
+            <br />
+            <a href={`/?id=${DEFAULT_SCENE_ID}`}>Open a default scene?</a>
           </span>
           {this.props.websceneItems.map(item => (
             <a
@@ -68,14 +73,17 @@ export class ScenesNav extends Component {
 }
 
 ScenesNav.propTypes = {
+  username: PropTypes.string,
   websceneItems: PropTypes.array,
 };
 
 ScenesNav.defaultProps = {
+  username: null,
   websceneItems: [],
 };
 
-const mapStateToProps = ({ user: { websceneItems } }) => ({
+const mapStateToProps = ({ user: { username, websceneItems } }) => ({
+  username,
   websceneItems,
 });
 
