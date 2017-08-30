@@ -6,8 +6,7 @@ as middleware. This boilerplate example integrates:
 * [ArcGIS JS API 4.4](https://developers.arcgis.com/javascript/)
 * [React](https://facebook.github.io/react/)
 * [Redux](http://redux.js.org/)
-* [React Redux](https://github.com/reactjs/react-redux) (<em>i.e.</em>, the <strong>connect</strong>
-  function that connects your React components with your Redux store)
+* [React Redux](https://github.com/reactjs/react-redux)
 * [Redux Thunk](https://github.com/gaearon/redux-thunk)
 * [Calcite Web](http://esri.github.io/calcite-web/)
 
