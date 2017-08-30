@@ -68,16 +68,6 @@ Build and run live server:
 $ npm run server
 ```
 
-# Development Workflow
-
-The [ArcGIS JS API](https://developers.arcgis.com/javascript/) is based on
-[Dojo](https://dojotoolkit.org/). To make this ES6 application work, we use
-[Babel](https://babeljs.io/) to transpile and [Webpack](https://webpack.github.io/) to bundle it
-into an AMD module. This AMD module is configured as the application (app) in
-[dojoConfig.js](/dojoConfig.js).
-
-This package uses [Gulp](https://gulpjs.com/) for workflow automation.
-
 # Redux Dev Tools
 
 This package supports the [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension)
@@ -107,3 +97,13 @@ And [Enzyme](http://airbnb.io/enzyme/index.html) tests for:
 
 For more details on testing see
 [Writing Tests - Redux](http://redux.js.org/docs/recipes/WritingTests.html).
+
+# Build Process
+
+The [ArcGIS JS API](https://developers.arcgis.com/javascript/) is based on
+[Dojo](https://dojotoolkit.org/). To make this ES6 application work, we use
+[Babel](https://babeljs.io/) to transpile and [Webpack](https://webpack.github.io/) to bundle it
+into an AMD module. This AMD module is configured as the application (app) in
+[dojoConfig.js](/dojoConfig.js).
+
+This package uses [Gulp](https://gulpjs.com/) for workflow automation.
