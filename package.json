@@ -4,7 +4,9 @@
   "description": "",
   "main": "dojoConfig.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "gulp lint",
+    "server": "gulp server"
   },
   "author": "Michael Van den Bergh <mvandenbergh@esri.com>",
   "license": "MIT",

@@ -61,13 +61,13 @@ $ npm test
 Run [ESLint](http://eslint.org/):
 
 ```
-$ gulp lint
+$ npm run lint
 ```
 
 Build and run live server:
 
 ```
-$ gulp server
+$ npm run server
 ```
 
 # Development Workflow

@@ -93,8 +93,6 @@ const arcgisMiddleWare = store => next => (action) => {
           // Update the selection highlights
           const { selection } = store.getState();
           updateHighlights(arcgis.sceneView, selection);
-
-          return Promise.resolve();
         });
     }
 

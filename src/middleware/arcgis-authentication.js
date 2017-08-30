@@ -49,8 +49,6 @@ const arcgisMiddleWare = store => next => (action) => {
           });
 
           store.dispatch({ type: GET_USER_WEBSCENES });
-
-          return Promise.resolve();
         });
 
 
