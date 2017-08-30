@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { DEFAULT_THUMBNAIL_URL } from '../../constants/app-constants';
 import * as actions from '../../reducer/user/actions';
 
 export class IdentityNav extends Component {
@@ -28,7 +29,7 @@ export class IdentityNav extends Component {
           onBlur={() => this.collapseMenu()}
         >
           <button className="top-nav-link dropdown-btn" onMouseDown={() => this.toggleMenu()}>
-            <img src={this.props.thumbnailurl} alt="thumbnail" />
+            <img src={this.props.thumbnailurl || DEFAULT_THUMBNAIL_URL} alt="thumbnail" />
             <span className="shortname">{this.props.fullname && this.props.fullname.split(' ')[0]}</span>
             <i className="icon-ui-down-arrow" />
           </button>
