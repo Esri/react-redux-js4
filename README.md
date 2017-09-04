@@ -1,7 +1,13 @@
 # ArcGIS JS API 4.4 / React / Redux Boilerplate
 
 Web Scene viewer boilerplate web application using React and Redux, including the ArcGIS JS API
-as middleware. This boilerplate example integrates:
+as middleware. The example application displays a web scene with a simple sun position slider.
+
+![Cover image](/img/screenshot1.jpg?raw=true "Cover image")
+
+## Features
+
+This boilerplate example integrates:
 
 * [ArcGIS JS API 4.4](https://developers.arcgis.com/javascript/)
 * [React](https://facebook.github.io/react/)
@@ -16,11 +22,20 @@ It provides two useful Redux
 * **arcgis-authentication** to handle Portal login
 * **arcgis-sceneview** to show a SceneView with a WebScene, handle selection, and environment changes.
 
-The example application displays a web scene with a simple sun position slider.
+It provides support for:
 
-![Cover image](/img/screenshot1.jpg?raw=true "Cover image")
+* [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension) - You can browse
+  the state and dispatch actions live while the application is running.
+* [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) - Updated
+  **components** or **reducers** are automatically replaced while the application is running.
+  The state is preserved during updates, and the web scene does not need to be reloaded.
+* Tests with [Jest](http://facebook.github.io/jest/) and [Enzyme](http://airbnb.io/enzyme/index.html)
 
-# Instructions
+![Redux Dev Tools](/img/screenshot2.jpg?raw=true "Redux Dev Tools")
+
+![Hot Module Replacement](/img/screenshot3.jpg?raw=true "Hot Module Replacement")
+
+## Instructions
 
 ### Installing
 
@@ -68,37 +83,60 @@ Build and run live server:
 $ npm run server
 ```
 
-# Redux Dev Tools
+## Requirements
 
-This package supports the [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension)
-for Chrome. You can browse the state and dispatch actions live while the application is running.
+* Notepad or your favorite HTML editor
+* Web browser with access to the Internet
 
-![Redux Dev Tools](/img/screenshot2.jpg?raw=true "Redux Dev Tools")
+## Resources
 
-# Hot Module Replacement
+* [ArcGIS for JavaScript API Resource Center](http://help.arcgis.com/en/webapi/javascript/arcgis/index.html)
+* [Writing Tests - Redux](http://redux.js.org/docs/recipes/WritingTests.html)
+* [Jest Tests](http://facebook.github.io/jest/)
+* [Enzyme Tests](http://airbnb.io/enzyme/index.html)
+* [ArcGIS Blog](http://blogs.esri.com/esri/arcgis/)
+* [twitter@esri](http://twitter.com/esri)
 
-This example supports [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/).
-Updated **components** or **reducers** are automatically replaced while the application is running.
-The state is preserved during updates, and the web scene does not need to be reloaded.
+## Issues
 
-![Hot Module Replacement](/img/screenshot3.jpg?raw=true "Hot Module Replacement")
+Find a bug or want to request a new feature?  Please let us know by submitting an issue.
 
-# Tests
+## Contributing
 
-This example includes [Jest](http://facebook.github.io/jest/) tests for:
+Esri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/esri/contributing).
 
-* Action creators
-* Reducers
-* ArcGIS Middleware
+## Licensing
+Copyright 2017 Esri
 
-And [Enzyme](http://airbnb.io/enzyme/index.html) tests for:
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-* Components
+   http://www.apache.org/licenses/LICENSE-2.0
 
-For more details on testing see
-[Writing Tests - Redux](http://redux.js.org/docs/recipes/WritingTests.html).
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
-# Build Process
+A copy of the license is available in the repository's [license.txt]( https://raw.github.com/Esri/quickstart-map-js/master/license.txt) file.
+
+[](Esri Tags: ArcGIS Web Mapping QuickStart)
+[](Esri Language: JavaScript)​
+
+
+
+
+
+
+
+
+
+
+
+
+### Build Process
 
 The [ArcGIS JS API](https://developers.arcgis.com/javascript/) is based on
 [Dojo](https://dojotoolkit.org/). To make this ES6 application work, we use
