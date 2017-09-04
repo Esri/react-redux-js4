@@ -104,6 +104,7 @@ $ npm run server
 * [Jest Tests](http://facebook.github.io/jest/)
 * [Enzyme Tests](http://airbnb.io/enzyme/index.html)
 * [ArcGIS Blog](http://blogs.esri.com/esri/arcgis/)
+* [twitter@esri](http://twitter.com/esri)
 
 ## Issues
 
