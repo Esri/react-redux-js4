@@ -1,6 +1,6 @@
 # ArcGIS JS API 4.x / React / Redux Boilerplate
 
-Web Scene viewer boilerplate web application using React and Redux, including the ArcGIS JS API
+Web scene viewer boilerplate web application using React and Redux, including the ArcGIS JS API
 as middleware. The example application displays a web scene with a simple sun position slider.
 
 ![Cover image](/img/screenshot1.jpg?raw=true "Cover image")
