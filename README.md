@@ -9,7 +9,7 @@ as middleware. The example application displays a web scene with a simple sun po
 
 This boilerplate example integrates:
 
-* [ArcGIS JS API 4.4](https://developers.arcgis.com/javascript/)
+* [ArcGIS JS API 4.x](https://developers.arcgis.com/javascript/)
 * [React](https://facebook.github.io/react/)
 * [Redux](http://redux.js.org/)
 * [React Redux](https://github.com/reactjs/react-redux)
@@ -29,7 +29,7 @@ It provides support for:
 * [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) - Updated
   **components** or **reducers** are automatically replaced while the application is running.
   The state is preserved during updates, and the web scene does not need to be reloaded.
-* Tests with [Jest](http://facebook.github.io/jest/) and [Enzyme](http://airbnb.io/enzyme/index.html)
+* Tests with [Jest](http://facebook.github.io/jest/) and [Enzyme](http://airbnb.io/enzyme/index.html).
 
 ![Redux Dev Tools](/img/screenshot2.jpg?raw=true "Redux Dev Tools")
 
@@ -90,7 +90,15 @@ $ npm run server
 
 ## Resources
 
-* [ArcGIS for JavaScript API Resource Center](http://help.arcgis.com/en/webapi/javascript/arcgis/index.html)
+* [ArcGIS for JavaScript API Resource Center](https://developers.arcgis.com/javascript/)
+* [How to add an app in ArcGIS Online](http://doc.arcgis.com/en/marketplace/provider/add-item-to-agol.htm)
+* [How to register an app in ArcGIS Online](http://doc.arcgis.com/en/marketplace/provider/register-app.htm)
+* [React](https://facebook.github.io/react/)
+* [Redux](http://redux.js.org/)
+* [React Redux](https://github.com/reactjs/react-redux)
+* [Redux Thunk](https://github.com/gaearon/redux-thunk)
+* [Calcite Web](http://esri.github.io/calcite-web/)
+* [Why you aren't using Redux middleware enough](https://medium.com/@jacobp100/you-arent-using-redux-middleware-enough-94ffe991e6)
 * [Writing Tests - Redux](http://redux.js.org/docs/recipes/WritingTests.html)
 * [Jest Tests](http://facebook.github.io/jest/)
 * [Enzyme Tests](http://airbnb.io/enzyme/index.html)
@@ -124,24 +132,3 @@ A copy of the license is available in the repository's [license.txt]( https://ra
 
 [](Esri Tags: ArcGIS Web Mapping QuickStart)
 [](Esri Language: JavaScript)​
-
-
-
-
-
-
-
-
-
-
-
-
-### Build Process
-
-The [ArcGIS JS API](https://developers.arcgis.com/javascript/) is based on
-[Dojo](https://dojotoolkit.org/). To make this ES6 application work, we use
-[Babel](https://babeljs.io/) to transpile and [Webpack](https://webpack.github.io/) to bundle it
-into an AMD module. This AMD module is configured as the application (app) in
-[dojoConfig.js](/dojoConfig.js).
-
-This package uses [Gulp](https://gulpjs.com/) for workflow automation.
