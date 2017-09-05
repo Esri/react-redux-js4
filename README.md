@@ -19,8 +19,8 @@ This boilerplate example integrates:
 It provides two useful Redux
 [middleware](https://medium.com/@jacobp100/you-arent-using-redux-middleware-enough-94ffe991e6) examples:
 
-* **arcgis-authentication** to handle Portal login
-* **arcgis-sceneview** to show a SceneView with a WebScene, handle selection, and environment changes.
+* [arcgis-authentication](/src/middleware/arcgis-authentication.js) - handles Portal login.
+* [arcgis-sceneview](/src/middleware/arcgis-sceneview.js) - opens a SceneView with a WebScene, handle selection, and environment changes.
 
 It provides support for:
 
