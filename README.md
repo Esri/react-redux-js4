@@ -28,7 +28,7 @@ It provides support for:
   the state and dispatch actions live while the application is running.
 * [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) - Updated
   **components** or **reducers** are automatically replaced while the application is running.
-  The state is preserved during updates, and the web scene does not need to be reloaded.
+  The state is preserved during updates, and the SceneView does not need to be reloaded.
 * Tests with [Jest](http://facebook.github.io/jest/) and [Enzyme](http://airbnb.io/enzyme/index.html).
 
 ![Redux Dev Tools](/img/screenshot2.jpg?raw=true "Redux Dev Tools")
