@@ -1,3 +1,7 @@
+/**
+ * ESLint will not find these Esri modules because they are loaded as externals.
+ * Specifying them as 'core-modules' will prevent ESLint from stumbling over them.
+ */
 module.exports = {
     "settings": {
       "import/core-modules": [
