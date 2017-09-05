@@ -3,7 +3,7 @@ window.dojoConfig = {
   deps: ['app/bundle'],
   packages: [{
     name: 'app',
-    location: `${location.origin}${location.pathname}/dist/`,
+    location: `${location.origin}${location.pathname}dist`,
     main: 'bundle',
   }],
 };

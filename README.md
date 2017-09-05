@@ -71,16 +71,10 @@ Run tests:
 $ npm test
 ```
 
-Run [ESLint](http://eslint.org/):
-
-```
-$ npm run lint
-```
-
 Build and run live server:
 
 ```
-$ npm run server
+$ npm start
 ```
 
 ## Requirements
