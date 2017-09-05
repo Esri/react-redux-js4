@@ -18,6 +18,9 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 
+import './styles/main.css';
+import './styles/range-slider.css';
+
 import App from './components/app';
 import store from './store/store';
 
