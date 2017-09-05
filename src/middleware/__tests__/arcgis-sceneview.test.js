@@ -14,9 +14,10 @@
  *
  */
 
+import SceneView from 'esri/views/SceneView';
+import WebScene from 'esri/WebScene';
+
 import sceneviewMiddelware from '../arcgis-sceneview';
-import SceneView from 'esri/views/SceneView'; // eslint-disable-line
-import WebScene from 'esri/WebScene'; // eslint-disable-line
 
 import {
   INIT_SCENE,
@@ -29,6 +30,7 @@ import {
 import { registerClickEvent } from '../arcgis-sceneview/interaction';
 import { updateHighlights } from '../arcgis-sceneview/highlights';
 import { setEnvironment } from '../arcgis-sceneview/environment';
+
 
 /**
  * Mocks
@@ -83,6 +85,7 @@ jest.mock('../arcgis-sceneview/highlights', () => ({
 jest.mock('../arcgis-sceneview/environment', () => ({
   setEnvironment: jest.fn(),
 }), { virtual: true });
+
 
 /**
  * Middleware stuff

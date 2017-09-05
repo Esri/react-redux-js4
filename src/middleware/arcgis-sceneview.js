@@ -14,9 +14,9 @@
  *
  */
 
-import esriConfig from 'esri/config'; // eslint-disable-line
-import SceneView from 'esri/views/SceneView'; // eslint-disable-line
-import WebScene from 'esri/WebScene'; // eslint-disable-line
+import esriConfig from 'esri/config';
+import SceneView from 'esri/views/SceneView';
+import WebScene from 'esri/WebScene';
 
 import {
   INIT_SCENE,
@@ -28,10 +28,10 @@ import {
   SET_SHADOWS,
 } from '../constants/action-types';
 
-
 import { registerClickEvent } from './arcgis-sceneview/interaction';
 import { updateHighlights } from './arcgis-sceneview/highlights';
 import { setEnvironment } from './arcgis-sceneview/environment';
+
 
 esriConfig.request.corsEnabledServers.push('a.tile.stamen.com');
 esriConfig.request.corsEnabledServers.push('b.tile.stamen.com');

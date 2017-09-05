@@ -14,14 +14,19 @@
  *
  */
 
+import IdentityManager from 'esri/identity/IdentityManager';
+import OAuthInfo from 'esri/identity/OAuthInfo';
+import Portal from 'esri/portal/Portal';
+
 import authentication from '../arcgis-authentication';
-import IdentityManager from 'esri/identity/IdentityManager'; // eslint-disable-line
-import OAuthInfo from 'esri/identity/OAuthInfo'; // eslint-disable-line
-import Portal from 'esri/portal/Portal'; // eslint-disable-line
 
 import * as types from '../../constants/action-types';
 import { APP_ID, APP_PORTAL_URL } from '../../constants/app-constants';
 
+
+/**
+ * Mocks
+ */
 jest.mock('esri/config', () => ({ request: { corsEnabledServers: [] } }), { virtual: true });
 
 jest.mock('esri/identity/OAuthInfo', () => {
@@ -52,6 +57,10 @@ jest.mock('esri/portal/Portal', () => {
   return PortalMock;
 }, { virtual: true });
 
+
+/**
+ * Middleware stuff
+ */
 const create = () => {
   const store = {
     getState: jest.fn(() => ({})),
@@ -62,6 +71,10 @@ const create = () => {
   return { store, next, invoke };
 };
 
+
+/**
+ * Tests
+ */
 describe('async actions', () => {
   it('passes through non-function action', () => {
     const { next, invoke } = create();

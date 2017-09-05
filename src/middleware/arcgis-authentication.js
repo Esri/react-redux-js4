@@ -14,10 +14,10 @@
  *
  */
 
-import esriConfig from 'esri/config'; // eslint-disable-line
-import OAuthInfo from 'esri/identity/OAuthInfo'; // eslint-disable-line
-import IdentityManager from 'esri/identity/IdentityManager'; // eslint-disable-line
-import Portal from 'esri/portal/Portal'; // eslint-disable-line
+import esriConfig from 'esri/config';
+import OAuthInfo from 'esri/identity/OAuthInfo';
+import IdentityManager from 'esri/identity/IdentityManager';
+import Portal from 'esri/portal/Portal';
 
 import { APP_ID, APP_PORTAL_URL } from '../constants/app-constants';
 
@@ -29,6 +29,7 @@ import {
   GET_USER_WEBSCENES,
   SET_USER_WEBSCENES,
 } from '../constants/action-types';
+
 
 esriConfig.portalUrl = APP_PORTAL_URL;
 const info = new OAuthInfo({ appId: APP_ID, popup: false, portalUrl: APP_PORTAL_URL });
