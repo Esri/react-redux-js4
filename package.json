@@ -1,7 +1,7 @@
 {
-  "name": "esrijs4-react-redux",
+  "name": "react-redux-js4",
   "version": "1.0.0",
-  "description": "",
+  "description": "Boilerplate ArcGIS JS API 4.x app using React and Redux",
   "main": "dojoConfig.js",
   "scripts": {
     "test": "jest",
