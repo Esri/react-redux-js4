@@ -18,10 +18,12 @@ import esriConfig from 'esri/config';
 import SceneView from 'esri/views/SceneView';
 import WebScene from 'esri/WebScene';
 
+
 import {
   INIT_SCENE,
   SELECTION_SET,
-  SELECTION_TOGGLE,
+  SELECTION_ADD,
+  SELECTION_REMOVE,
   SELECTION_RESET,
   SET_ENVIRONMENT,
   SET_DATE,
@@ -83,7 +85,7 @@ const arcgisMiddleWare = store => next => (action) => {
       // When initialized...
       return webScene
         .then(() => {
-          webScene.layers.items.forEach(layer => (layer.popupEnabled = false));
+          webScene.layers.items.forEach((layer) => { layer.popupEnabled = false; });
 
           next({ ...action, name: webScene.portalItem.title });
 
@@ -117,8 +119,9 @@ const arcgisMiddleWare = store => next => (action) => {
      * Update highlights and reports on selection change.
      */
     case SELECTION_SET:
-    case SELECTION_RESET:
-    case SELECTION_TOGGLE: {
+    case SELECTION_ADD:
+    case SELECTION_REMOVE:
+    case SELECTION_RESET: {
       next(action);
 
       // Update needs to happen after the action dispatched, to have the correct selection.

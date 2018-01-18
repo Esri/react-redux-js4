@@ -14,6 +14,33 @@
  *
  */
 
-import selection from './selection';
+ import itemReducer from './item';
 
-export default selection;
+ import {
+   SELECTION_SET,
+   SELECTION_ADD,
+   SELECTION_REMOVE,
+   SELECTION_RESET,
+ } from '../../constants/action-types';
+
+ const initialState = [];
+
+ export const isEqual = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+
+ export default (state = initialState, action) => {
+   switch (action.type) {
+     case SELECTION_SET:
+       return [itemReducer({}, action)];
+     case SELECTION_ADD:
+       return [
+         ...state.filter(item => !isEqual(item, itemReducer({}, action))),
+         itemReducer({}, action),
+       ];
+     case SELECTION_REMOVE:
+       return state.filter(item => !isEqual(item, itemReducer({}, action)));
+     case SELECTION_RESET:
+       return initialState;
+     default:
+       return state;
+   }
+ };

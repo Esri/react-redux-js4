@@ -30,7 +30,7 @@ export class WebSceneView extends React.Component {
 
   render() {
     return (
-      <div className="websceneview" ref={ref => (this.sceneView = ref)} />
+      <div className="websceneview" ref={(ref) => { this.sceneView = ref; }} />
     );
   }
 }

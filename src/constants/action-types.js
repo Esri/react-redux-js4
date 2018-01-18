@@ -33,7 +33,8 @@ export const INIT_SCENE = 'INIT_SCENE';
  * Selection
  */
 export const SELECTION_SET = 'SELECTION_SET';
-export const SELECTION_TOGGLE = 'SELECTION_TOGGLE';
+export const SELECTION_ADD = 'SELECTION_ADD';
+export const SELECTION_REMOVE = 'SELECTION_REMOVE';
 export const SELECTION_RESET = 'SELECTION_RESET';
 
 /**

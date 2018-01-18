@@ -25,13 +25,24 @@ export function selectionSet(layer, OID) {
   };
 }
 
-export function selectionToggle(layer, OID) {
+
+export function selectionAdd(layer, OID) {
   return {
-    type: types.SELECTION_TOGGLE,
+    type: types.SELECTION_ADD,
     layer,
     OID,
   };
 }
+
+
+export function selectionRemove(layer, OID) {
+  return {
+    type: types.SELECTION_REMOVE,
+    layer,
+    OID,
+  };
+}
+
 
 export function selectionReset() {
   return {

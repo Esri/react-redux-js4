@@ -3,14 +3,18 @@
  * Specifying them as 'core-modules' will prevent ESLint from stumbling over them.
  */
 module.exports = {
-    "settings": {
-      "import/core-modules": [
-        "esri/config",
-        "esri/identity/OAuthInfo",
-        "esri/identity/IdentityManager",
-        "esri/portal/Portal",
-        "esri/views/SceneView",
-        "esri/WebScene",
-      ],
-    },
+  "rules": {
+    "import/no-extraneous-dependencies": 0,
+    "import/extensions": 0,
+  },
+  "settings": {
+    "import/core-modules": [
+      "esri/config",
+      "esri/identity/OAuthInfo",
+      "esri/identity/IdentityManager",
+      "esri/portal/Portal",
+      "esri/views/SceneView",
+      "esri/WebScene",
+    ],
+  },
 };

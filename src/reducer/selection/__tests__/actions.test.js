@@ -29,13 +29,23 @@ describe('actions', () => {
   });
 
 
-  it('should create an action to toggle the selection', () => {
+  it('should create an action to add to the selection', () => {
     const expectedAction = {
-      type: types.SELECTION_TOGGLE,
+      type: types.SELECTION_ADD,
       layer: 'foo',
       OID: 3,
     };
-    expect(actions.selectionToggle('foo', 3)).toEqual(expectedAction);
+    expect(actions.selectionAdd('foo', 3)).toEqual(expectedAction);
+  });
+
+
+  it('should create an action to remove from the selection', () => {
+    const expectedAction = {
+      type: types.SELECTION_REMOVE,
+      layer: 'foo',
+      OID: 3,
+    };
+    expect(actions.selectionRemove('foo', 3)).toEqual(expectedAction);
   });
 
 

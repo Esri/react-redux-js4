@@ -13,11 +13,12 @@
  * limitations under the License.
  *
  */
-
+/*eslint-disable */
 import esriConfig from 'esri/config';
 import OAuthInfo from 'esri/identity/OAuthInfo';
 import IdentityManager from 'esri/identity/IdentityManager';
 import Portal from 'esri/portal/Portal';
+/* eslint-enable */
 
 import { APP_ID, APP_PORTAL_URL } from '../constants/app-constants';
 

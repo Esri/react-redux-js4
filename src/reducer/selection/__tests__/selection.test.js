@@ -14,7 +14,7 @@
  *
  */
 
-import reducer from '../selection';
+import reducer from '../index';
 import * as types from '../../../constants/action-types';
 
 
@@ -24,7 +24,7 @@ describe('selection reducer', () => {
   });
 
   it('should handle SELECTION_SET', () => {
-    expect(reducer(false, {
+    expect(reducer([], {
       type: types.SELECTION_SET,
       layer: 'foo',
       OID: 1,
@@ -32,5 +32,27 @@ describe('selection reducer', () => {
       layer: 'foo',
       OID: 1,
     }]);
+  });
+
+  it('should handle SELECTION_ADD', () => {
+    expect(reducer([], {
+      type: types.SELECTION_ADD,
+      layer: 'foo',
+      OID: 1,
+    })).toEqual([{
+      layer: 'foo',
+      OID: 1,
+    }]);
+  });
+
+  it('should handle SELECTION_REMOVE', () => {
+    expect(reducer([{
+      layer: 'foo',
+      OID: 1,
+    }], {
+      type: types.SELECTION_REMOVE,
+      layer: 'foo',
+      OID: 1,
+    })).toEqual([]);
   });
 });

@@ -14,8 +14,24 @@
  *
  */
 
-export const APP_ID = 'msDiyjoc2RL55UZU';
-export const APP_PORTAL_URL = 'https://www.arcgis.com';
+import {
+ SELECTION_SET,
+ SELECTION_ADD,
+ SELECTION_REMOVE,
+} from '../../../constants/action-types';
 
-export const DEFAULT_SCENE_ID = '63a16e0c9f364d0fab9d55f40bf71771';
-export const DEFAULT_THUMBNAIL_URL = '/img/user.png';
+export const INITIAL_STATE = null;
+
+const reducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+    case SELECTION_SET:
+    case SELECTION_ADD:
+    case SELECTION_REMOVE:
+      return action.layer || INITIAL_STATE;
+    default:
+      break;
+  }
+  return state;
+};
+
+export default reducer;

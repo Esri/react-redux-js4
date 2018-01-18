@@ -14,27 +14,41 @@
  *
  */
 
-import { SELECTION_SET, SELECTION_TOGGLE, SELECTION_RESET } from '../../constants/action-types';
+import {
+  SELECTION_SET,
+  SELECTION_ADD,
+  SELECTION_REMOVE,
+  SELECTION_RESET,
+} from '../../constants/action-types';
 
 
-export const registerClickEvent = (view, store) => {
-  view.on('click', (event) => {
-    const multiSelect = event.native.shiftKey || event.native.ctrlKey || event.native.metaKey;
+export const getSelectionType = (shiftKey, altKey) => {
+  if (shiftKey) return SELECTION_ADD;
+  if (altKey) return SELECTION_REMOVE;
+  return SELECTION_SET;
+};
 
+
+export const registerClickEvent = (view, store) =>
+  view.on('click', event =>
     view.hitTest(event.screenPoint)
       .then((response) => {
         const graphic = response.results && response.results[0] && response.results[0].graphic;
+
         if (graphic) {
           store.dispatch({
-            type: multiSelect ? SELECTION_TOGGLE : SELECTION_SET,
+            type: getSelectionType(event.native.shiftKey, event.native.altKey),
             layer: graphic.layer.id,
             OID: graphic.attributes[graphic.layer.objectIdField],
           });
-        } else if (!multiSelect) {
+
+          return;
+        }
+
+        if (!event.native.shiftKey && !event.native.altKey) {
           store.dispatch({ type: SELECTION_RESET });
         }
-      });
-  });
-};
+      }));
+
 
 export default registerClickEvent;
